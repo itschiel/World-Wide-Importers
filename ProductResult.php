@@ -2,8 +2,7 @@
 
 function ProductResult($Img, $Name, $Beschrijving, $Prijs, $Vooraad){
     print('
-    <button>
-        <div class="card mb-3" style="max-width: 80%;">
+        <button class="card mb-3" style="max-width: 80%;">
             <div class="row no-gutters">
                 <div class="col-md-4">
                     <img src='.$Img.' class="card-img" style="object-fit: contain; max-height: 200px;">
@@ -17,8 +16,7 @@ function ProductResult($Img, $Name, $Beschrijving, $Prijs, $Vooraad){
                     </div>
                 </div>
             </div>
-        </div>
-    </button>
+        </button>
     '
     );
 }
