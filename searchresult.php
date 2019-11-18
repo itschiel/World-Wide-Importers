@@ -1,4 +1,10 @@
 <html>
+
+<header>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <?php include 'ProductResult.php'; ?>
+</header>
+
 <body>
 
 <form method="get">
@@ -15,45 +21,32 @@ $dbName = "wideworldimporters";
 
 $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-$Input = $_GET['search'];
+if (isset ($_GET['search'])){
+    $Input = $_GET['search'];
 
-$sql = "
-SELECT StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
-FROM stockitems s 
-JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
-WHERE SearchDetails like '%$Input%';
-";
+    $sql = "
+    SELECT StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
+    FROM stockitems s 
+    JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
+    WHERE SearchDetails like '%$Input%';
+    ";
 
-$Result = mysqli_query($conn, $sql);
-$Resultcheck = mysqli_num_rows($Result);
+    $Result = mysqli_query($conn, $sql);
+    $Resultcheck = mysqli_num_rows($Result);
 
-if ($Resultcheck > 0) {
-    while ($row = mysqli_fetch_assoc($Result)){
+    if ($Resultcheck > 0) {
+        while ($row = mysqli_fetch_assoc($Result)){
 
-        $Name = $row['StockItemName'];
+            $Img = "https://www.bedrukken.nl/images/P/USB+stick+Twister-00.jpg";
+            $Name = $row['StockItemName'];
+            $Beschrijving = $row['MarketingComments'];
+            $Prijs = $row['RecommendedRetailPrice'];
+            $Vooraad = $row['QuantityOnHand'];
 
-        $Prijs = $row['RecommendedRetailPrice'];
-        $Vooraad = $row['QuantityOnHand'];
-
-        print ("
-        <button style='width: 90%; max-height: 150px;'>
-            <div>
-                <img src='https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png' style='float: left; max-width: 25%; max-height: 125px;'>
-                <h2> ". $Name ." </h2>
-                <p> ". $row['MarketingComments'] . "<P>
-                <p> €". $Prijs ."        ". $Vooraad . "<P>
-            </div>
-        </button>
-        ");
+            ProductResult($Img, $Name, $Beschrijving, $Prijs, $Vooraad);
+        }
     }
 }
-
-
-//foreach ($row = mysqli_fetch_assoc($Result) as $key => $Value){
-//    print ($key . "   " . $Value . "<br>");
-//}
-
-
 
 ?>
 
