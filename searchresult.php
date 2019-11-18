@@ -14,15 +14,15 @@
 
 <?php
 
-$dbServername = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "wideworldimporters";
-
-$conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
-
 if (isset ($_GET['search'])){
     $Input = $_GET['search'];
+
+    $dbServername = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "wideworldimporters";
+
+    $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
     $sql = "
     SELECT StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
