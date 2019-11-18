@@ -1,6 +1,6 @@
 <?php
 
-function ProductResult($Img, $Name, $Beschrijving, $Prijs){
+function ProductResult($Img, $Name, $Beschrijving, $Prijs, $Vooraad){
     print('
     <div class="card mb-3" style="max-width: 80%;">
         <div class="row no-gutters">
