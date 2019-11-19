@@ -19,10 +19,10 @@ if (isset ($_GET['search'])){
     $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
     $query = "
-    SELECT s.StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
+    SELECT s. StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
     FROM stockitems s 
     JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
-    WHERE SearchDetails like '%$Input%';
+    WHERE s.StockItemID LIKE '%$Input%'  OR SearchDetails LIKE '%$Input%';
     ";
 
     WeergevenProducten($connection, $query);
@@ -38,12 +38,11 @@ if (isset ($_GET['search'])){
 
     $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-    $query = "
-    SELECT s.StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
-    FROM stockitems s 
-    JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
-    WHERE ....;
-    ";
+    $query = "SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand
+    FROM stockitems si
+    JOIN stockitemstockgroups stg ON si.StockItemID = stg.StockItemID
+    JOIN stockitemholdings sh ON sh.StockItemID = si.StockItemID
+    WHERE StockGroupID = '".$Input."';";
 
     WeergevenProducten($connection, $query);
 }
