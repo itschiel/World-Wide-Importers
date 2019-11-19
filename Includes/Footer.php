@@ -27,10 +27,23 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">E-mailadres</a>
+                <a class="nav-link" href="#">www.info@wideworldimporters.com</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Telefoonnummer</a>
+                <a class="nav-link" href="#">06........</a>
+            </li>
+        </ul>
+    </div>        
+    <div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                 <a href="#" target="_blank"> <img src="http://pluspng.com/img-png/instagram-png-instagram-png-logo-1455.png" height="30">
+            </li>
+            <li class="nav-item">
+                 <a href="#" target="_blank"> <img src="https://en.facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png" height="30">
+            </li>
+            <li class="nav-item">
+                 <a href="#" target="_blank"> <img src="http://pngimg.com/uploads/twitter/twitter_PNG9.png" height="30">
             </li>
         </ul>
     </div>
