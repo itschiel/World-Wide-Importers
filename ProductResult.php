@@ -30,7 +30,7 @@ function WeergevenProducten($Connection, $Query){
     if ($Resultcheck > 0) {
         while ($row = mysqli_fetch_assoc($Result)){
 
-            $Img = "https://rukminim1.flixcart.com/image/714/857/shirt/f/c/g/bfshtpc501rd-being-fab-40-original-imaecvnx9swvsvp5.jpeg?q=50";
+            $Img = $row['Photo'];
             $Name = $row['StockItemName'];
             $Beschrijving = $row['MarketingComments'];
             $Prijs = $row['RecommendedRetailPrice'];
@@ -41,7 +41,7 @@ function WeergevenProducten($Connection, $Query){
                 <a href="ProductPreview.php?id='. $ID . '" class="card mb-3" style="max-width: 80%;">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src='.$Img.' class="card-img" style="object-fit: contain; max-height: 200px;">
+                            <img src="data:image/jpeg;base64,'. base64_encode($Img).'" class="card-img" style="object-fit: contain; max-height: 200px;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

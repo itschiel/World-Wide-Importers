@@ -22,7 +22,7 @@ if (isset ($_GET['search'])){
     $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
     $query = "
-    SELECT s. StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
+    SELECT s.StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand, s.Photo
     FROM stockitems s 
     JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
     WHERE s.StockItemID LIKE '%$Input%'  OR SearchDetails LIKE '%$Input%';
@@ -41,7 +41,7 @@ if (isset ($_GET['search'])){
 
     $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-    $query = "SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand
+    $query = "SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand, si.Photo
     FROM stockitems si
     JOIN stockitemstockgroups stg ON si.StockItemID = stg.StockItemID
     JOIN stockitemholdings sh ON sh.StockItemID = si.StockItemID
