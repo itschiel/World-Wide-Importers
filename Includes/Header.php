@@ -34,34 +34,34 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie1</a>
+                <a class="btn btn-default" href="searchresult.php?cat=1">Novelty items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie2</a>
+                <a class="btn btn-default" href="searchresult.php?cat=2">Clothing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie3</a>
+                <a class="btn btn-default" href="searchresult.php?cat=3">Mugs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie4</a>
+                <a class="btn btn-default" href="searchresult.php?cat=4">T-shirts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie5</a>
+                <a class="btn btn-default" href="searchresult.php?cat=5">Airline</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie6</a>
+                <a class="btn btn-default" href="searchresult.php?cat=6">Computing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie7</a>
+                <a class="btn btn-default" href="searchresult.php?cat=7">USB</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie8</a>
+                <a class="btn btn-default" href="searchresult.php?cat=8">Furry</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie9</a>
+                <a class="btn btn-default" href="searchresult.php?cat=9">Toys</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categorie10</a>
+                <a class="btn btn-default" href="searchresult.php?cat=10">Packaging</a>
             </li>
         </ul>
     </div>
