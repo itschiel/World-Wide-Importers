@@ -12,6 +12,7 @@
 
 </head>
 <body>
+    
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -34,34 +35,34 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=1">Novelty items</a>
+                <a class="btn btn-default" href="searchresult.php?cat=1" style="color: white;">Novelty items</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=2">Clothing</a>
+                <a class="btn btn-default" href="searchresult.php?cat=2" style="color: white;">Clothing</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=3">Mugs</a>
+                <a class="btn btn-default" href="searchresult.php?cat=3" style="color: white;">Mugs</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=4">T-shirts</a>
+                <a class="btn btn-default" href="searchresult.php?cat=4" style="color: white;">T-shirts</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=5">Airline</a>
+                <a class="btn btn-default" href="searchresult.php?cat=5" style="color: white;">Airline</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=6">Computing</a>
+                <a class="btn btn-default" href="searchresult.php?cat=6" style="color: white;">Computing</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=7">USB</a>
+                <a class="btn btn-default" href="searchresult.php?cat=7" style="color: white;">USB</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=8">Furry</a>
+                <a class="btn btn-default" href="searchresult.php?cat=8" style="color: white;">Furry</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=9">Toys</a>
+                <a class="btn btn-default" href="searchresult.php?cat=9" style="color: white;">Toys</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=10">Packaging</a>
+                <a class="btn btn-default" href="searchresult.php?cat=10" style="color: white;">Packaging</a>
             </li>
         </ul>
     </div>
