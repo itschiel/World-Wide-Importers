@@ -6,12 +6,6 @@
 </header>
 
 <body>
-
-<form method="get">
-    <input name="search" type="text">
-    <button name="submite" type="submit">Lego!</button>
-</form>
-
 <?php
 
 if (isset ($_GET['search'])){
@@ -22,30 +16,36 @@ if (isset ($_GET['search'])){
     $dbPassword = "";
     $dbName = "wideworldimporters";
 
-    $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+    $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-    $sql = "
-    SELECT StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
+    $query = "
+    SELECT s.StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
     FROM stockitems s 
     JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
     WHERE SearchDetails like '%$Input%';
     ";
 
-    $Result = mysqli_query($conn, $sql);
-    $Resultcheck = mysqli_num_rows($Result);
+    WeergevenProducten($connection, $query);
 
-    if ($Resultcheck > 0) {
-        while ($row = mysqli_fetch_assoc($Result)){
+} elseif (isset($_GET['cat'])) {
 
-            $Img = "https://www.bedrukken.nl/images/P/USB+stick+Twister-00.jpg";
-            $Name = $row['StockItemName'];
-            $Beschrijving = $row['MarketingComments'];
-            $Prijs = $row['RecommendedRetailPrice'];
-            $Vooraad = $row['QuantityOnHand'];
+    $Input = $_GET['cat'];
 
-            ProductResult($Img, $Name, $Beschrijving, $Prijs, $Vooraad);
-        }
-    }
+    $dbServername = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "wideworldimporters";
+
+    $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+
+    $query = "
+    SELECT s.StockItemID, StockItemName, MarketingComments, SearchDetails, RecommendedRetailPrice, QuantityOnHand 
+    FROM stockitems s 
+    JOIN stockitemholdings sh ON sh.StockItemID = s.StockItemID 
+    WHERE ....;
+    ";
+
+    WeergevenProducten($connection, $query);
 }
 
 ?>
