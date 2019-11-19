@@ -45,6 +45,8 @@
             <li class="nav-item">
                  <a href="#" target="_blank"> <img src="http://pngimg.com/uploads/twitter/twitter_PNG9.png" height="30">
             </li>
+            <li class="nav-item">
+                <a href="#" target="_blank"> <img src="https://www.2ndvote.com/wp-content/uploads/2019/06/112-1126845_pinterest-logo-circle-p-in-red-png-logos-do-pinterest-png.jpg" height="30">
         </ul>
     </div>
 </nav>
