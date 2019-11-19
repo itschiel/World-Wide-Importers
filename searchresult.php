@@ -6,6 +6,9 @@
 </header>
 
 <body>
+    
+<?php include 'Includes/Header.php'?>
+
 <?php
 
 if (isset ($_GET['search'])){
@@ -48,6 +51,8 @@ if (isset ($_GET['search'])){
 }
 
 ?>
+
+<?php include 'Includes/Footer.php'?>
 
 </body>
 </html>

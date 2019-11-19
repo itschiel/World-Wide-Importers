@@ -21,7 +21,7 @@
 
 <nav class="navbar bg-dark navbar-dark">
     <div class="form-inline">
-        <form method="GET" <?php print("action='searchresult.php?search='". $_GET['search'])?>>
+        <form method="GET" <?php if (isset($_GET['search'])) {print("action='searchresult.php?search='". $_GET['search']);}?>>
             <input name="search" type="text" class="form-control">
             <button name="submit" type="submit" class="btn btn-primary">Zoek!</button>
         </form>
