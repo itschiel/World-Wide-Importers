@@ -26,10 +26,11 @@ function WeergevenProducten($Connection, $Query){
         
     $Result = mysqli_query($Connection, $Query);
     $Resultcheck = mysqli_num_rows($Result);
-    
+    $productnr = 0;
+    $aantalproducten = 10;
     if ($Resultcheck > 0) {
-        while ($row = mysqli_fetch_assoc($Result)){
-
+        while ($productnr < $aantalproducten AND $row = mysqli_fetch_assoc($Result)){
+            $productnr++;
             $Img = "https://rukminim1.flixcart.com/image/714/857/shirt/f/c/g/bfshtpc501rd-being-fab-40-original-imaecvnx9swvsvp5.jpeg?q=50";
             $Name = $row['StockItemName'];
             $Beschrijving = $row['MarketingComments'];
