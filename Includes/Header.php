@@ -21,8 +21,12 @@
 
 <nav class="navbar bg-dark navbar-dark">
     <div class="form-inline">
-        <form method="GET" <?php if (isset($_GET['search'])) {print("action='searchresult.php?search='". $_GET['search']);}?>>
+        <form method="GET" action="Resultaten.php">
             <input name="search" type="text" class="form-control">
+
+            <input type="hidden"  value="" name="cat"> </input>
+            <input type="hidden" value="25" name="select"> </input>
+
             <button name="submit" type="submit" class="btn btn-primary">Zoek!</button>
         </form>
     </div>
@@ -36,34 +40,34 @@
     <div class="row collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=1" style="color: white;">Novelty items</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=&search=mug&select=25" style="color: white;">Novelty items</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=2" style="color: white;">Clothing</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=2&search=&select=25" style="color: white;">Clothing</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=3" style="color: white;">Mugs</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=3&search=&select=25" style="color: white;">Mugs</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=4" style="color: white;">T-shirts</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=4&search=&select=25" style="color: white;">T-shirts</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=5" style="color: white;">Airline</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=5&search=&select=25" style="color: white;">Airline</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=6" style="color: white;">Computing</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=6&search=&select=25" style="color: white;">Computing</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=7" style="color: white;">USB</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=7&search=&select=25" style="color: white;">USB</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=8" style="color: white;">Furry</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=8&search=&select=25" style="color: white;">Furry</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=9" style="color: white;">Toys</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=9&search=&select=25" style="color: white;">Toys</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-default" href="searchresult.php?cat=10" style="color: white;">Packaging</a>
+                <a class="btn btn-default" href="Resultaten.php?cat=10&search=&select=25" style="color: white;">Packaging</a>
             </li>
         </ul>
     </div>
