@@ -89,7 +89,7 @@ if($resultcheck > 0){
                                 <div class=\"card-body\">
                                     <h1 class=\"card-title pricing-card-title\">". $row['RecommendedRetailPrice'] ."</h1>
                                     <ul class=\"list-unstyled mt-3 mb-4\">
-                                        <li>Voorraad: ". $row['QuantityOnHand'] ."</li>
+                                        <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                         <br><br><br><br><br><br>
                                     </ul>
                                     <button type=\"button\" class=\"btn btn-lg btn-block btn-outline-primary\">In winkelmand</button>
