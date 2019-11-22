@@ -26,7 +26,7 @@ function productKaart($row) {
     }
 
     print('
-        <a href="ProductPreview.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
+        <a href="ProductPagina.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
             <div class="row no-gutters">
                 <div class="col-md-4">
                     <img src="data:image/jpeg;base64,'. $img .'" class="card-img" style="object-fit: contain; max-height: 200px;">     
