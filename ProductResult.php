@@ -1,7 +1,9 @@
 <?php
 
+// onderstaande functie plaatst voor elke record die uit de database komt een product kaart
 function WeergevenProducten($Result){
 
+    // $Resultcheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
     $Resultcheck = mysqli_num_rows($Result);
 
     if ($Resultcheck > 0) {
@@ -13,8 +15,10 @@ function WeergevenProducten($Result){
     }
 }
 
+// onderstaande functie plaatst een proct tegel op basis van de aangeleverde array
 function productKaart($row) {
 
+    // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
     if (empty($row['Photo'])) {
 
         $img_path = ("img/defaultproduct.jpg");
@@ -25,6 +29,8 @@ function productKaart($row) {
         $img = base64_encode($row["Photo"]);
     }
 
+
+    // onderstaande print statement plaatst de benodigde html op de pagina
     print('
         <a href="ProductPagina.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
             <div class="row no-gutters">
