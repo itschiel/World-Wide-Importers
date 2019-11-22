@@ -97,7 +97,7 @@ if($resultcheck > 0){
                                     <h4 class=\"my-0 font-weight-normal\">Prijs</h4>
                                 </div>
                                 <div class=\"card-body\">
-                                    <h1 class=\"card-title pricing-card-title\">". $row['RecommendedRetailPrice'] ."</h1>
+                                    <h1 class=\"card-title pricing-card-title\">$". $row['RecommendedRetailPrice'] ."</h1>
                                     <ul class=\"list-unstyled mt-3 mb-4\">
                                         <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                         <br><br><br><br><br><br>

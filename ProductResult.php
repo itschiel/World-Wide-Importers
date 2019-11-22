@@ -41,7 +41,7 @@ function productKaart($row) {
                     <div class="card-body">
                         <h5 class="card-title">'. $row['StockItemName'] . '</h5>
                         <p class="card-text">'.$row['MarketingComments'].'</p>
-                        <p class="card-text"> €'.$row['RecommendedRetailPrice'].'</p>
+                        <p class="card-text"> $'.$row['RecommendedRetailPrice'].'</p>
                         <p class="card-text"><small class="text-muted">Vooraad: '. $row['QuantityOnHand'] .' STK</small></p>
                     </div>
                 </div>
