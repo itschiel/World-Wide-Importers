@@ -17,24 +17,33 @@
 </head>
 <body>
 
+<!-- Voegt de Header to aan de pagina -->
 <?php include 'Includes/header.php';  ?>
+
+
 
 <?php
 
+// Variabeleid haalt het id van het gezoken product  uit de url
 $variabeleid = $_GET['id'];
 
+//$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
 $sql = ("SELECT s.StockItemName, s.RecommendedRetailPrice, s.MarketingComments, s.Photo, s.SearchDetails, h.QuantityOnHand
     FROM stockitems s
     JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
     WHERE s.StockItemID = $variabeleid
     ");
 
-$result = dbConnectionRoot($sql);
+$result = dbConnectionRoot($sql); // dbConnectionRoot staat onder (Functions/dbconnections.php)
 $resultcheck = mysqli_num_rows($result);
 
+
+// Onderstaande if statement chekct of de db daadwerkelijk een record heeft terug gestuurd
 if($resultcheck > 0){
+    // voor elke record in result wordt het onderstaande uitgevoerd
     while($row = mysqli_fetch_assoc($result)){
 
+        // onderstaande if else statement checkt of er een foto bij het product zit zo niet wordt de deafult image geladen
         if (empty($row['Photo'])) {
 
             $img_path = ("img/defaultproduct.jpg");
@@ -45,6 +54,7 @@ if($resultcheck > 0){
             $img = base64_encode($row["Photo"]);
         }
         
+        // onderstaande print plaatst de benodigde html op de pagina
         print("
             <div class=\"container-fluid\">
                 <div class=\"row\">
@@ -104,6 +114,7 @@ if($resultcheck > 0){
 }
 ?>
 
+<!-- Voegt de Footer to aan de pagina -->
 <?php include 'Includes/footer.php';  ?>
 
 </body>
