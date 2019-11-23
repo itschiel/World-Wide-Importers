@@ -82,7 +82,7 @@
                 ");
 
                 //hier wordt gekeken hoeveel records er zijn ontvangen en wordt er berekend hoeveel paginas er nodig zijn
-                $result = mysqli_query(dbConnetionRoot(), $queryRows);
+                $result = mysqli_query(dbConnectionRoot(), $queryRows);
                 $numberOfResults = mysqli_num_rows($result);
                 $numberOfPages = ceil($numberOfResults / $resultsPerPage);
 
