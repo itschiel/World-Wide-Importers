@@ -13,14 +13,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Functie Includes -->
-        <?php include 'Functions/dbconnections.php'; ?>
+        <?php include 'Functions/DBConnections.php'; ?>
 
     </head>
 
     <body>
 
         <!-- Voegt de Header to aan de pagina -->
-        <?php include 'Includes/header.php';  ?>
+        <?php include 'Includes/Header.php';  ?>
 
 
 
@@ -117,7 +117,7 @@
         ?>
 
         <!-- Voegt de Footer to aan de pagina -->
-        <?php include 'Includes/footer.php';  ?>
+        <?php include 'Includes/Footer.php';  ?>
 
     </body>
 

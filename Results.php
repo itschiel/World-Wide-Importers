@@ -6,7 +6,7 @@
 
     <!-- Functie Includes -->
     <?php include 'ProductResult.php'; ?>
-    <?php include 'Functions/dbconnections.php'; ?>
+    <?php include 'Functions/DBConnections.php'; ?>
 
     </header>
 
@@ -16,16 +16,16 @@
     <?php include 'includes/Header.php'; ?>
 
 
-    <!-- Deze linkjes worden gebruikt om de results per pagina aan te passen -->
-    <!-- alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met results-->
-    <a  class="btn btn-primary" href="results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=25'); ?>"> 25 </a>
-    <a  class="btn btn-primary" href="results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=50'); ?>"> 50 </a>
-    <a  class="btn btn-primary" href="results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=100'); ?>"> 100 </a>
+    <!-- Deze linkjes worden gebruikt om de resultaten per pagina aan te passen -->
+    <!-- alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met resulstaten-->
+    <a  class="btn btn-primary" href="Results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=25'); ?>"> 25 </a>
+    <a  class="btn btn-primary" href="Results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=50'); ?>"> 50 </a>
+    <a  class="btn btn-primary" href="Results.php? <?php print ('cat='.$_GET['cat'].'&search='. $_GET['search'].'&select=100'); ?>"> 100 </a>
 
     <?php
-        results($_GET['search'], $_GET['cat'], $_GET['select']);
+        Results($_GET['search'], $_GET['cat'], $_GET['select']);
 
-        function results($search, $cat, $resultsPerPage){
+        function Results($search, $cat, $resultsPerPage){
 
             // Checkt welke pagina nr je bevindt
             if(isset($_GET['pagenr'])) {
@@ -97,17 +97,17 @@
 
                 $result = mysqli_query(dbConnectionRoot(), $query);
 
-                WeergevenProducten($result);
+                showProductCards($result);
 
             }
 
-            // met de onderstaande knoppen kan je naar de volgende pagina met results gaan.
+            // met de onderstaande knoppen kan je naar de volgende pagina met Results gaan.
             // door $pageNumber aan te passen worden de waardes van de limit in de query aangepast zodat de juiste producten verstuurd worden
-            // alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met results
-            print('<a  class="btn btn-primary" href="results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> first </a>');
-            print('<a  class="btn btn-primary" href="results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> prev </a>');
-            print('<a  class="btn btn-primary" href="results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> next </a>');            
-            print('<a  class="btn btn-primary" href="results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> last </a>');
+            // alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met Results
+            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> first </a>');
+            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> prev </a>');
+            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> next </a>');            
+            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> last </a>');
             
 
         }
