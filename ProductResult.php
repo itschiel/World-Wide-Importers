@@ -1,14 +1,14 @@
 <?php
 
 // onderstaande functie plaatst voor elke record die uit de database komt een product kaart
-function weergevenProducten($result){
+function showProductCards($result){
 
     // $resultCheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
     $resultCheck = mysqli_num_rows($result);
 
     if ($resultCheck > 0) {
         while ($row = mysqli_fetch_assoc($result)){
-            productKaart($row);
+            productCard($row);
         }
     } else {
         print ("Er zijn geen resultaten gevonden.");
@@ -16,7 +16,7 @@ function weergevenProducten($result){
 }
 
 // onderstaande functie plaatst een proct tegel op basis van de aangeleverde array
-function productKaart($row) {
+function productCard($row) {
 
     // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
     if (empty($row['Photo'])) {
