@@ -1,5 +1,5 @@
 <?php
-    function dbConnectionRoot ($Query) {
+    function dbConnectionRoot () {
 
         $dbServername = "localhost";
         $dbUsername = "root";
@@ -8,12 +8,6 @@
 
         $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-        if (isset($Query)) {
-            $result = mysqli_query($connection, $Query);
-            return $result;
-        } else {
-            return $connection;
-        }
-
+        return $connection;
     }
 ?>

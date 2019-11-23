@@ -1,14 +1,14 @@
 <?php
 
 // onderstaande functie plaatst voor elke record die uit de database komt een product kaart
-function WeergevenProducten($Result){
+function showProductCards($result){
 
-    // $Resultcheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
-    $Resultcheck = mysqli_num_rows($Result);
+    // $resultCheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
+    $resultCheck = mysqli_num_rows($result);
 
-    if ($Resultcheck > 0) {
-        while ($row = mysqli_fetch_assoc($Result)){
-            productKaart($row);
+    if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)){
+            productCard($row);
         }
     } else {
         print ("Er zijn geen resultaten gevonden.");
@@ -16,14 +16,14 @@ function WeergevenProducten($Result){
 }
 
 // onderstaande functie plaatst een proct tegel op basis van de aangeleverde array
-function productKaart($row) {
+function productCard($row) {
 
     // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
     if (empty($row['Photo'])) {
 
-        $img_path = ("img/defaultproduct.jpg");
-        $img_binary = fread(fopen($img_path, "r"), filesize($img_path));
-        $img = base64_encode($img_binary);
+        $imgPath = ("img/defaultproduct.jpg");
+        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
+        $img = base64_encode($imgBinary);
 
     } else {
         $img = base64_encode($row["Photo"]);
@@ -32,7 +32,7 @@ function productKaart($row) {
 
     // onderstaande print statement plaatst de benodigde html op de pagina
     print('
-        <a href="ProductPagina.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
+        <a href="ProductPage.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
             <div class="row no-gutters">
                 <div class="col-md-4">
                     <img src="data:image/jpeg;base64,'. $img .'" class="card-img" style="object-fit: contain; max-height: 200px;">     
