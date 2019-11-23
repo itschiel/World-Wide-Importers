@@ -36,7 +36,7 @@
                 WHERE s.StockItemID = $productID
                 ");
 
-            $result = mysqli_query(dbConnectionRoot(), $query) // dbConnectionRoot staat onder (Functions/dbconnections.php)
+            $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
             $resultCheck = mysqli_num_rows($result);
 
 
