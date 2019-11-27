@@ -6,7 +6,7 @@
 
     <!-- Functie Includes -->
     <?php include 'ProductResult.php'; ?>
-    <?php include 'Functions/dbConnections.php'; ?>
+    <?php include_once 'Functions/dbConnections.php'; ?>
 
     </header>
 
@@ -106,7 +106,7 @@
             // alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met Results
             print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> first </a>');
             print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> prev </a>');
-            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> next </a>');            
+            print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> prev </a>');            
             print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> last </a>');
             
 

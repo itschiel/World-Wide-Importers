@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <?php include 'Functions/dbConnections.php'; ?>
+    <?php include_once 'Functions/dbConnections.php'; ?>
 
     <title>WorldWideImporters</title>
 
@@ -38,23 +38,25 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <?php
 
-$query = ("SELECT StockGroupID, StockGroupName FROM stockgroups");
-$result = mysqli_query(dbConnectionRoot(), $query);
-$resultCheck = mysqli_num_rows($result);
+<?php
+    $query = ("SELECT StockGroupID, StockGroupName FROM stockgroups");
+    $result = mysqli_query(dbConnectionRoot(), $query);
+    $resultCheck = mysqli_num_rows($result);
 
-if ($resultCheck > 0) {
-    while ($row = mysqli_fetch_assoc($result)){
-        print('<div class="row collapse navbar-collapse" id="collapsibleNavbar">
+    if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)){
+            print('
+                <div class="row collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-default" href="Results.php?cat=&search=&select=25" style="color: white;">' . $row["StockGroupName"] . '</a>
+                            <a class="btn btn-default" href="Results.php?cat=' . $row["StockGroupID"] . '&search=&select=25" style="color: white;">' . $row["StockGroupName"] . '</a>
                         </li>
                     </ul>
-                </div>');
+                </div>'
+            );
+        }
     }
-}
 ?>
     
 </nav>
