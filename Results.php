@@ -6,7 +6,7 @@
 
     <!-- Functie Includes -->
     <?php include 'ProductResult.php'; ?>
-    <?php include 'Functions/DBConnections.php'; ?>
+    <?php include 'Functions/dbConnections.php'; ?>
 
     </header>
 

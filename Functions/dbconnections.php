@@ -9,5 +9,7 @@
         $connection = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
         return $connection;
+
+        mysqli_close($connection);
     }
 ?>
