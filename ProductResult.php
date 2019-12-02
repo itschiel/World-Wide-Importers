@@ -32,21 +32,23 @@ function productCard($row) {
 
     // onderstaande print statement plaatst de benodigde html op de pagina
     print('
-        <a href="ProductPage.php?id='. $row["StockItemID"] . '" class="card mb-3" style="max-width: 80%;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="data:image/jpeg;base64,'. $img .'" class="card-img" style="object-fit: contain; max-height: 200px;">     
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <a href="ProductPage.php?id='. $row["StockItemID"] . '">
+                    <img src="data:image/jpeg;base64,'. $img .'" class="card-img" style="object-fit: contain; max-height: 200px;">
+                </a>  
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <a href="ProductPage.php?id='. $row["StockItemID"] . '">
                         <h5 class="card-title">'. $row['StockItemName'] . '</h5>
-                        <p class="card-text">'.$row['MarketingComments'].'</p>
-                        <p class="card-text"> $'.$row['RecommendedRetailPrice'].'</p>
-                        <p class="card-text"><small class="text-muted">Vooraad: '. $row['QuantityOnHand'] .' STK</small></p>
-                    </div>
+                    </a>
+                    <p class="card-text">'.$row['MarketingComments'].'</p>
+                    <p class="card-text"> $'.$row['RecommendedRetailPrice'].'</p>
+                    <p class="card-text"><small class="text-muted">Vooraad: '. $row['QuantityOnHand'] .' STK</small></p>
                 </div>
             </div>
-        </a>
+        </div>
     ');
 }
 
