@@ -6,9 +6,12 @@ function showProductCards($result){
     // $resultCheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
     $resultCheck = mysqli_num_rows($result);
 
+    include_once "Functions/api.php";
+    $rate = USDToEUR();
+
     if ($resultCheck > 0) {
         while ($row = mysqli_fetch_assoc($result)){
-            productCard($row);
+            productCard($row, $rate);
         }
     } else {
         print ("Er zijn geen resultaten gevonden.");
@@ -16,7 +19,7 @@ function showProductCards($result){
 }
 
 // onderstaande functie plaatst een proct tegel op basis van de aangeleverde array
-function productCard($row) {
+function productCard($row, $rate) {
 
     // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
     if (empty($row['Photo'])) {
@@ -44,7 +47,7 @@ function productCard($row) {
                         <h5 class="card-title">'. $row['StockItemName'] . '</h5>
                     </a>
                     <p class="card-text">'.$row['MarketingComments'].'</p>
-                    <p class="card-text"> $'.$row['RecommendedRetailPrice'].'</p>
+                    <p class="card-text"> €'.round(($rate * $row['RecommendedRetailPrice']), 2).'</p>
                     <p class="card-text"><small class="text-muted">Vooraad: '. $row['QuantityOnHand'] .' STK</small></p>
                 </div>
             </div>
