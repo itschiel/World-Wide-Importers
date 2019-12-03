@@ -20,7 +20,9 @@
     <body>
 
         <!-- Voegt de Header to aan de pagina -->
-        <?php include 'Includes/Header.php';  ?>
+        <?php
+        include 'Includes/Header.php';  
+        ?>
 
 
 
@@ -104,7 +106,7 @@
                                                     <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                                     <br><br><br><br><br><br>
                                                 </ul>
-                                                <button type=\"button\" class=\"btn btn-lg btn-block btn-outline-primary\">In winkelmand</button>
+                                                <a class='btn btn-default' href='add-to-cart.php?id=$productID'>In Winkelmand</a>
                                             </div>
                                         </div>
                                     </div>
