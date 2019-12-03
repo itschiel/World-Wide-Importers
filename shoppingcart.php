@@ -8,9 +8,9 @@
 include 'Includes/Header.php'; 
 ?>
 
-<div>
+<!-- <div>
     <a href="shoppingcart.php">clear cart</a>
-</div>  
+</div>   -->
 
 <body>
 
@@ -22,8 +22,6 @@ $productID = $_GET['id'];
 echo "<pre>";
    print_r($_SESSION["cart"]);
 echo "</pre>";
-
-//var_dump($_SESSION["cart"]);
 
  $query = ("SELECT s.StockItemName 
                  FROM stockitems s
