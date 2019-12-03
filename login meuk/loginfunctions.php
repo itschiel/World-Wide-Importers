@@ -1,9 +1,9 @@
 <?php
 if(isset($_POST['loginknop'])) {
-    include "connection.php";
+    include "Functions/dbconnections.php";
 
-    $emailUsername = $_POST['emailusername'];
-    $password = $_POST['password'];
+    $emailUsername = $_POST['EmailAddress'];
+    $password = $_POST['HashedPassword'];
 
     if(empty($emailUsername) OR empty($password)) {
         header("Location: login.php?error=emptyfields");
@@ -12,9 +12,9 @@ if(isset($_POST['loginknop'])) {
         //The ? are placeholders. If he dont use ?, the loginsystem is not secure and hackers can imput sql querys that can ruin the database
         //We make prepared statements we are gonna use in the ? places
         $sql = "SELECT * 
-                FROM users 
-                WHERE usernameuser=? 
-                OR emailuser=?;";
+                FROM people 
+                WHERE FullName=? 
+                OR EmailAddress=?;";
         $satement = mysqli_stmt_init($connection);
         if(!mysqli_stmt_prepare($satement, $sql)) {
             //First we test if the connection is actually here
@@ -28,14 +28,13 @@ if(isset($_POST['loginknop'])) {
 
             if($row = mysqli_fetch_assoc($result)) {
                 //Here we check if the password given by the user is the same as the one in the database. This will give a bolean
-                $passwordCheck = password_verify($password, $row['passworduser']);
+                $passwordCheck = password_verify($password, $row['HashedPassword']);
                 if($passwordCheck == FALSE) {
                     header("Location: login.php?error=wrongpassword");
                     exit();
                 } elseif($passwordCheck == TRUE) {
                     session_start();
-                    $_SESSION['userID'] = $row['idUsers'];
-                    $_SESSION['userName'] = $row['usernameuser'];
+                    $_SESSION['personID'] = $row['PersonID'];
 
                     header("Location: index.php?login=succes");
                     exit();

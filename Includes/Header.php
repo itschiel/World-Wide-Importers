@@ -46,7 +46,7 @@
 
         <!-- login button -->
         <div class="col-2 align-self-center text-center">
-            <a href="login meuk/login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
+            <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
         </div>
     </div>
 
