@@ -1,9 +1,15 @@
 <?php
-if(isset($_POST['loginknop'])) {
+
+function login() {
+
+}
+
+
+if(isset($_POST['login'])) {
     include "Functions/dbconnections.php";
 
-    $emailUsername = $_POST['EmailAddress'];
-    $password = $_POST['HashedPassword'];
+    $emailUsername = $_POST['emailusername'];
+    $password = $_POST['password'];
 
     if(empty($emailUsername) OR empty($password)) {
         header("Location: login.php?error=emptyfields");
@@ -11,14 +17,17 @@ if(isset($_POST['loginknop'])) {
     } else {
         //The ? are placeholders. If he dont use ?, the loginsystem is not secure and hackers can imput sql querys that can ruin the database
         //We make prepared statements we are gonna use in the ? places
-        $sql = "SELECT * 
-                FROM people 
-                WHERE FullName=? 
-                OR EmailAddress=?;";
+        $sql = ("SELECT * 
+            FROM people 
+            WHERE FullName=? 
+            OR EmailAddress=?;
+        ");
+
         $satement = mysqli_stmt_init($connection);
+
         if(!mysqli_stmt_prepare($satement, $sql)) {
             //First we test if the connection is actually here
-            header("Location: login.php?error=sqlerror");
+            header("Location: login.php?error=sqlerror1");
             exit();
         } else {
             //We use the same variable because the query searches for two different things. It searches for the email and the username
