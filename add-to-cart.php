@@ -15,6 +15,10 @@ if(empty($_SESSION["cart"])){
 
 array_push($_SESSION["cart"], $_GET["id"]);
 
+function addToCart ($id, $aantal){
+    $_SESSION['cart'][$id] = $aantal;
+}
+
 include 'Includes/Header.php';?>
 
 <p>
