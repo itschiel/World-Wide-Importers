@@ -24,7 +24,6 @@ if(isset($_GET['error'])) {
 ?>
 <form action="signupfunctions.php" method="post">
     Volledige naam: <input type="text" name="FullName"><br>
-    Voorgekeurde naam: <input type="text" name="PrefferedName"><br>
     E-mail adres:<input type="text" name="EmailAddress"><br>
     Wachtwoord: <input type="password" name="Password"><br>
     Herhaal uw wachtwoord: <input type="password" name="PasswordRepeat"><br>
