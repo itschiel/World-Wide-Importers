@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>WorldWideImporters</title>
 
         <!-- Required meta tags -->
@@ -23,25 +23,6 @@
 
     <body>
 
-            <div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            <a class="btn btn-lg btn-block btn-outline-primary" href="shoppingcart.php">naar winkelwagen</a> 
-                            </div>
-                            <div class="modal-footer">
-                            
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
         <!-- Voegt de Header to aan de pagina -->
         <?php
         session_start();
@@ -52,18 +33,15 @@
 
         function addToCart ($id, $amount){
             $_SESSION['cart'][$id] = $amount;
-            print("ik werk");
         }
         include 'Includes/Header.php';  
         ?>
-
 
 
         <?php
 
         if(isset($_GET["winkelwagen"])){
             addToCart($_GET["id"], 1);
-            print("")
         }   
 
             // Variabeleid haalt het id van het gezoken product  uit de url
@@ -144,9 +122,7 @@
                                                     <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                                     <br><br><br><br><br><br>
                                                 </ul>
-                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&id= ". $_GET['id'] . "\" data-toggle='modal' data-target='#exampleModal'>in winkelmand</a>
-                                                
-                                                <button data-toggle='modal' data-target='#exampleModal' class='btn btn-outline-primary active'> ik wil ook mee doen <button>
+                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&knoppie=true&id= ". $_GET['id'] ."\">in winkelmand</a>
                                             </div>
                                         </div>
                                     </div>
@@ -156,11 +132,21 @@
                 ");
                 }
             }
+
+        
+
+
         ?>
 
         <!-- Voegt de Footer to aan de pagina -->
         <?php include 'Includes/Footer.php';  ?>
 
+        <?php
+
+        if(isset($_GET["knoppie"])){
+
+        }
+        ?>
     </body>
 
 </html>
