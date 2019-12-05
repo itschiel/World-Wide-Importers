@@ -12,12 +12,35 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+
+        <!--Bootstrap javascript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
         <!-- Functie Includes -->
         <?php include 'Functions/DBConnections.php'; ?>
 
     </head>
 
     <body>
+
+            <div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <a class="btn btn-lg btn-block btn-outline-primary" href="shoppingcart.php">naar winkelwagen</a> 
+                            </div>
+                            <div class="modal-footer">
+                            
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
         <!-- Voegt de Header to aan de pagina -->
         <?php
@@ -27,7 +50,10 @@
             $_SESSION["cart"] = array(); 
         }
 
-        
+        function addToCart ($id, $amount){
+            $_SESSION['cart'][$id] = $amount;
+            print("ik werk");
+        }
         include 'Includes/Header.php';  
         ?>
 
@@ -35,9 +61,10 @@
 
         <?php
 
-            function addToCart ($id, $amount){
-                $_SESSION['cart'][$id] = $amount;
-            }
+        if(isset($_GET["winkelwagen"])){
+            addToCart($_GET["id"], 1);
+            print("")
+        }   
 
             // Variabeleid haalt het id van het gezoken product  uit de url
             $productID = $_GET['id'];
@@ -117,7 +144,9 @@
                                                     <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                                     <br><br><br><br><br><br>
                                                 </ul>
-                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&id= ". $_GET['id'] . "\">in winkelmand</a>
+                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&id= ". $_GET['id'] . "\" data-toggle='modal' data-target='#exampleModal'>in winkelmand</a>
+                                                
+                                                <button data-toggle='modal' data-target='#exampleModal' class='btn btn-outline-primary active'> ik wil ook mee doen <button>
                                             </div>
                                         </div>
                                     </div>
@@ -127,31 +156,6 @@
                 ");
                 }
             }
-
-        if(isset($_GET["winkelwagen"])){
-            addToCart($productID, 1);
-            print('
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                    ...
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            ');
-        }   
         ?>
 
         <!-- Voegt de Footer to aan de pagina -->
