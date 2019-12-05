@@ -1,7 +1,8 @@
 <?php
 //Here we check if the user came by pressing the button at the signup page
 if(isset($_POST['signupbutton'])) {
-    include "Functions/dbconnections.php";
+    include_once "Functions/dbconnections.php";
+    dbConnectionRoot();
 
     $fullName = $_POST['FullName'];
     $customerCategory = 3;
@@ -63,8 +64,8 @@ if(isset($_POST['signupbutton'])) {
                     StandardDiscountPercentage, IsStatementsent, IsOnCreditHold,  
                     PaymentDays, WebsiteURL, DeliveryAddressLine1, 
                     DeliveryPostalCode, PostalAddressLine1, PostalPostalCode, 
-                    LastEditedBy, ValidFrom, ValidTo
-                    ) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    LastEditedBy, ValidFrom, ValidTo) 
+                    VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 $statement = mysqli_stmt_init($connection);
                 if(!mysqli_stmt_prepare($statement, $sql)) {
                     //This checks if the statement got executed correctly
@@ -75,9 +76,9 @@ if(isset($_POST['signupbutton'])) {
                     // We use this hashing method because it is always updated when there is a security breach.
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $maxCustomerID++;
-                    //Again, we are making a prepared statement for security. This time we use 3 s'es because we want 3 different variables
+                    //Again, we are making a prepared statement for security. This time we use 27 s'es because we want 27 different variables
                     mysqli_stmt_bind_param($statement, "sssssssssssssssssssssssssss", 
-                    $maxCustomerID, $fullName, $customerCategory, $email, $hashedPassword, $phoneNumber, $faxNumber, $billToCustomerID, 
+                    $maxCustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
                     $buyingGroupID, $primaryContactPersonId, $alternateContactPersonID, $deliveryMethodID, $deliveryCityID, $postalCityId, $accountOpenedDate, 
                     $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
                     $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo);
