@@ -29,7 +29,8 @@
 
     <?php
     $query = ("SELECT FullName, EmailAddress, PhoneNumber 
-    FROM people WHERE PersonID = 1001;");
+    FROM people p WHERE p.PersonID = (SELECT c.PrimaryContactPersonID 
+    FROM customers c WHERE c. CustomerID = 1000);");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
 
@@ -56,10 +57,10 @@ while($rows=mysqli_fetch_array($result)){
     <h5 class="card-title">Bezorgadres</h5>
 
     <?php
-    $query = ("SELECT DISTINCT PersonID, CustomerName, DeliveryAddressLine1, 
-    DeliveryAddressLine2, DeliveryPostalCode, CityName FROM customers cm JOIN people p 
-    ON p.PersonID = cm.PrimaryContactPersonID JOIN cities ct ON ct.CityID = cm.DeliveryCityID
-    WHERE PersonID = 1001;
+    $query = ("SELECT CustomerName, DeliveryAddressLine1, 
+    DeliveryAddressLine2, DeliveryPostalCode, CityName
+    FROM customers cm JOIN cities ct ON ct.CityID = cm.DeliveryCityID
+    WHERE CustomerID = 1000;
     ");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
