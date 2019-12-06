@@ -119,7 +119,7 @@
                                                     <li>'. $row["QuantityOnHand"] .' stuk(s) voorradig</li>
                                                     <br><br><br><br><br><br>
                                                 </ul>
-                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&knoppie=true&id=".$_GET['id']."\">in winkelmand</a>
+                                                <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
                                             </div>
                                         </div>
                                     </div>
