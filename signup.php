@@ -23,12 +23,12 @@ if(isset($_GET['error'])) {
 }
 ?>
 <form action="signupfunctions.php" method="post">
-    Volledige naam: <input type="text" name="FullName"><br>
-    E-mail adres:<input type="text" name="EmailAddress"><br>
-    Wachtwoord: <input type="password" name="Password"><br>
-    Herhaal uw wachtwoord: <input type="password" name="PasswordRepeat"><br>
-    Telefoon nummer: <input type="text" name="PhoneNumber"><br>
-    Fax nummer: <input type="text" name="FaxNumber"><br>
+    <label>Volledige naam: </label><input type="text" name="FullName"><br>
+    <label>E-mail adres: </label><input type="text" name="EmailAddress"><br>
+    <label>Wachtwoord: </label><input type="password" name="Password"><br>
+    <label>Herhaal uw wachtwoord: </label><input type="password" name="PasswordRepeat"><br>
+    <label>Telefoon nummer: </label><input type="text" name="PhoneNumber"><br>
+    <label>Fax nummer: </label><input type="text" name="FaxNumber"><br>
     <button type="submit" name="signupbutton" >Registreer</button>
 </form>
 </body>

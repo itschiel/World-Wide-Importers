@@ -2,8 +2,9 @@
 //Here we check if the user came by pressing the button at the signup page
 if(isset($_POST['signupbutton'])) {
     include_once "Functions/dbconnections.php";
-    dbConnectionRoot();
+    $connection = dbConnectionRoot();
 
+    //All variables are needed because the database isn't auto incremented
     $fullName = $_POST['FullName'];
     $customerCategory = 3;
     $email = $_POST['EmailAddress'];
@@ -18,20 +19,26 @@ if(isset($_POST['signupbutton'])) {
     $deliveryMethodID = 3;
     $deliveryCityID = 19881;
     $postalCityId = 19881;
-    $accountOpenedDate = '2019-12-04';
+    $accountOpenedDate = "2019-12-04";
     $standardDiscountPercentage = 0.000;
     $isStatementsent = 0;
     $isOnCreditHold = 0;
     $paymentDays = 7;
     $websiteURL = "ThisIsAStandardsite.com";
-    $deliveryAddressLine1 = 'Standard address 101';
+    $deliveryAddressLine1 = "Standard address 101";
     $deliveryPostalCode = 90549;
-    $postalAddressLine1 = 'Standaard PO box';
-    $postalPostalCode = '99999';
+    $postalAddressLine1 = "Standaard PO box";
+    $postalPostalCode = 99999;
     $lastEditedBy = 1;
-    $validFrom = '2019-12-04 00:00:00';
-    $validTo = '9999-12-31 23:59:59';
-    $maxCustomerID = 6648;  //"SELECT MAX(CustomerID) FROM customers;";
+    $validFrom = "2019-12-04 00:00:00";
+    $validTo = "9999-12-31 23:59:59";
+    $maxCustomerID = 7888; 
+    // $sqlCustomerID = "SELECT MAX(CustomerID) FROM customers";
+    // $result = mysqli_query($connection, $sqlCustomerID);
+    // while ($row = mysqli_fetch_array($sqlCustomerID, MYSQLI_ASSOC)) {
+    //     $maxCustomerID = $row["CustomerID"];
+    //      print($maxCustomerID . "<br>");
+    // }
 
 
     //First we check if there are any errors while making the account
@@ -54,42 +61,36 @@ if(isset($_POST['signupbutton'])) {
         exit();
     } elseif($password !== $passwordRepeat) {
         header("Location: signup.php?error=passwordcheck");
-            } else{
+            } else {
                 $sql = "INSERT INTO customers (
                     CustomerID, CustomerName, CustomerCategoryID, 
                     PhoneNumber, FaxNumber, EmailAddress, 
                     HashedPassword, BillToCustomerID, BuyingGroupID, 
                     PrimaryContactPersonId, AlternateContactPersonID, DeliveryMethodID, 
                     DeliveryCityID, PostalCityId, AccountOpenedDate, 
-                    StandardDiscountPercentage, IsStatementsent, IsOnCreditHold,  
+                    StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, 
                     PaymentDays, WebsiteURL, DeliveryAddressLine1, 
                     DeliveryPostalCode, PostalAddressLine1, PostalPostalCode, 
                     LastEditedBy, ValidFrom, ValidTo) 
                     VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                $statement = mysqli_stmt_init($connection);
-                if(!mysqli_stmt_prepare($statement, $sql)) {
-                    //This checks if the statement got executed correctly
-                    header("Location: signup.php?error=sqlerrorinsert");
-                    exit();
-                } else {
-                    //First we has the password. This is because if a hacker were to hack into the database, it could only see the hashed passwords.
-                    // We use this hashing method because it is always updated when there is a security breach.
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $maxCustomerID++;
-                    //Again, we are making a prepared statement for security. This time we use 27 s'es because we want 27 different variables
-                    mysqli_stmt_bind_param($statement, "sssssssssssssssssssssssssss", 
-                    $maxCustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
-                    $buyingGroupID, $primaryContactPersonId, $alternateContactPersonID, $deliveryMethodID, $deliveryCityID, $postalCityId, $accountOpenedDate, 
-                    $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
-                    $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo);
-                    mysqli_stmt_execute($statement);
-                    //A message that the signup was succesfull
+                
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                //$maxCustomerID++;
+
+                $statement = mysqli_prepare($connection, $sql);
+                mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisss", 
+                $maxCustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
+                $buyingGroupID, $primaryContactPersonId, $alternateContactPersonID, $deliveryMethodID, $deliveryCityID, $postalCityId, $accountOpenedDate, 
+                $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
+                $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo);
+                mysqli_stmt_execute($statement);
+
+                if(mysqli_stmt_affected_rows($statement) == 1) {
                     header("Location: signup.php?signup=success");
-                    exit();
+                } else {
+                    print("Location: signup.php?error");
                 }
             }
-        //}
-    //}
     //Here we close all the connections
     mysqli_stmt_close($statement);
     mysqli_close($connection);
