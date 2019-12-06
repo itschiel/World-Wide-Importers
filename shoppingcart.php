@@ -7,7 +7,7 @@
 <!-- Voegt de Header to aan de pagina -->
 <?php
 include 'Includes/Header.php';
-include 'Functions/DBconnections.php';
+include_once 'Functions/DBconnections.php';
 ?>
 
 <body>
