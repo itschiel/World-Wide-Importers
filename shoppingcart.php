@@ -17,14 +17,10 @@
 
 <?php include 'Includes/Header.php'; ?>
 
-
-<?php 
-
-    //$_SESSION['cart'] = array();
-    
-?>
+<!-- de onderstaande container zorgt dat de data gecentreerd wordt -->
 <div class="container">
     <div class="row">
+        <!-- Table waar de geslecteerde producten uitgelijst worden -->
         <table class="table shadow" style="margin-top: 50px">
             <thead class="thead-dark">
                 <tr>
@@ -38,10 +34,12 @@
             <tbody>
 
                 <?php
+                    // onderstaande statement past de hoeveelhied van een product aan
                     if (isset($_POST['submit']) && $_POST['count'] > 0){
                         $_SESSION['cart'][$_POST['product']] = $_POST['count'];
                     }
 
+                    // onderstaande statement verwijderd een product uit de winkelmand
                     if (isset($_POST['delete'])){
                         unset($_SESSION['cart'][$_POST['product']]);
                     }
@@ -49,6 +47,7 @@
                     $nr = null;
                     $subTotaal = null;
 
+                    // de onderstaande statement lijst de producten uit
                     foreach ($_SESSION['cart'] as $product => $numberOf) {
                         
                         $query = (" SELECT *
@@ -60,7 +59,7 @@
                         $row = mysqli_fetch_assoc($result);
                         
                         $nr++;
-                        $price = (round((($row['RecommendedRetailPrice'] * USDToEUR()) * $numberOf),2));
+                        $price = (round((($row['RecommendedRetailPrice'] * USDToEUR()) * $numberOf),2)); //hier wordt de prijs berekend op basis van het aantal per product en de koers van de euro
                         $subTotaal += $price;
                         print('
                             <tr>
@@ -85,6 +84,8 @@
             </tbody>
         </table>
     </div>
+
+    <!-- in de onderstaande row worden de totaal prijzen berekend en worden ze -->
     <div class="row">
         <div class="col-8">
         </div>

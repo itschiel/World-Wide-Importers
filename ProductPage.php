@@ -130,7 +130,7 @@
                 }
             }
 
-            
+            // onderstaande functie haalt alle foto's op die per product beschikbaar zijn
             function allImages(){
 
                 $productID = $_GET['id'];
