@@ -39,7 +39,7 @@ if(isset($_POST['signupbutton'])) {
         header("Location: signup.php?error=emptyfields");
         //If the user made a mistake we dont want to continue the code, so we exit it
         exit();
-    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) AND !preg_match("/^[a-zA-Z0-9]*$/", $fullName)) {
+    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) AND !preg_match("/^[a-zA-Z0-9_ ]*$/", $fullName)) {
         //If both the email and username are invalid we send back this error
         header("Location: signup.php?error=invalidmailusername");
         exit();
@@ -47,10 +47,25 @@ if(isset($_POST['signupbutton'])) {
         //If the email is invalid we want to send the user back with the error that the email in invalid
         header("Location: signup.php?error=invalidmail");
         exit();
-    } elseif(!preg_match("/^[a-zA-Z0-9]*$/", $fullName)) {
+    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $fullName)) {
         //Yet another error message for when the full name is taken
         header("Location: signup.php?error=invalidusername");
         exit();
+    
+        //password checks
+    } elseif (strlen($password) < 6) {
+        header("Location: signup.php?error=passswordshort");
+        exit();
+    } elseif (!preg_match("#[0-9]+#", $password)) {
+        header("Location: signup.php?error=passswordnumber");
+        exit();
+    } elseif(!preg_match("#[a-zA-Z]+#", $password)) {
+        header("Location: signup.php?error=passswordletter");
+        exit();
+    } elseif (!preg_match("#[@!?%*&]+#", $password)) {
+        header("Location: signup.php?error=passsworddiget");
+        exit();
+        
     } elseif($password !== $passwordRepeat) {
         header("Location: signup.php?error=passwordcheck");
             } else {

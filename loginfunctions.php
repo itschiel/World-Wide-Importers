@@ -1,6 +1,6 @@
 <?php
-if(isset($_POST['loginknop'])) {
-    include "Functions/dbconnections.php";
+if(isset($_POST['loginbutton'])) {
+    include_once "Functions/dbconnections.php";
     $connection = dbConnectionRoot();
 
     $email = $_POST['email'];
@@ -13,12 +13,11 @@ if(isset($_POST['loginknop'])) {
         //The ? are placeholders. If he dont use ?, the loginsystem is not secure and hackers can imput sql querys that can ruin the database
         //We make prepared statements we are gonna use in the ? places
         $sql = "SELECT * 
-                FROM people 
-                WHERE FullName=? 
-                OR EmailAddress=?;";
+                FROM Customers 
+                WHERE EmailAddress=?;";
         $satement = mysqli_prepare($connection, $sql);
             //We use the same variable because the query searches for two different things. It searches for the email
-            mysqli_stmt_bind_param($satement, "ss", $email, $email);
+            mysqli_stmt_bind_param($satement, "s", $email);
             mysqli_stmt_execute($satement);
             $result = mysqli_stmt_get_result($satement);
 
@@ -31,8 +30,7 @@ if(isset($_POST['loginknop'])) {
                 } elseif($passwordCheck == TRUE) {
                     session_start();
                     $_SESSION['CustomerID'] = $row['CustomerID'];
-
-                    header("Location: index.php?login=succes");
+                    //header("Location: index.php?login=succes");
                     exit();
                 } else {
                     header("Location: login.php?error=wrongpassword");
