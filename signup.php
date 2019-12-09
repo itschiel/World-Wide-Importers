@@ -28,7 +28,8 @@ if(isset($_GET['error'])) {
     <label>Wachtwoord: </label><input type="password" name="Password"><br>
     <label>Herhaal uw wachtwoord: </label><input type="password" name="PasswordRepeat"><br>
     <label>Telefoon nummer: </label><input type="text" name="PhoneNumber"><br>
-    <label>Fax nummer: </label><input type="text" name="FaxNumber"><br>
+    <label>Adres: </label><input type="text" name="DeliveryAddress"><br>
+    <label>Postcode: </label><input type="text" name="PostalCode"><br>
     <button type="submit" name="signupbutton" >Registreer</button>
 </form>
 </body>

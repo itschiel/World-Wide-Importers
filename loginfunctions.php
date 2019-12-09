@@ -1,11 +1,12 @@
 <?php
 if(isset($_POST['loginknop'])) {
     include "Functions/dbconnections.php";
+    $connection = dbConnectionRoot();
 
-    $emailUsername = $_POST['EmailAddress'];
-    $password = $_POST['HashedPassword'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    if(empty($emailUsername) OR empty($password)) {
+    if(empty($email) OR empty($password)) {
         header("Location: login.php?error=emptyfields");
         exit();
     } else {
@@ -15,14 +16,9 @@ if(isset($_POST['loginknop'])) {
                 FROM people 
                 WHERE FullName=? 
                 OR EmailAddress=?;";
-        $satement = mysqli_stmt_init($connection);
-        if(!mysqli_stmt_prepare($satement, $sql)) {
-            //First we test if the connection is actually here
-            header("Location: login.php?error=sqlerror");
-            exit();
-        } else {
-            //We use the same variable because the query searches for two different things. It searches for the email and the username
-            mysqli_stmt_bind_param($satement, "ss", $emailUsername, $emailUsername);
+        $satement = mysqli_prepare($connection, $sql);
+            //We use the same variable because the query searches for two different things. It searches for the email
+            mysqli_stmt_bind_param($satement, "ss", $email, $email);
             mysqli_stmt_execute($satement);
             $result = mysqli_stmt_get_result($satement);
 
@@ -34,7 +30,7 @@ if(isset($_POST['loginknop'])) {
                     exit();
                 } elseif($passwordCheck == TRUE) {
                     session_start();
-                    $_SESSION['personID'] = $row['PersonID'];
+                    $_SESSION['CustomerID'] = $row['CustomerID'];
 
                     header("Location: index.php?login=succes");
                     exit();
@@ -47,7 +43,6 @@ if(isset($_POST['loginknop'])) {
                 exit();
             }
         }
-    }
 } else {
     header("Location: login.php");
     exit();

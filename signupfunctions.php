@@ -11,7 +11,7 @@ if(isset($_POST['signupbutton'])) {
     $password = $_POST['Password'];
     $passwordRepeat = $_POST['PasswordRepeat'];
     $phoneNumber = $_POST['PhoneNumber'];
-    $faxNumber = $_POST['FaxNumber'];
+    $faxNumber = 3;
     $billToCustomerID = 3;
     $buyingGroupID = 1;
     $primaryContactPersonId = 1056;
@@ -25,24 +25,16 @@ if(isset($_POST['signupbutton'])) {
     $isOnCreditHold = 0;
     $paymentDays = 7;
     $websiteURL = "ThisIsAStandardsite.com";
-    $deliveryAddressLine1 = "Standard address 101";
-    $deliveryPostalCode = 90549;
+    $deliveryAddressLine1 = $_POST['DeliveryAddress'];
+    $deliveryPostalCode = $_POST['PostalCode'];
     $postalAddressLine1 = "Standaard PO box";
     $postalPostalCode = 99999;
     $lastEditedBy = 1;
     $validFrom = "2019-12-04 00:00:00";
     $validTo = "9999-12-31 23:59:59";
-    $maxCustomerID = 7888; 
-    // $sqlCustomerID = "SELECT MAX(CustomerID) FROM customers";
-    // $result = mysqli_query($connection, $sqlCustomerID);
-    // while ($row = mysqli_fetch_array($sqlCustomerID, MYSQLI_ASSOC)) {
-    //     $maxCustomerID = $row["CustomerID"];
-    //      print($maxCustomerID . "<br>");
-    // }
-
-
+    
     //First we check if there are any errors while making the account
-    if(empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phoneNumber) OR empty($faxNumber)){
+    if(empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phoneNumber) OR empty($deliveryAddressLine1) OR empty($deliveryPostalCode)){
         //This gives the error to show that there are empty fields
         header("Location: signup.php?error=emptyfields");
         //If the user made a mistake we dont want to continue the code, so we exit it
@@ -62,6 +54,14 @@ if(isset($_POST['signupbutton'])) {
     } elseif($password !== $passwordRepeat) {
         header("Location: signup.php?error=passwordcheck");
             } else {
+                $sql ="SELECT CustomerID
+                FROM Customers
+                ORDER BY CustomerID DESC
+                LIMIT 1";
+                $result = (mysqli_query($connection, $sql));
+                $row =  mysqli_fetch_object($result);
+                $CustomerID = ($row->CustomerID)+1;
+                
                 $sql = "INSERT INTO customers (
                     CustomerID, CustomerName, CustomerCategoryID, 
                     PhoneNumber, FaxNumber, EmailAddress, 
@@ -74,12 +74,12 @@ if(isset($_POST['signupbutton'])) {
                     LastEditedBy, ValidFrom, ValidTo) 
                     VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
+                //Here we hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                //$maxCustomerID++;
 
                 $statement = mysqli_prepare($connection, $sql);
                 mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisss", 
-                $maxCustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
+                $CustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
                 $buyingGroupID, $primaryContactPersonId, $alternateContactPersonID, $deliveryMethodID, $deliveryCityID, $postalCityId, $accountOpenedDate, 
                 $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
                 $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo);
@@ -87,8 +87,6 @@ if(isset($_POST['signupbutton'])) {
 
                 if(mysqli_stmt_affected_rows($statement) == 1) {
                     header("Location: signup.php?signup=success");
-                } else {
-                    print("Location: signup.php?error");
                 }
             }
     //Here we close all the connections
