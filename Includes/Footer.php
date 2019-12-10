@@ -26,7 +26,7 @@
                         <a class="nav-link" href="#">www.info@wideworldimporters.com</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">06........</a>
+                        <a class="nav-link" href="#">06-telefoonnummer</a>
                     </li>
                 </ul>
             </div>        
