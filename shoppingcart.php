@@ -6,6 +6,7 @@
 
     <?php include_once 'Functions/DBconnections.php'; ?>
     <?php include_once 'Functions/api.php'; ?>
+    <?php include_once "Functions/mollie.php"; ?>
         
     <title>WideWorldImporters</title>
 
@@ -60,8 +61,14 @@
                         $row = mysqli_fetch_assoc($result);
                         
                         $nr++;
-                        $price = (round((($row['RecommendedRetailPrice'] * USDToEUR()) * $numberOf),2));
+                        $price = (($row['RecommendedRetailPrice'] * USDToEUR()) * $numberOf);
+                        $priceFormat = number_format($price, 2, ",",".");
                         $subTotaal += $price;
+
+                        $mollie = number_format($subTotaal, 2, ".","");
+                        $subTotaal = number_format($subTotaal, 2, ",",".");
+
+
                         print('
                             <tr>
                                 <th scope="col">'.$nr.'</th>
@@ -76,7 +83,7 @@
                                         <button type="submit" name="delete" class="btn btn-danger"> Verwijder </button>
                                     </form>
                                 </th>
-                                <th scope="col">€ '. $price .'</th>
+                                <th scope="col">€ '. $priceFormat .'</th>
                             <tr>
                         ');
 
@@ -111,7 +118,7 @@
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print round(($subTotaal * 0.79),2); ?></p>
+                    <p>€<?php ?></p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
@@ -125,7 +132,7 @@
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a href="#" class="btn btn-success btn-block"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="<?php print createPayment($mollie);?>"> Afrekenen </a>
                 </div>
             </div>
         </div>
