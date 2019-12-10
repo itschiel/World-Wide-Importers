@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>WorldWideImporters</title>
 
         <!-- Required meta tags -->
@@ -12,19 +12,37 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+
+        <!--Bootstrap javascript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
         <!-- Functie Includes -->
-        <?php include 'Functions/DBConnections.php'; ?>
+        <?php include_once 'Functions/DBConnections.php'; ?>
 
     </head>
 
     <body>
 
         <!-- Voegt de Header to aan de pagina -->
-        <?php include 'Includes/Header.php';  ?>
+        <?php
+        session_start();
 
+        if(empty($_SESSION["cart"])){
+            $_SESSION["cart"] = array(); 
+        }
+
+        function addToCart ($id, $amount){
+            $_SESSION['cart'][$id] = $amount;
+        }
+        include 'Includes/Header.php';  
+        ?>
 
 
         <?php
+
+        if(isset($_GET["winkelwagen"])){
+            addToCart($_GET["id"], 1);
+        }   
 
             // Variabeleid haalt het id van het gezoken product  uit de url
             $productID = $_GET['id'];
@@ -104,7 +122,7 @@
                                                     <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
                                                     <br><br><br><br><br><br>
                                                 </ul>
-                                                <button type=\"button\" class=\"btn btn-lg btn-block btn-outline-primary\">In winkelmand</button>
+                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&knoppie=true&id=".$_GET['id']."\">in winkelmand</a>
                                             </div>
                                         </div>
                                     </div>
@@ -114,11 +132,21 @@
                 ");
                 }
             }
+
+        
+
+
         ?>
 
         <!-- Voegt de Footer to aan de pagina -->
         <?php include 'Includes/Footer.php';  ?>
 
+        <?php
+
+        if(isset($_GET["knoppie"])){
+
+        }
+        ?>
     </body>
 
 </html>

@@ -6,9 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- bootstrap js bundle -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Font awesome icons -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <?php include_once 'Functions/dbConnections.php'; ?>
 
     <title>WorldWideImporters</title>
@@ -16,49 +23,99 @@
 </head>
 <body>
 
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<div class="row bg-dark">
+    <div class="container">
+        <div class="row">
+            <!-- logo -->
+            <div class="col-2 align-self-center">
+                <a href="index.php">
+                    <img src="img/wwiLogo.png" style="max-width: 100%;">
+                </a>
+            </div>
 
-<nav class="navbar bg-dark navbar-dark">
-    <div class="form-inline">
-        <form method="GET" action="Results.php">
-            <input name="search" type="text" class="form-control">
+            <!-- search -->
+            <div class="col-8 align-self-center">
 
-            <input type="hidden"  value="" name="cat"> </input>
-            <input type="hidden" value="25" name="select"> </input>
+                <form method="GET" action="Results.php"> <!-- die margins zijn niet idiaal maar kan niks beters vinden -->
+                    <div class="input-group">
+                        
+                        <input name="search" type="text" class="form-control">
+                        <input type="hidden"  value="" name="cat"> </input>
+                        <input type="hidden" value="25" name="select"> </input>
 
-            <button name="submit" type="submit" class="btn btn-primary">Zoek!</button>
-        </form>
+                        <div class="input-group-append">
+                            <button name="submit" type="submit" class="btn btn-primary">Zoek!</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- login button -->
+            <div class="col-2 align-self-center text-center">
+                <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
+                <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
+            </div>
+
+        </div>
     </div>
-</nav>
+</div>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="row bg-secondary">
+    <div class="container">
+        <div class="row" style="padding: 5px;">
+            <div class="col-2">
 
-<?php
-    $query = ("SELECT StockGroupID, StockGroupName FROM stockgroups");
-    $result = mysqli_query(dbConnectionRoot(), $query);
-    $resultCheck = mysqli_num_rows($result);
+                <div class="dropdown">
+                    <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                        Catagorien
+                    </a>
+                    <div class="dropdown-menu">
+                        <?php
+                            $query = ("SELECT StockGroupID, StockGroupName FROM stockgroups");
+                            $result = mysqli_query(dbConnectionRoot(), $query);
+                            $resultCheck = mysqli_num_rows($result);
+                            if ($resultCheck > 0) {
+                                while ($row = mysqli_fetch_assoc($result)){
+                                    print('
+                                        <a class="dropdown-item" href="Results.php?cat=' . $row["StockGroupID"] . '&search=&select=25">' . $row["StockGroupName"] . '</a>
+                                    ');
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
 
-    if ($resultCheck > 0) {
-        while ($row = mysqli_fetch_assoc($result)){
-            print('
-                <div class="row collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-default" href="Results.php?cat=' . $row["StockGroupID"] . '&search=&select=25" style="color: white;">' . $row["StockGroupName"] . '</a>
-                        </li>
-                    </ul>
-                </div>'
-            );
-        }
-    }
-?>
-    
-</nav>
+            </div>
+            <div class="col-8">
+
+            </div>
+            <div class="col-2">
+
+                <?php
+                if (isset($_GET['select'])){
+
+                    print ('
+
+                        <div class="dropdown">
+                            <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                                Paginatie: '. $_GET["select"] .'
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=25" > 25 </a>
+                                <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=50" > 50 </a>
+                                <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=100" > 100 </a>
+                            </div>
+                        </div>
+                    
+                    ');
+                }
+                ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
