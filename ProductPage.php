@@ -87,14 +87,26 @@
                                                 <h2>PRODUCTNAAM: '. $row["StockItemName"] .'</h2>
                                                 <h6>Review systeem in sterren moet hier komen</h6>
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class=\"col-md-7\">
                                                         <div class="thumbnail">
-                                                            <a href="img/defaultproduct.jpg">
+                                                            <div id=\"carouselExampleControls\" class=\"carousel slide\" data-ride=\"carousel\">
+                                                                <div class=\"carousel-inner\">
                                                             ');
 
                                                             allImages();
 
                                                             print ('
+                                                                </div>
+                                                            <a class=\"carousel-control-prev\" href=\"#carouselExampleControls\" role=\"button\" data-slide=\"prev\">
+                                                                <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
+                                                                <span class=\"sr-only\">Previous</span>
+                                                            </a>
+                                                            <a class=\"carousel-control-next\" href=\"#carouselExampleControls\" role=\"button\" data-slide=\"next\">
+                                                                <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
+                                                                <span class=\"sr-only\">Next</span>
+                                                            </a>
+                                                        </div>
+                                                                
                                                                 <div class="caption">
                                                                 </div>
                                                             </a>
@@ -144,7 +156,11 @@
 
                 while($row = mysqli_fetch_assoc($result)){
                     $img = base64_encode($row["foto"]);
-                    echo ('<img src="data:image/jpeg;base64,'. $img .' " alt="Lights" style="width:100%">');
+                    echo ('
+                    <div class=\"carousel-item active\">
+                        <img src="data:image/jpeg;base64,'. $img .' " alt="Lights" style="width:100%">
+                    </div> 
+                    ');
                 }
             }
         ?>
