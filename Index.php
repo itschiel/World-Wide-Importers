@@ -7,7 +7,11 @@
 <body>
 <!-- Voegt de Header to aan de pagina -->
 <?php include 'Includes/Header.php';?>
-
+<?php 
+if(isset($_SESSION['CustomerId'])){
+print($_SESSION['CustomerID']); 
+}
+?>
 
 
 
