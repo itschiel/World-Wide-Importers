@@ -99,7 +99,7 @@
 
                         <div class="dropdown">
                             <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                                Paginatie: '. $_GET["select"] .'
+                                Resultaten per pagina: '. $_GET["select"] .'
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=25" > 25 </a>

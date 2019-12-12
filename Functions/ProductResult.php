@@ -52,6 +52,7 @@ function productCard($row, $rate) {
                 </div>
             </div>
         </div>
+        <br>
     ');
 }
 
