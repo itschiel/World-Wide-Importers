@@ -14,7 +14,7 @@ function showProductCards($result){
             productCard($row, $rate);
         }
     } else {
-        print ("Er zijn geen resultaten gevonden.");
+        print ("Er zijn geen resultaten gevonden.<br>");
     }
 }
 
