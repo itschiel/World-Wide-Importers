@@ -58,7 +58,44 @@
                     print("
                         <div class=\"container\">
                         <div class=\"col mx-auto\">
-                
+                        
+                            <div class=\"container\">
+                            <div class=\"row d-flex justify-content-center\">
+                            <div class=\"row d-flex justify-content-center\">
+
+                                                <div id=\"demo\" class=\"carousel slide\" data-ride=\"carousel\">
+
+                                                <!-- Indicators -->
+                                                <ul class=\"carousel-indicators\">
+                                                <li data-target=\"#demo\" data-slide-to=\"0\" class=\"active\"></li>
+                                                <li data-target=\"#demo\" data-slide-to=\"1\"></li>
+                                                <li data-target=\"#demo\" data-slide-to=\"2\"></li>
+                                                </ul>
+                                            
+                                                <!-- The slideshow -->
+                                                <div class=\"carousel-inner\">
+                                                <div class=\"carousel-item active\" class=\"col-md-2\">
+                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
+                                                </div>
+                                                <div class=\"carousel-item\" class=\"col-md-2\">
+                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
+                                                </div>
+                                                <div class=\"carousel-item\" class=\"col-md-2\">
+                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
+                                                </div>
+                                                </div>
+                                            
+                                                <!-- Left and right controls -->
+                                                <a class=\"carousel-control-prev\" href=\"#demo\" data-slide=\"prev\">
+                                                <span class=\"carousel-control-prev-icon\"></span>
+                                                </a>
+                                                <a class=\"carousel-control-next\" href=\"#demo\" data-slide=\"next\">
+                                                <span class=\"carousel-control-next-icon\"></span>
+                                                </a>
+                                            
+                                                </div>
+   
+
                             <div class=\"container\">
                             <div class=\"row d-flex justify-content-center\">
                             <div class=\"row d-flex justify-content-center\">
