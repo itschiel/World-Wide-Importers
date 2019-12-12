@@ -21,16 +21,7 @@ function showProductCards($result){
 // onderstaande functie plaatst een proct tegel op basis van de aangeleverde array
 function productCard($row, $rate) {
 
-    // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
-    if (empty($row['Photo'])) {
-
-        $imgPath = ("img/defaultproduct.jpg");
-        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
-        $img = base64_encode($imgBinary);
-
-    } else {
-        $img = base64_encode($row["Photo"]);
-    }
+    $img = getPhoto($row['StockItemID']);
 
 
     // onderstaande print statement plaatst de benodigde html op de pagina
@@ -53,6 +44,35 @@ function productCard($row, $rate) {
             </div>
         </div>
     ');
+}
+
+function getPhoto($productID){
+
+    $query = ("SELECT foto
+        FROM productimages
+        WHERE productid = $productID
+        LIMIT 1
+        ");
+
+    $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
+    $resultCheck = mysqli_num_rows($result);
+
+    // onderstaande statement kijkt of er een img in de database staat zo niet wordt de dafault image geladen
+    if ($resultCheck > 0) {
+
+        $row = mysqli_fetch_assoc($result);
+        $img = base64_encode($row["foto"]);
+
+    } else {
+
+        $imgPath = ("img/defaultproduct.jpg");
+        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
+        $img = base64_encode($imgBinary);
+
+    }
+
+    return $img;
+
 }
 
 ?>
