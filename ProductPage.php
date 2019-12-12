@@ -18,6 +18,7 @@
 
         <!-- Functie Includes -->
         <?php include_once 'Functions/DBConnections.php'; ?>
+        <?php include_once 'Functions/api.php'; ?>
 
     </head>
 
@@ -78,58 +79,36 @@
 
                     // onderstaande print plaatst de benodigde html op de pagina
                     print('
-                        <div class="container-fluid">
+                        <div class="container shadow" style="margin-top: 25px;">
                             <div class="row">
                                 <div class="col-lg">
                                     <div class="container" style="margin-top:30px">
                                         <div class="row">
                                             <div class="col-sm">
                                                 <h2>PRODUCTNAAM: '. $row["StockItemName"] .'</h2>
-                                                <h6>Review systeem in sterren moet hier komen</h6>
                                                 <div class="row">
-                                                    <div class=\"col-md-7\">
-                                                        <div class="thumbnail">
-                                                            <div id=\"carouselExampleControls\" class=\"carousel slide\" data-ride=\"carousel\">
-                                                                <div class=\"carousel-inner\">
-                                                            ');
+                                                    <div class="col-md-7">
+                    ');
 
-                                                            allImages();
-
-                                                            print ('
-                                                                </div>
-                                                            <a class=\"carousel-control-prev\" href=\"#carouselExampleControls\" role=\"button\" data-slide=\"prev\">
-                                                                <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
-                                                                <span class=\"sr-only\">Previous</span>
-                                                            </a>
-                                                            <a class=\"carousel-control-next\" href=\"#carouselExampleControls\" role=\"button\" data-slide=\"next\">
-                                                                <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
-                                                                <span class=\"sr-only\">Next</span>
-                                                            </a>
-                                                        </div>
-                                                                
-                                                                <div class="caption">
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                    include "Includes/imgCarousel.php";
+                    
+                    print('
+                                                    </div>  
                                                 </div>
                                                 <br>
                                                 <p class="font-weight-bold">Productinformatie: </p>
                                                 <p>' . $row["MarketingComments"]. '</p>
                                                 <p class="font-weight-bold">Productbeschrijving: </p>
                                                 <p>'. $row["SearchDetails"] .'</p>
-                                                <p class="font-weight-bold">Video: </p>
-                                                <p>Link naar het filmmateriaal van het product: <a href="video.html">Klik hier</a> </p>
                                             </div>
                                             <div class="card border-dark mb-3" style="max-width: 18rem">
                                                 <div class="card-header">
                                                 <h4 class="my-0 font-weight-normal">Prijs</h4>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="card-title pricing-card-title">$'. $row["RecommendedRetailPrice"] .'</h1>
+                                                <h1 class="card-title pricing-card-title">€'. round(($row["RecommendedRetailPrice"] * USDToEUR()),2) .'</h1>
                                                 <ul class="list-unstyled mt-3 mb-4">
                                                     <li>'. $row["QuantityOnHand"] .' stuk(s) voorradig</li>
-                                                    <br><br><br><br><br><br>
                                                 </ul>
                                                 <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
                                             </div>
@@ -142,27 +121,6 @@
                 }
             }
 
-            // onderstaande functie haalt alle foto's op die per product beschikbaar zijn
-            function allImages(){
-
-                $productID = $_GET['id'];
-                $query = ("SELECT foto
-                FROM productimages
-                WHERE productid =  $productID
-                ");
-
-                $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
-                $resultCheck = mysqli_num_rows($result);
-
-                while($row = mysqli_fetch_assoc($result)){
-                    $img = base64_encode($row["foto"]);
-                    echo ('
-                    <div class=\"carousel-item active\">
-                        <img src="data:image/jpeg;base64,'. $img .' " alt="Lights" style="width:100%">
-                    </div> 
-                    ');
-                }
-            }
         ?>
 
         <!-- Voegt de Footer to aan de pagina -->

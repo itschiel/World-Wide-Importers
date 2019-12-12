@@ -112,7 +112,7 @@
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print round(($subTotaal * 0.79),2); ?></p>
+                    <p>€<?php print round(($subTotaal / 1.21),2); ?></p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
