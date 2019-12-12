@@ -3,7 +3,7 @@
 
     <head>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>WorldWideImporters</title>
+        <title>WideWorldImporters</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
