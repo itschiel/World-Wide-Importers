@@ -1,5 +1,3 @@
-<?php session_start() ?>
-
 <html>
 
 <header>
@@ -35,6 +33,10 @@
             <tbody>
 
                 <?php
+                    if(!isset($_SESSION['cart'])) {
+                        $_SESSION['cart'] = array();
+                    }
+
                     // onderstaande statement past de hoeveelhied van een product aan
                     if (isset($_POST['submit']) && $_POST['count'] > 0){
                         $_SESSION['cart'][$_POST['product']] = $_POST['count'];
@@ -46,7 +48,7 @@
                     }
 
                     $nr = null;
-                    $subTotaal = null;
+                    $subTotaal = 0;
 
                     // de onderstaande statement lijst de producten uit
                     foreach ($_SESSION['cart'] as $product => $numberOf) {

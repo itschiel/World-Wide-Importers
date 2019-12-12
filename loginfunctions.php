@@ -30,7 +30,7 @@ if(isset($_POST['loginbutton'])) {
                 } elseif($passwordCheck == TRUE) {
                     session_start();
                     $_SESSION['CustomerID'] = $row['CustomerID'];
-                    //header("Location: index.php?login=succes");
+                    header("Location: index.php?login=succes");
                     exit();
                 } else {
                     header("Location: login.php?error=wrongpassword");
