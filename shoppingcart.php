@@ -105,7 +105,7 @@
                     <p>Subtotaal</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print $subTotaalFormat; ?></p>
+                    <p>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; }?></p>
                 </div>
             </div>
             <div class="row">
@@ -122,7 +122,7 @@
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€ <?php print $subTotaalExclBTWFormat; ?> </p>
+                    <p>€ <?php if (isset($subTotaalExclBTWFormat)){ print $subTotaalExclBTWFormatt; } ?> </p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
@@ -131,12 +131,12 @@
                     <h6>Totaal (incl. BTW)</h6>
                 </div>
                 <div class="col-4">
-                    <h6>€<?php print $subTotaalFormat; ?></h6>
+                    <h6>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; } ?></h6>
                 </div>
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="<?php print createPayment($mollieFormat);?>"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="<?php if (isset($mollieFormat)){ createPayment($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
                 </div>
             </div>
         </div>
