@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Functie Includes -->
-        <?php include_once 'Functions/DBConnections.php'; ?>
+        <?php include_once 'Functions/DBConnections.php';?>
 </head>
 
 <body>
@@ -28,16 +28,15 @@
     <h5 class="card-title">Persoon</h5>
 
     <?php
-    $query = ("SELECT FullName, EmailAddress, PhoneNumber 
-    FROM people p WHERE p.PersonID = (SELECT c.PrimaryContactPersonID 
-    FROM customers c WHERE c. CustomerID = 1000);");
+    $query = ("SELECT CustomerName, EmailAddress, PhoneNumber 
+    FROM customers WHERE CustomerID = 1000;");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
 
 while($rows=mysqli_fetch_array($result)){
   print ("
   <tr>
-  <td>". $rows['FullName']. "</td> <br>
+  <td>". $rows['CustomerName']. "</td> <br>
   </tr>
   <tr>
   <td>". $rows['EmailAddress']. "</td> <br>
@@ -57,7 +56,7 @@ while($rows=mysqli_fetch_array($result)){
     <h5 class="card-title">Bezorgadres</h5>
 
     <?php
-    $query = ("SELECT CustomerName, DeliveryAddressLine1, 
+    $query = ("SELECT DeliveryAddressLine1, 
     DeliveryAddressLine2, DeliveryPostalCode, CityName
     FROM customers cm JOIN cities ct ON ct.CityID = cm.DeliveryCityID
     WHERE CustomerID = 1000;
@@ -67,9 +66,6 @@ while($rows=mysqli_fetch_array($result)){
 
 while($rows=mysqli_fetch_array($result)){
   print ("
-  <td>". $rows['CustomerName']. "</td><br>
-  </tr>
-  <tr>
   <td>". $rows['DeliveryAddressLine1']. "</td><br>
   </tr>
   <tr>
@@ -86,13 +82,13 @@ while($rows=mysqli_fetch_array($result)){
 ?>
   <br> <a href="#" class="btn btn-primary">Ander bezorgadres</a>
   </div>
+  
+<!--De bovenste knop verwijst terug naar het winkelwagen. De onderste knop  verwijst in Order.php. Hierin worden de bestellingen doorgegeven-->
+</div>
+<a href="shoppingcart.php" class="btn btn-primary">Ga terug naar Winkelwagen</a>
+<a href="Order.php" class="btn btn-primary">Afrekenen</a>
 </div>
 
-<!-- Op deze kaart word het betaalmethode ideal getoond -->
-<a href="#" class="btn btn-primary">Ga terug naar Winkelwagen</a>
-<a href="#" class="btn btn-primary">Afrekenen</a>
-  </div>
-</div>
 
 <!-- Voegt de Footer to aan de pagina -->
 <?php include 'Includes/Footer.php';?>
