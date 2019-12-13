@@ -34,7 +34,7 @@ $connection->close();
 // mail bevestiginsmail naar klant
 $mailOntvanger = "s1143071@student.windesheim.nl";
 $subject ="Bestelling $OrderID";
-$message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling. Uw bestelling staat hieronder ter bevastiging:";
+$message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling. Uw bestelling staat hieronder ter bevastiging;:";
 
 
 mail($mailOntvanger,$subject,$message);
