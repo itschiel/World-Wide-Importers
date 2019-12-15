@@ -78,10 +78,7 @@
                                                     <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
                                                 </div>
                                                 <div class=\"carousel-item\" class=\"col-md-2\">
-                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
-                                                </div>
-                                                <div class=\"carousel-item\" class=\"col-md-2\">
-                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
+                                                    <img src=\"img\10procentkorting.jpg\">
                                                 </div>
                                                 </div>
                                             
