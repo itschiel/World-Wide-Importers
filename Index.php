@@ -27,11 +27,13 @@
             // Variabeleid haalt het id van het gezoken product  uit de url
             // $productID = $_GET['id'];
 
+            $random = rand(1, 6);
+
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
             $query = ("SELECT s.StockItemName, s.RecommendedRetailPrice, s.MarketingComments, s.Photo, s.SearchDetails, h.QuantityOnHand
                 FROM stockitems s
                 JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
-                WHERE s.StockItemID = 1
+                WHERE s.StockItemID = $random
                 ");
 
             $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
@@ -78,7 +80,7 @@
                                                     <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
                                                 </div>
                                                 <div class=\"carousel-item\" class=\"col-md-2\">
-                                                    <img src=\"img\10procentkorting.jpg\">
+                                                    <img src=\"img/10procentkorting.jpg\">
                                                 </div>
                                                 </div>
                                             
@@ -98,24 +100,25 @@
                             <div class=\"row d-flex justify-content-center\">
                                             <div class=\"col-sm-6\">
                                                 <div class=\"card border-dark mb-3\">
-                                                <div class=\"card-header\">". $row['StockItemName'] ."</div>
+                                                <div class=\"card-header\"> 
+                                                <img class=\"w-25 p-3\" src=\"https://cdn.pixabay.com/photo/2013/07/13/11/53/best-seller-158885_960_720.png\">
+                                                ". $row['StockItemName'] ."</div>
+
                                                 <div class=\"card-body text-dark\">
                                                     <h5 class=\"card-title\">Productinformatie</h5>
                                                     <p class=\"card-text\">" . $row['MarketingComments']. "</p>
-                                                    <h5 class=\"card-title\">Productbeschrijving</h5>
-                                                    <p class=\"card-text\">". $row['SearchDetails'] ."</p>
                                                     <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
                                                 </div>
                                                 </div>
                                             </div>
                                             <div class=\"col-sm-6\">
                                                 <div class=\"card border-dark mb-3\">
-                                                <div class=\"card-header\">". $row['StockItemName'] ."</div>
+                                                <div class=\"card-header\"> 
+                                                <img class=\"w-25 p-3\" src=\"https://cdn.pixabay.com/photo/2013/07/13/11/53/best-seller-158885_960_720.png\">
+                                                ". $row['StockItemName'] ."</div>
                                                 <div class=\"card-body text-dark\">
                                                     <h5 class=\"card-title\">Productinformatie</h5>
                                                     <p class=\"card-text\">" . $row['MarketingComments']. "</p>
-                                                    <h5 class=\"card-title\">Productbeschrijving</h5>
-                                                    <p class=\"card-text\">". $row['SearchDetails'] ."</p>
                                                     <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
                                                 </div>
                                                 </div>
