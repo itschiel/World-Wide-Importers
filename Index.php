@@ -76,7 +76,7 @@
                                                 <!-- The slideshow -->
                                                 <div class=\"carousel-inner\">
                                                 <div class=\"carousel-item active\" class=\"col-md-2\">
-                                                    <img src=\"https://www.eastcorkjournal.ie/wp-content/uploads/2017/12/christmas-sale-650x300.jpg\">
+                                                    <img src=\"img/christmassale.jpg\">
                                                 </div>
                                                 <div class=\"carousel-item\" class=\"col-md-2\">
                                                     <img src=\"img/10procentkorting.jpg\">
