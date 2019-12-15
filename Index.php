@@ -27,12 +27,11 @@
             // Variabeleid haalt het id van het gezoken product  uit de url
             // $productID = $_GET['id'];
 
-            $random = rand(1, 6);
+            $random = rand(1, 100);
 
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
-            $query = ("SELECT s.StockItemName, s.RecommendedRetailPrice, s.MarketingComments, s.Photo, s.SearchDetails, h.QuantityOnHand
+            $query = ("SELECT s.StockItemName, s.MarketingComments, s.SearchDetails
                 FROM stockitems s
-                JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
                 WHERE s.StockItemID = $random
                 ");
 
@@ -40,7 +39,7 @@
             $resultCheck = mysqli_num_rows($result);
 
 
-            // Onderstaande if statement chekct of de db daadwerkelijk een record heeft terug gestuurd
+            // Onderstaande if statement checkt of de db daadwerkelijk een record heeft terug gestuurd
             if($resultCheck > 0){
                 // voor elke record in result wordt het onderstaande uitgevoerd
                 while($row = mysqli_fetch_assoc($result)){
@@ -103,22 +102,59 @@
                                                 <div class=\"card-header\"> 
                                                 <img class=\"w-25 p-3\" src=\"https://cdn.pixabay.com/photo/2013/07/13/11/53/best-seller-158885_960_720.png\">
                                                 ". $row['StockItemName'] ."</div>
-
                                                 <div class=\"card-body text-dark\">
-                                                    <h5 class=\"card-title\">Productinformatie</h5>
-                                                    <p class=\"card-text\">" . $row['MarketingComments']. "</p>
+                                                    <h5 class=\"card-title\">Productbeschrijving</h5>
+                                                    <p class=\"card-text\">" . $row['SearchDetails']. "</p>
                                                     <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
                                                 </div>
                                                 </div>
                                             </div>
+                                            ");
+                                            }
+                                            }
+                                            ?>
+            <?php
+            // Variabeleid haalt het id van het gezoken product  uit de url
+            // $productID = $_GET['id'];
+
+            $random1 = rand(1, 100);
+
+            //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
+            $query = ("SELECT s.StockItemName, s.MarketingComments, s.SearchDetails
+                FROM stockitems s
+                WHERE s.StockItemID = $random1
+                ");
+
+            $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
+            $resultCheck = mysqli_num_rows($result);
+
+
+            // Onderstaande if statement checkt of de db daadwerkelijk een record heeft terug gestuurd
+            if($resultCheck > 0){
+                // voor elke record in result wordt het onderstaande uitgevoerd
+                while($row1 = mysqli_fetch_assoc($result)){
+
+                    // onderstaande if else statement checkt of er een foto bij het product zit zo niet wordt de deafult image geladen
+                    if (empty($row1['Photo'])) {
+
+                        $imgPath = ("Img/defaultProduct.jpg");
+                        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
+                        $img = base64_encode($imgBinary);
+                    
+                    } else {
+                        $img = base64_encode($row1["Photo"]);
+                    }
+                    
+                    // onderstaande print plaatst de benodigde html op de pagina
+                    print("
                                             <div class=\"col-sm-6\">
                                                 <div class=\"card border-dark mb-3\">
                                                 <div class=\"card-header\"> 
                                                 <img class=\"w-25 p-3\" src=\"https://cdn.pixabay.com/photo/2013/07/13/11/53/best-seller-158885_960_720.png\">
-                                                ". $row['StockItemName'] ."</div>
+                                                ". $row1['StockItemName'] ."</div>
                                                 <div class=\"card-body text-dark\">
-                                                    <h5 class=\"card-title\">Productinformatie</h5>
-                                                    <p class=\"card-text\">" . $row['MarketingComments']. "</p>
+                                                    <h5 class=\"card-title\">Productbeschrijving</h5>
+                                                    <p class=\"card-text\">" . $row1['SearchDetails']. "</p>
                                                     <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
                                                 </div>
                                                 </div>
@@ -128,10 +164,10 @@
                             </div>
                             
                         </div>
-                    </div>
-                ");
-                }
-            }
+                        </div>
+                        ");
+                        }
+                        }
             ?>
 
 <!-- Voegt de Footer to aan de pagina -->
