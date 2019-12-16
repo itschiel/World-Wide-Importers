@@ -6,7 +6,7 @@ session_start();
 include_once 'Functions/api.php';
 include_once 'Functions/mollie.php';
 
-print_r($_SESSION['cart']);
+// print_r($_SESSION['cart']);
 
 // Haalt eenmalig databaseconnectie op uit 'unctions/DBConnections.php' een voert het connectie uit.
 include_once 'Functions/DBConnections.php';
@@ -17,7 +17,7 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-// in de statement worden de OrderID, CustomerID(de ingelogde gebruiker) en Orderdate geregistreerd
+// in de statement worden de OrderID, $CustomerID (de ingelogde gebruiker) en Orderdate geregistreerd
 
 $sql ="SELECT OrderID
 FROM Orders
@@ -30,9 +30,9 @@ $CustomerID = $_SESSION['CustomerID'];
 $sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?);";
 
 
-// $statement = mysqli_prepare($connection, $sql);
-// $statement->bind_param("ii",$OrderID,$CustomerID);
-// mysqli_stmt_execute($statement);
+$statement = mysqli_prepare($connection, $sql);
+$statement->bind_param("ii",$OrderID,$CustomerID);
+mysqli_stmt_execute($statement);
 
 
 
@@ -59,23 +59,25 @@ mysqli_close($connection);
 
 
 // mail bevestiginsmail naar klant
+$Cart = $_SESSION['cart'];
 $sql = "SELECT EmailAddress
-FROM Customers 
-WHERE CustomerID = $CustomerID;";
- $satement = mysqli_prepare($connection, $sql);
+FROM Customers WHERE CustomerID = $CustomerID;";
+$satement = mysqli_prepare($connection, $sql);
 
-mysqli_stmt_bind_param($satement, "s", $email);
-mysqli_stmt_execute($satement);
-$result = mysqli_stmt_get_result($satement);
+$result= mysqli_query(dbConnectionRoot(), $sql);
 
+while ($rows = mysqli_fetch_assoc($result){
+    print ($rows['EmailAddress']);    
+}
 
-$mailOntvanger = "$statement";
+$mailOntvanger = $rows['EmailAddress'];;
 $subject ="Bestelling";
-$message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling. Uw bestelling staat hieronder ter bevastiging:";
+$message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
+Uw bestelling staat hieronder ter bevastiging:\n";
 
 
-// mail($mailOntvanger,$subject,$message);
+mail($mailOntvanger,$subject,$message);
 
 // verwijst door naar 'End.php'. Daarin wordt bevestigd aan de klant dat de bestelling geslaagd is.
-//header("Location: End.php");
+header("Location: End.php");
 ?>
