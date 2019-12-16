@@ -68,7 +68,7 @@
 
                 <div class="dropdown">
                     <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                        Catagorien
+                        Categorieën
                     </a>
                     <div class="dropdown-menu">
                         <?php

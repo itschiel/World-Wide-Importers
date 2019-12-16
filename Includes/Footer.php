@@ -16,17 +16,16 @@
 <div class="fixed-bottom">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Footer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>   
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">www.info@wideworldimporters.com</a>
+                        <a class="nav-link" href="#">info@wideworldimporters.com</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">06........</a>
+                        <a class="nav-link" href="#">06-telefoonnummer</a>
                     </li>
                 </ul>
             </div>        
