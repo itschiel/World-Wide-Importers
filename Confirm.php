@@ -28,8 +28,9 @@
     <h5 class="card-title">Persoon</h5>
 
     <?php
+    $CustomerID = $_SESSION["CustomerID"];
     $query = ("SELECT CustomerName, EmailAddress, PhoneNumber 
-    FROM customers WHERE CustomerID = 1000;");
+    FROM customers WHERE CustomerID = $CustomerID;");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
 
@@ -57,9 +58,8 @@ while($rows=mysqli_fetch_array($result)){
 
     <?php
     $query = ("SELECT DeliveryAddressLine1, 
-    DeliveryAddressLine2, DeliveryPostalCode, CityName
-    FROM customers cm JOIN cities ct ON ct.CityID = cm.DeliveryCityID
-    WHERE CustomerID = 1000;
+    DeliveryAddressLine2, DeliveryPostalCode
+    FROM customers WHERE CustomerID = $CustomerID;
     ");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
@@ -69,13 +69,7 @@ while($rows=mysqli_fetch_array($result)){
   <td>". $rows['DeliveryAddressLine1']. "</td><br>
   </tr>
   <tr>
-  <td>". $rows['DeliveryAddressLine2']. "</td><br>
-  </tr>
-  <tr>
   <td>". $rows['DeliveryPostalCode']. "</td>
-  </tr>
-  <tr>
-  <td>". $rows['CityName']. "</td><br>
   </tr>
   ");
 }
