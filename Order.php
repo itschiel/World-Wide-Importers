@@ -1,7 +1,5 @@
 <?php
 session_start();
-?>
-<?php
 
 include_once 'Functions/api.php';
 include_once 'Functions/mollie.php';
@@ -24,6 +22,7 @@ ORDER BY OrderID DESC
 LIMIT 1";
 $result = (mysqli_query($connection, $sql));
 $row =  mysqli_fetch_object($result);
+
 $OrderID = ($row->OrderID)+1;
 $CustomerID = $_SESSION['CustomerID'];
 $sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?);";
@@ -34,18 +33,16 @@ $statement->bind_param("ii",$OrderID,$CustomerID);
 mysqli_stmt_execute($statement);
 
 
-
-//-----------------------------------------------------------
 // de onderstaande statement lijst de producten uit
 foreach ($_SESSION['cart'] as $product => $numberOf) {
 
     // data betreffend het product wordt opgehaald uit database
-    $query = (" SELECT *
+    $sql = (" SELECT *
         FROM stockitems
         WHERE StockItemID = $product
     ");
     
-    $result = mysqli_query(dbConnectionRoot(), $query);
+    $result = mysqli_query(dbConnectionRoot(), $sql);
     $row = mysqli_fetch_assoc($result);
 }
 
@@ -68,14 +65,17 @@ $statement = mysqli_prepare($connection, $sql);
 $statement->bind_param("iiii",$OrderLineID,$OrderID,$StockItemID,$Quantity);
 mysqli_stmt_execute($statement);
 
-mysqli_close($connection);
 
-//-----------------------------------------------------------
+// Vooraad gaat af van vooraad van bestelling
+$sql = ("stockitemholdings 
+SET QuantityOnHand = QuantityOnHand - $numberOf
+WHERE StockItemID = $StockItemID"); 
 
 
 // mail bevestiginsmail naar klant
 $Cart = $_SESSION['cart'];
-$sql = "SELECT EmailAddress
+
+$mailOntvanger = $sql = "SELECT EmailAddress
 FROM Customers WHERE CustomerID = $CustomerID;";
 $satement = mysqli_prepare($connection, $sql);
 
@@ -88,8 +88,6 @@ while($rows=mysqli_fetch_array($result)){
     </tr>
     ");
   }
-
-$mailOntvanger = $rows['EmailAddress'];
 $subject ="Bestelling";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
 Uw bestelling staat hieronder ter bevastiging:\n";
@@ -97,6 +95,7 @@ Uw bestelling staat hieronder ter bevastiging:\n";
 
 mail($mailOntvanger,$subject,$message);
 
+mysqli_close($connection);
 // verwijst door naar 'End.php'. Daarin wordt bevestigd aan de klant dat de bestelling geslaagd is.
 header("Location: End.php");
 ?>
