@@ -33,14 +33,23 @@ if(isset($_POST['loginbutton'])) {
                                     FROM Customers
                                     WHERE EmailAddress=?
                                     LIMIT 1;";
+                    $statementVerified = $connection->prepare($sqlVerified);
+                    $statementVerified->bind_param('s', $email);
+                    
+                    // $statementVerified->execute();
+                    
+                    // $statementVerified->bind_result($verifiedCheck);
+                    // $statementVerified->store_result();
+                    // $statementVerified->fetch();
+
                     $statementVerified = mysqli_prepare($connection, $sqlVerified);
                     mysqli_stmt_bind_param($statementVerified, "s", $email);
                     mysqli_stmt_execute($statementVerified);
                     $verifiedCheck = mysqli_stmt_get_result($statementVerified);
                     
-                    if($statementVerified == false) {
+                    if($verifiedCheck == 0) {
                         print("0");
-                    } elseif($statementVerified == true) {
+                    } elseif($verifiedCheck == 1) {
                         print("1");
                     }
                 //     if ($verifiedCheck == FALSE) {
@@ -54,7 +63,7 @@ if(isset($_POST['loginbutton'])) {
                 //  } elseif ($passwordCheck == FALSE) {
                 //         header("Location: login.php?error=wrongpassword");
                 //         exit();
-                 } else {
+                } else {
                 header("Location: login.php?error=nouser");
                 exit();
             }
