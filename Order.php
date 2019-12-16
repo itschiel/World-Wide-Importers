@@ -47,50 +47,44 @@ foreach ($_SESSION['cart'] as $product => $numberOf) {
 }
 
 // in de statement worden de OrderlineID, OrderID, StockIetemID en Orderdate geregistreerd
-$sql ="SELECT OrderLineID
-FROM Orderlines
-ORDER BY OrderLineID DESC
-LIMIT 1";
-$result = (mysqli_query($connection, $sql));
-$row =  mysqli_fetch_object($result);
+// $sql ="SELECT OrderLineID
+// FROM orderlines
+// ORDER BY OrderLineID DESC
+// LIMIT 1";
+// $result = (mysqli_query($connection, $sql));
+// $row =  mysqli_fetch_object($result);
 
-$OrderLineID = ($row->OrderLineID)+1;
-$StockItemID = $product;
-$Quantity = $numberOf;
+// $OrderLineID = ($row->OrderLineID)+1;
+// $StockItemID = $product;
+// $Quantity = $numberOf;
 
-$sql="INSERT INTO orders (OrderID,CustomerID,StockItemID,Quantity) VALUES (?,?,?,?);";
+// $sql="INSERT INTO orderlines (OrderID,CustomerID,StockItemID,Quantity) VALUES (?,?,?,?);";
 
 
-$statement = mysqli_prepare($connection, $sql);
-$statement->bind_param("iiii",$OrderLineID,$OrderID,$StockItemID,$Quantity);
-mysqli_stmt_execute($statement);
+// $statement = mysqli_prepare($connection, $sql);
+// $statement->bind_param("iiii",$OrderLineID,$OrderID,$StockItemID,$Quantity);
+// mysqli_stmt_execute($statement);
 
 
 // Vooraad gaat af van vooraad van bestelling
-$sql = ("stockitemholdings 
-SET QuantityOnHand = QuantityOnHand - $numberOf
-WHERE StockItemID = $StockItemID"); 
+// $sql = ("stockitemholdings 
+// SET QuantityOnHand = QuantityOnHand - $numberOf
+// WHERE StockItemID = $StockItemID"); 
 
 
 // mail bevestiginsmail naar klant
-$Cart = $_SESSION['cart'];
 
-$mailOntvanger = $sql = "SELECT EmailAddress
-FROM Customers WHERE CustomerID = $CustomerID;";
-$satement = mysqli_prepare($connection, $sql);
+$sql = ("SELECT EmailAddress FROM customers
+WHERE CustomerID = $CustomerID");
 
-$result= mysqli_query(dbConnectionRoot(), $sql);
+$result = mysqli_query(dbConnectionRoot(), $sql);
+$values = mysqli_fetch_assoc($result);
 
-while($rows=mysqli_fetch_array($result)){
-    print ("
-    <tr>
-    <td>". $rows['EmailAddress']. "</td>
-    </tr>
-    ");
-  }
-$subject ="Bestelling";
+$mailOntvanger = $values['EmailAddress'];
+$subject ="Bestelling $OrderID";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
-Uw bestelling staat hieronder ter bevastiging:\n";
+Uw bestelling $OrderID staat hieronder ter bevastiging:\n
+Aantal :$numberOf";
 
 
 mail($mailOntvanger,$subject,$message);
