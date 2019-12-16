@@ -64,7 +64,7 @@
                             WHERE StockItemID = $product
                         ");
 
-                        $connection = dbConnectionRoot()
+                        $connection = dbConnectionRoot();
                         $result = mysqli_query($connection, $query);
                         $row = mysqli_fetch_assoc($result);
 

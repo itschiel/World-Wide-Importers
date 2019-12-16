@@ -46,15 +46,15 @@ function productCard($row, $rate) {
     ');
 }
 
-getFirstPhoto($productID){
+function getFirstPhoto($productID){
 
     // onderstaande query haalt de eerste foto van een product op
     $query = ("SELECT foto
         FROM productimages
         WHERE productid = $productID
-        LIMIT 1
+        LIMIT 1;
         ");
-
+        
     $connection = dbConnectionRoot();
     $result = mysqli_query($connection, $query);
     $resultCheck = mysqli_num_rows($result);
