@@ -22,15 +22,13 @@
 <!-- onderstaande query wordt gebruikt om de benodigde data op te halen om de besteller te bekijken -->
 <!-- met de while worden de gegevens uit de query weergegeven op de website -->
 <!-- de div is het kaart van bootstrap -->
-
+<?php$CustomerID $_SESSION['CustomerID']?>
 <div class="card w-25">
   <div class="card-body">
     <h5 class="card-title">Persoon</h5>
-
     <?php
     $query = ("SELECT FullName, EmailAddress, PhoneNumber 
-    FROM people p WHERE p.PersonID = (SELECT c.PrimaryContactPersonID 
-    FROM customers c WHERE c. CustomerID = 1000);");
+    FROM customers WHERE CustomerID = $CustomerID);");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
 
@@ -58,9 +56,8 @@ while($rows=mysqli_fetch_array($result)){
 
     <?php
     $query = ("SELECT DeliveryAddressLine1, 
-    DeliveryAddressLine2, DeliveryPostalCode, CityName
-    FROM customers cm JOIN cities ct ON ct.CityID = cm.DeliveryCityID
-    WHERE CustomerID = 1000;
+    DeliveryPostalCode FROM customers 
+    WHERE CustomerID = $CustomerID;
     ");
 
   $result= mysqli_query(dbConnectionRoot(), $query);
@@ -70,23 +67,16 @@ while($rows=mysqli_fetch_array($result)){
   <td>". $rows['DeliveryAddressLine1']. "</td><br>
   </tr>
   <tr>
-  <td>". $rows['DeliveryAddressLine2']. "</td><br>
-  </tr>
-  <tr>
   <td>". $rows['DeliveryPostalCode']. "</td>
-  </tr>
-  <tr>
-  <td>". $rows['CityName']. "</td><br>
   </tr>
   ");
 }
 ?>
-  <br> <a href="#" class="btn btn-primary">Ander bezorgadres</a>
   </div>
 </div>
 
 <!-- Op deze kaart word het betaalmethode ideal getoond -->
-<a href="#" class="btn btn-primary">Ga terug naar Winkelwagen</a>
+<a href="shoppingcart.php" class="btn btn-primary">Ga terug naar Winkelwagen</a>
 <a href="Order.php" class="btn btn-primary">Afrekenen</a>
   </div>
 </div>
