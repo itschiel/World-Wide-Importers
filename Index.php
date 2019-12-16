@@ -22,38 +22,59 @@
         <?php include 'Functions/ProductResult.php'; ?>
 
     </head>
+    <body>
+                        <div class="container">
+                        <div class="col mx-auto">
+                        
+                            <div class="container">
+                            <div class="row d-flex justify-content-center">
+                            <div class="row d-flex justify-content-center">
 
+                                            <div id="demo" class="carousel slide" data-ride="carousel">
+                                            <!-- Indicators -->
+                                            <ul class="carousel-indicators">
+                                            <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                            <li data-target="#demo" data-slide-to="1"></li>
+                                            <li data-target="#demo" data-slide-to="2"></li>
+                                            </ul>
+                                        
+                                            <!-- The slideshow -->
+                                            <div class="carousel-inner">
+                                            <div class="carousel-item active" class="col-md-2">
+                                                <img src="img/christmassale.jpg">
+                                            </div>
+                                            <div class="carousel-item" class="col-md-2">
+                                                <img src="img/10procentkorting.jpg">
+                                            </div>
+                                            </div>
+                                        
+                                            <!-- Left and right controls -->
+                                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                            <span class="carousel-control-prev-icon"></span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#demo" data-slide="next">
+                                            <span class="carousel-control-next-icon"></span>
+                                            </a>
+                                            </div>
+                                            
             <?php
-            // Variabeleid haalt het id van het gezoken product  uit de url
-            // $productID = $_GET['id'];
 
-            $random = rand(1, 100);
+                $random = rand(1, 50);
+                $random2 = rand(51, 100);
 
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
-            $query = ("SELECT s.StockItemName, s.MarketingComments, s.SearchDetails
-                FROM stockitems s
-                WHERE s.StockItemID = $random
+            $query = ("SELECT StockItemID, StockItemName, MarketingComments, SearchDetails
+                FROM stockitems
+                WHERE StockItemID = $random OR StockItemID = $random2
                 ");
 
             $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
             $resultCheck = mysqli_num_rows($result);
 
-
             // Onderstaande if statement checkt of de db daadwerkelijk een record heeft terug gestuurd
             if($resultCheck > 0){
                 // voor elke record in result wordt het onderstaande uitgevoerd
                 while($row = mysqli_fetch_assoc($result)){
-
-                    // onderstaande if else statement checkt of er een foto bij het product zit zo niet wordt de deafult image geladen
-                    if (empty($row['Photo'])) {
-
-                        $imgPath = ("Img/defaultProduct.jpg");
-                        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
-                        $img = base64_encode($imgBinary);
-                    
-                    } else {
-                        $img = base64_encode($row["Photo"]);
-                    }
                     
                     // onderstaande print plaatst de benodigde html op de pagina
                     print("
@@ -64,39 +85,6 @@
                             <div class=\"row d-flex justify-content-center\">
                             <div class=\"row d-flex justify-content-center\">
 
-                                                <div id=\"demo\" class=\"carousel slide\" data-ride=\"carousel\">
-
-                                                <!-- Indicators -->
-                                                <ul class=\"carousel-indicators\">
-                                                <li data-target=\"#demo\" data-slide-to=\"0\" class=\"active\"></li>
-                                                <li data-target=\"#demo\" data-slide-to=\"1\"></li>
-                                                <li data-target=\"#demo\" data-slide-to=\"2\"></li>
-                                                </ul>
-                                            
-                                                <!-- The slideshow -->
-                                                <div class=\"carousel-inner\">
-                                                <div class=\"carousel-item active\" class=\"col-md-2\">
-                                                    <img src=\"img/christmassale.jpg\">
-                                                </div>
-                                                <div class=\"carousel-item\" class=\"col-md-2\">
-                                                    <img src=\"img/10procentkorting.jpg\">
-                                                </div>
-                                                </div>
-                                            
-                                                <!-- Left and right controls -->
-                                                <a class=\"carousel-control-prev\" href=\"#demo\" data-slide=\"prev\">
-                                                <span class=\"carousel-control-prev-icon\"></span>
-                                                </a>
-                                                <a class=\"carousel-control-next\" href=\"#demo\" data-slide=\"next\">
-                                                <span class=\"carousel-control-next-icon\"></span>
-                                                </a>
-                                            
-                                                </div>
-   
-
-                            <div class=\"container\">
-                            <div class=\"row d-flex justify-content-center\">
-                            <div class=\"row d-flex justify-content-center\">
                                             <div class=\"col-sm-6\">
                                                 <div class=\"card border-dark mb-3\">
                                                 <div class=\"card-header\"> 
@@ -105,57 +93,7 @@
                                                 <div class=\"card-body text-dark\">
                                                     <h5 class=\"card-title\">Productbeschrijving</h5>
                                                     <p class=\"card-text\">" . $row['SearchDetails']. "</p>
-                                                    <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            ");
-                                            }
-                                            }
-                                            ?>
-
-            <?php
-            // Variabeleid haalt het id van het gezoken product  uit de url
-            // $productID = $_GET['id'];
-
-            $random1 = rand(1, 100);
-
-            //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
-            $query = ("SELECT s.StockItemName, s.MarketingComments, s.SearchDetails
-                FROM stockitems s
-                WHERE s.StockItemID = $random1
-                ");
-
-            $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
-            $resultCheck = mysqli_num_rows($result);
-
-            // Onderstaande if statement checkt of de db daadwerkelijk een record heeft terug gestuurd
-            if($resultCheck > 0){
-                // voor elke record in result wordt het onderstaande uitgevoerd
-                while($row1 = mysqli_fetch_assoc($result)){
-
-                    // onderstaande if else statement checkt of er een foto bij het product zit zo niet wordt de deafult image geladen
-                    if (empty($row1['Photo'])) {
-
-                        $imgPath = ("Img/defaultProduct.jpg");
-                        $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
-                        $img = base64_encode($imgBinary);
-                    
-                    } else {
-                        $img = base64_encode($row1["Photo"]);
-                    }
-                    
-                    // onderstaande print plaatst de benodigde html op de pagina
-                    print("
-                                            <div class=\"col-sm-6\">
-                                                <div class=\"card border-dark mb-3\">
-                                                <div class=\"card-header\"> 
-                                                <img class=\"w-25 p-3\" src=\"https://cdn.pixabay.com/photo/2013/07/13/11/53/best-seller-158885_960_720.png\">
-                                                ". $row1['StockItemName'] ."</div>
-                                                <div class=\"card-body text-dark\">
-                                                    <h5 class=\"card-title\">Productbeschrijving</h5>
-                                                    <p class=\"card-text\">" . $row1['SearchDetails']. "</p>
-                                                    <a href=\"#\" class=\"btn btn-primary\">Naar productpagina</a>
+                                                    <a href=\"ProductPage.php?id=". $row['StockItemID'] . "\" class=\"btn btn-primary\">Naar productpagina</a>
                                                 </div>
                                                 </div>
                                             </div>
@@ -170,7 +108,8 @@
                         }
             ?>
 
+</body>
+
 <!-- Voegt de Footer to aan de pagina -->
 <?php include 'Includes/Footer.php';?>
-</body>
 </html>
