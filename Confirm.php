@@ -65,6 +65,7 @@ while($rows=mysqli_fetch_array($result)){
 
 while($rows=mysqli_fetch_array($result)){
   print ("
+  <tr>
   <td>". $rows['DeliveryAddressLine1']. "</td><br>
   </tr>
   <tr>

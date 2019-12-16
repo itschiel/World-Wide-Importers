@@ -18,7 +18,6 @@ if ($connection->connect_error) {
 }
 
 // in de statement worden de OrderID, $CustomerID (de ingelogde gebruiker) en Orderdate geregistreerd
-
 $sql ="SELECT OrderID
 FROM Orders
 ORDER BY OrderID DESC
@@ -37,21 +36,37 @@ mysqli_stmt_execute($statement);
 
 
 //-----------------------------------------------------------
+// de onderstaande statement lijst de producten uit
+foreach ($_SESSION['cart'] as $product => $numberOf) {
 
-// $sql ="SELECT OrderLineID
-// FROM Orderlines
-// ORDER BY OrderLineID DESC
-// LIMIT 1";
-// $result = (mysqli_query($connection, $sql));
-// $row =  mysqli_fetch_object($result);
-// $OrderLineID = ($row->OrderLineID)+1;
-// $StockItemID = $product;
-// $sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?,?);";
+    // data betreffend het product wordt opgehaald uit database
+    $query = (" SELECT *
+        FROM stockitems
+        WHERE StockItemID = $product
+    ");
+    
+    $result = mysqli_query(dbConnectionRoot(), $query);
+    $row = mysqli_fetch_assoc($result);
+}
+
+// in de statement worden de OrderlineID, OrderID, StockIetemID en Orderdate geregistreerd
+$sql ="SELECT OrderLineID
+FROM Orderlines
+ORDER BY OrderLineID DESC
+LIMIT 1";
+$result = (mysqli_query($connection, $sql));
+$row =  mysqli_fetch_object($result);
+
+$OrderLineID = ($row->OrderLineID)+1;
+$StockItemID = $product;
+$Quantity = $numberOf;
+
+$sql="INSERT INTO orders (OrderID,CustomerID,StockItemID,Quantity) VALUES (?,?,?,?);";
 
 
-// $statement = mysqli_prepare($connection, $sql);
-// $statement->bind_param("iii",$OrderLineID,$OrderID,$StockItemID);
-// mysqli_stmt_execute($statement);
+$statement = mysqli_prepare($connection, $sql);
+$statement->bind_param("iiii",$OrderLineID,$OrderID,$StockItemID,$Quantity);
+mysqli_stmt_execute($statement);
 
 mysqli_close($connection);
 
@@ -66,11 +81,15 @@ $satement = mysqli_prepare($connection, $sql);
 
 $result= mysqli_query(dbConnectionRoot(), $sql);
 
-while ($rows = mysqli_fetch_assoc($result){
-    print ($rows['EmailAddress']);    
-}
+while($rows=mysqli_fetch_array($result)){
+    print ("
+    <tr>
+    <td>". $rows['EmailAddress']. "</td>
+    </tr>
+    ");
+  }
 
-$mailOntvanger = $rows['EmailAddress'];;
+$mailOntvanger = $rows['EmailAddress'];
 $subject ="Bestelling";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
 Uw bestelling staat hieronder ter bevastiging:\n";
