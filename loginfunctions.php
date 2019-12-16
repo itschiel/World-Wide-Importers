@@ -29,45 +29,45 @@ if(isset($_POST['loginbutton'])) {
                     exit();
                 } elseif($passwordCheck == TRUE) {
                 //This checks if the account is verified
+                    // $sqlVerified = "SELECT verified
+                    //                 FROM Customers
+                    //                 WHERE EmailAddress=?
+                    //                 LIMIT 1;";
+                    
                     $sqlVerified = "SELECT verified
                                     FROM Customers
-                                    WHERE EmailAddress=?
+                                    WHERE EmailAddress='$email'
                                     LIMIT 1;";
-                    $statementVerified = $connection->prepare($sqlVerified);
-                    $statementVerified->bind_param('s', $email);
+                    $resultVerified = (mysqli_query($connection, $sqlVerified));
+                    $rowVerified =  mysqli_fetch_assoc($resultVerified);
+                    $verifiedCheck = ($rowVerified['verified']);
                     
-                    // $statementVerified->execute();
+                    // $statementVerified = mysqli_prepare($connection, $sqlVerified);
+                    // mysqli_stmt_bind_param($statementVerified, "s", $email);
+                    // mysqli_stmt_execute($statementVerified);
+                    // $verifiedCheck = mysqli_stmt_get_result($statementVerified);
                     
-                    // $statementVerified->bind_result($verifiedCheck);
-                    // $statementVerified->store_result();
-                    // $statementVerified->fetch();
-
-                    $statementVerified = mysqli_prepare($connection, $sqlVerified);
-                    mysqli_stmt_bind_param($statementVerified, "s", $email);
-                    mysqli_stmt_execute($statementVerified);
-                    $verifiedCheck = mysqli_stmt_get_result($statementVerified);
-                    
-                    if($verifiedCheck == 0) {
-                        print("0");
-                    } elseif($verifiedCheck == 1) {
-                        print("1");
+                    // if($verifiedCheck == 0) {
+                    //     print("0");
+                    // } elseif($verifiedCheck == 1) {
+                    //     print("1");
+                    // }
+                    if ($verifiedCheck == FALSE) {
+                        header("Location: login.php?error=verified");
+                    } elseif ($verifiedCheck == TRUE) {
+                        session_start();
+                        $_SESSION['CustomerID'] = $row['CustomerID'];
+                        header("Location: index.php?login=succes");
+                        exit();
                     }
-                //     if ($verifiedCheck == FALSE) {
-                //         header("Location: login.php?error=verified");
-                //     } elseif ($verifiedCheck == TRUE) {
-                //         session_start();
-                //         $_SESSION['CustomerID'] = $row['CustomerID'];
-                //         header("Location: index.php?login=succes");
-                //         exit();
-                //     }
-                //  } elseif ($passwordCheck == FALSE) {
-                //         header("Location: login.php?error=wrongpassword");
-                //         exit();
-                } else {
+                 } elseif ($passwordCheck == FALSE) {
+                        header("Location: login.php?error=wrongpassword");
+                        exit();
+                } 
+            } else {
                 header("Location: login.php?error=nouser");
                 exit();
-            }
-        }
+        } 
     }
 } else {
     header("Location: login.php");

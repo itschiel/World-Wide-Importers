@@ -63,7 +63,8 @@ session_start();
                     print('<form method=post action=logout.php>
                     <button type="submit" name="logout" class="btn btn-primary btn-xs">Uitloggen</button>
                     </form>');
-                }
+                } 
+                
                 ?>
                 <!-- <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a> -->
             </div>
