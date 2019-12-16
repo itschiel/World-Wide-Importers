@@ -23,45 +23,46 @@
 
     </head>
     <body>
-                        <div class="container">
-                        <div class="col mx-auto">
+        <div class="container">
+            <div class="col mx-auto">
                         
-                            <div class="container">
-                            <div class="row d-flex justify-content-center">
-                            <div class="row d-flex justify-content-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-center">
 
-                                            <div id="demo" class="carousel slide" data-ride="carousel">
-                                            <!-- Indicators -->
-                                            <ul class="carousel-indicators">
-                                            <li data-target="#demo" data-slide-to="0" class="active"></li>
-                                            <li data-target="#demo" data-slide-to="1"></li>
-                                            <li data-target="#demo" data-slide-to="2"></li>
-                                            </ul>
+                            <div id="demo" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                    <li data-target="#demo" data-slide-to="1"></li>
+                                    <li data-target="#demo" data-slide-to="2"></li>
+                                </ul>
                                         
-                                            <!-- The slideshow -->
-                                            <div class="carousel-inner">
-                                            <div class="carousel-item active" class="col-md-2">
-                                                <img src="img/christmassale.jpg">
-                                            </div>
-                                            <div class="carousel-item" class="col-md-2">
-                                                <img src="img/10procentkorting.jpg">
-                                            </div>
-                                            </div>
-                                        
-                                            <!-- Left and right controls -->
-                                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                            <span class="carousel-control-prev-icon"></span>
-                                            </a>
-                                            <a class="carousel-control-next" href="#demo" data-slide="next">
-                                            <span class="carousel-control-next-icon"></span>
-                                            </a>
-                                            </div>
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" class="col-md-2">
+                                        <img src="img/christmassale.jpg">
+                                    </div>
+                                    <div class="carousel-item" class="col-md-2">
+                                        <img src="img/10procentkorting.jpg">
+                                    </div>
+                                </div>
+                            
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div>
+                        <div class="row">
                                             
             <?php
 
-                $random = rand(1, 50);
-                $random2 = rand(51, 100);
-
+                $random = rand(1, 5);
+                $random2 = rand(150, 155);
+                
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
             $query = ("SELECT StockItemID, StockItemName, MarketingComments, SearchDetails
                 FROM stockitems
@@ -78,12 +79,6 @@
                     
                     // onderstaande print plaatst de benodigde html op de pagina
                     print("
-                        <div class=\"container\">
-                        <div class=\"col mx-auto\">
-                        
-                            <div class=\"container\">
-                            <div class=\"row d-flex justify-content-center\">
-                            <div class=\"row d-flex justify-content-center\">
 
                                             <div class=\"col-sm-6\">
                                                 <div class=\"card border-dark mb-3\">
@@ -97,18 +92,12 @@
                                                 </div>
                                                 </div>
                                             </div>
-                            </div>
-                            </div>
-                            </div>
-                            
-                        </div>
-                        </div>
                         ");
                         }
                         }
             ?>
 
-</body>
+    </body>
 
 <!-- Voegt de Footer to aan de pagina -->
 <?php include 'Includes/Footer.php';?>
