@@ -31,7 +31,7 @@
     $query = ("SELECT CustomerName, EmailAddress, PhoneNumber 
     FROM customers WHERE CustomerID = $CustomerID;");
 
-$result= mysqli_query(dbConnectionRoot(), $query);
+$result = mysqli_query(dbConnectionRoot(), $query);
 
 while($rows=mysqli_fetch_array($result)){
   print ("
