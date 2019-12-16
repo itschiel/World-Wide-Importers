@@ -23,6 +23,8 @@
 </head>
 <body>
 
+<?php session_start() ?>
+
 <div class="row bg-dark">
     <div class="container">
         <div class="row">
@@ -85,7 +87,7 @@
                         ?>
                     </div>
                 </div>
-
+                
             </div>
             <div class="col-8">
 
