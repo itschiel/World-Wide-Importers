@@ -40,6 +40,19 @@
 
 
         <?php
+        //de querry voor de voorraad conversieverhogende maatregel
+        //de querry voor de koelstatus van het product
+        $ProductID1 = $_GET['id'];
+        $op = ("SELECT h.QuantityOnHand, s.IsChillerStock
+        FROM stockitems s
+        JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
+        WHERE s.StockItemID = $ProductID1
+        ");
+        $result = mysqli_query(dbConnectionRoot(), $op); 
+        $resultCheck = mysqli_num_rows($result);
+        $row =  mysqli_fetch_object($result);
+        $QuantityOnHand = ($row->QuantityOnHand);
+        $IsChillerStock = ($row->IsChillerStock);        
 
         if(isset($_GET["winkelwagen"])){
             addToCart($_GET["id"], 1);
@@ -100,6 +113,15 @@
                                                 <p>' . $row["MarketingComments"]. '</p>
                                                 <p class="font-weight-bold">Productbeschrijving: </p>
                                                 <p>'. $row["SearchDetails"] .'</p>
+                                                <p class="font-weight-bold">Koelstatus: </p>
+                                                ');?>
+                                                <?php
+                                                if($IsChillerStock == "1"){
+                                                    print("Wel koud");
+                                                }else{
+                                                    print("Niet koud");
+                                                }
+                                                print('
                                             </div>
                                             <div class="card border-dark mb-3" style="max-width: 18rem">
                                                 <div class="card-header">
@@ -110,6 +132,12 @@
                                                 <ul class="list-unstyled mt-3 mb-4">
                                                     <li>'. $row["QuantityOnHand"] .' stuk(s) voorradig</li>
                                                 </ul>
+                                                ');?>
+                                                <?php
+                                                if($QuantityOnHand < 1000){
+                                                    print("<img class=\"w-50 p-3\" src=\"img\op=op.jpg\">");
+                                                }
+                                                print('
                                                 <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
                                             </div>
                                         </div>
