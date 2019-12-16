@@ -1,7 +1,7 @@
 <?php
 //Here we check if the user came by pressing the button at the signup page
 if(isset($_POST['signupbutton'])) {
-    include_once "Functions/dbconnections.php";
+    include_once "Functions/dbconnections.php";    
     $connection = dbConnectionRoot();
 
     //All variables are needed because the database isn't auto incremented
@@ -32,6 +32,7 @@ if(isset($_POST['signupbutton'])) {
     $lastEditedBy = 1;
     $validFrom = "2019-12-04 00:00:00";
     $validTo = "9999-12-31 23:59:59";
+    $verified = 0;
     
     //First we check if there are any errors while making the account
     if(empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phoneNumber) OR empty($deliveryAddressLine1) OR empty($deliveryPostalCode)){
@@ -86,22 +87,34 @@ if(isset($_POST['signupbutton'])) {
                     StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, 
                     PaymentDays, WebsiteURL, DeliveryAddressLine1, 
                     DeliveryPostalCode, PostalAddressLine1, PostalPostalCode, 
-                    LastEditedBy, ValidFrom, ValidTo) 
-                    VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    LastEditedBy, ValidFrom, ValidTo, verified, vkey) 
+                    VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
                 //Here we hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                //For email
+                $vkey = crypt(time() . $fullName);
 
                 $statement = mysqli_prepare($connection, $sql);
-                mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisss", 
+                mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisssis", 
                 $CustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
                 $buyingGroupID, $primaryContactPersonId, $alternateContactPersonID, $deliveryMethodID, $deliveryCityID, $postalCityId, $accountOpenedDate, 
                 $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
-                $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo);
+                $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo, $verified, $vkey);
                 mysqli_stmt_execute($statement);
 
                 if(mysqli_stmt_affected_rows($statement) == 1) {
-                    header("Location: signup.php?signup=success");
+                                     
+                    $receiver = $email;
+                    $subject = "Account verificatie";
+                    $message = "<a href='http://localhost/World-Wide-Importers/verify.php?vkey=$vkey'>Verifieer account </a>";
+                    $headers = "From: steef.ros2@gmail.com" . "\r\n";
+                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                    $headers .= "MIME-Version: 1.0" . "\r\n"; 
+                    mail($receiver,$subject,$message,$headers);
+
+                    header('Location: thankyou.php');
+                    
                 }
             }
     //Here we close all the connections
