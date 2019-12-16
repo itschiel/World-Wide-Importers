@@ -45,6 +45,10 @@
                         unset($_SESSION['cart'][$_POST['product']]);
                     }
 
+                    if (!(isset($_SESSION['cart']))){
+                        $_SESSION['cart'] = array();
+                    }
+
                     $nr = null;
                     $subTotaal = null;
 
@@ -69,6 +73,7 @@
                         $totaalPerProductFormat = number_format($totaalPerProduct, 2, ",",".");
                         $subTotaalFormat = number_format($subTotaal, 2, ",",".");
                         $subTotaalExclBTWFormat = number_format(($subTotaal / 1.21), 2, ",",".");
+
 
                         // deze print functie print 1 product rij uit in de winkelmand
                         print('
@@ -122,7 +127,7 @@
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€ <?php if (isset($subTotaalExclBTWFormat)){ print $subTotaalExclBTWFormatt; } ?> </p>
+                    <p>€ <?php if (isset($subTotaalExclBTWFormat)){ print $subTotaalExclBTWFormat; } ?> </p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
