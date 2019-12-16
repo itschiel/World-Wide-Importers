@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<!-- <?php session_start() ?> -->
 
 <html>
 
@@ -136,7 +136,7 @@
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="<?php if (isset($mollieFormat)){ createPayment($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="Confirm.php"> Afrekenen </a>
                 </div>
             </div>
         </div>
