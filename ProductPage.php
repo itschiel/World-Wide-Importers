@@ -98,7 +98,7 @@
                                     <div class="container" style="margin-top:30px">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <h2>PRODUCTNAAM: '. $row["StockItemName"] .'</h2>
+                                                <h2>'. $row["StockItemName"] .'</h2>
                                                 <div class="row">
                                                     <div class="col-md-7">
                     ');
@@ -135,7 +135,7 @@
                                                 ');?>
                                                 <?php
                                                 if($QuantityOnHand < 1000){
-                                                    print("<img class=\"w-50 p-3\" src=\"img\op=op.jpg\">");
+                                                    print("<img class=\"w-75 p-3\" src=\"img\op=op.jpg\">");
                                                 }
                                                 print('
                                                 <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
