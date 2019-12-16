@@ -78,13 +78,23 @@ $sql = ("SELECT EmailAddress FROM customers
 WHERE CustomerID = $CustomerID");
 
 $result = mysqli_query(dbConnectionRoot(), $sql);
-$values = mysqli_fetch_assoc($result);
+$EmailAddress = mysqli_fetch_assoc($result);
+//-------------------------------------------
+$sql = ("SELECT StockItemName FROM  stockitems
+WHERE StockItemID = $product");
 
-$mailOntvanger = $values['EmailAddress'];
+$result = mysqli_query(dbConnectionRoot(), $sql);
+$StockItemName = mysqli_fetch_assoc($result);
+
+$Bestelling =  $StockItemName['StockItemName'];
+
+$mailOntvanger = $EmailAddress['EmailAddress'];
 $subject ="Bestelling $OrderID";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
 Uw bestelling $OrderID staat hieronder ter bevastiging:\n
-Aantal :$numberOf";
+Aantal: $numberOf Product: $Bestelling\n\n
+Met vriendeljike groet,\n\n
+Wide-World-Importers";
 
 
 mail($mailOntvanger,$subject,$message);
