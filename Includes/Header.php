@@ -23,6 +23,8 @@
 </head>
 <body>
 
+<?php session_start() ?>
+
 <div class="row bg-dark">
     <div class="container">
         <div class="row">
@@ -56,7 +58,6 @@
                 <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
-
         </div>
     </div>
 </div>

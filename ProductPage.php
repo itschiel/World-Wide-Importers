@@ -58,6 +58,10 @@
             addToCart($_GET["id"], 1);
         }   
 
+        if(isset($_GET["winkelwagen"])){
+            addToCart($_GET["id"], 1);
+        }   
+
             // Variabeleid haalt het id van het gezoken product  uit de url
             $ProductID = $_GET['id'];
 

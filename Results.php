@@ -29,10 +29,6 @@
                     } else {
                         $pageNumber = 1;
                     }
-
-                    //$resultsPerPage = $_GET['select'];
-                    $Offset = ($pageNumber-1) * $resultsPerPage;
-
                     
                     // onderstaande if else statement kijkt welke search functie gebruikt is. keuze uit catogoriën of de search input.
                     if (!empty($cat)) {
@@ -50,9 +46,14 @@
                         $result = mysqli_query(dbConnectionRoot(), $queryRows);
                         $numberOfResults = mysqli_num_rows($result);
                         $numberOfPages = ceil($numberOfResults / $resultsPerPage);
-            
 
-            
+                        if ($pageNumber > $numberOfPages){
+                            $pageNumber = $numberOfPages;
+                        }
+
+                        //$resultsPerPage = $_GET['select'];
+                        $Offset = ($pageNumber-1) * $resultsPerPage;
+
                         // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten           
                         $query = ("SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand, si.Photo
                             FROM stockitems si
@@ -82,6 +83,12 @@
                         $numberOfResults = mysqli_num_rows($result);
                         $numberOfPages = ceil($numberOfResults / $resultsPerPage);
 
+                        if ($pageNumber > $numberOfPages){
+                            $pageNumber = $numberOfPages;
+                        }
+
+                        //$resultsPerPage = $_GET['select'];
+                        $Offset = ($pageNumber-1) * $resultsPerPage;
 
                         // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten
                         $query = ("SELECT si.StockItemID, StockItemName, Photo, MarketingComments, RecommendedRetailPrice, QuantityOnHand
