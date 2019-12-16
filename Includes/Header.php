@@ -58,7 +58,6 @@
                 <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
-
         </div>
     </div>
 </div>
@@ -70,7 +69,7 @@
 
                 <div class="dropdown">
                     <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                        Catagorien
+                        Categorieën
                     </a>
                     <div class="dropdown-menu">
                         <?php
@@ -87,7 +86,7 @@
                         ?>
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-8">
 

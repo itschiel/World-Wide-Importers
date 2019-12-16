@@ -23,7 +23,6 @@ function productCard($row, $rate) {
 
     $img = getFirstPhoto($row['StockItemID']);
 
-
     // onderstaande print statement plaatst de benodigde html op de pagina
     print('
         <div class="row no-gutters">
@@ -47,7 +46,7 @@ function productCard($row, $rate) {
     ');
 }
 
-function getFirstPhoto($productID){
+getFirstPhoto($productID){
 
     // onderstaande query haalt de eerste foto van een product op
     $query = ("SELECT foto
@@ -68,8 +67,8 @@ function getFirstPhoto($productID){
         $img = base64_encode($row["foto"]);
 
     } else {
-
         // dit is de opgegeven deafult image
+
         $imgPath = ("img/defaultproduct.jpg");
         $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
         $img = base64_encode($imgBinary);

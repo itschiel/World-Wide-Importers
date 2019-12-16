@@ -78,7 +78,6 @@
                         $subTotaalFormat = number_format($subTotaal, 2, ",",".");
                         $subTotaalExclBTWFormat = number_format(($subTotaal / 1.21), 2, ",",".");
 
-
                         // deze print functie print 1 product rij uit in de winkelmand
                         print('
                             <tr>

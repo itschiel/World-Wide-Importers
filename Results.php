@@ -29,7 +29,6 @@
                     } else {
                         $pageNumber = 1;
                     }
-
                     
                     // onderstaande if else statement kijkt welke search functie gebruikt is. keuze uit catogoriën of de search input.
                     if (!empty($cat)) {
@@ -54,7 +53,6 @@
 
                         //$resultsPerPage = $_GET['select'];
                         $Offset = ($pageNumber-1) * $resultsPerPage;
-
 
                         // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten           
                         $query = ("SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand, si.Photo
@@ -91,7 +89,6 @@
 
                         //$resultsPerPage = $_GET['select'];
                         $Offset = ($pageNumber-1) * $resultsPerPage;
-
 
                         // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten
                         $query = ("SELECT si.StockItemID, StockItemName, Photo, MarketingComments, RecommendedRetailPrice, QuantityOnHand
