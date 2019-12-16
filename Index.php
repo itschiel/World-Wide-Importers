@@ -113,6 +113,7 @@
                                             }
                                             }
                                             ?>
+
             <?php
             // Variabeleid haalt het id van het gezoken product  uit de url
             // $productID = $_GET['id'];
@@ -127,7 +128,6 @@
 
             $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
             $resultCheck = mysqli_num_rows($result);
-
 
             // Onderstaande if statement checkt of de db daadwerkelijk een record heeft terug gestuurd
             if($resultCheck > 0){
