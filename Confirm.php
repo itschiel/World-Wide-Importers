@@ -22,20 +22,21 @@
 <!-- onderstaande query wordt gebruikt om de benodigde data op te halen om de besteller te bekijken -->
 <!-- met de while worden de gegevens uit de query weergegeven op de website -->
 <!-- de div is het kaart van bootstrap -->
-<?php$CustomerID $_SESSION['CustomerID']?>
 <div class="card w-25">
   <div class="card-body">
     <h5 class="card-title">Persoon</h5>
+    
     <?php
-    $query = ("SELECT FullName, EmailAddress, PhoneNumber 
-    FROM customers WHERE CustomerID = $CustomerID);");
+    $CustomerID = $_SESSION["CustomerID"];
+    $query = ("SELECT CustomerName, EmailAddress, PhoneNumber 
+    FROM customers WHERE CustomerID = $CustomerID;");
 
-  $result= mysqli_query(dbConnectionRoot(), $query);
+$result= mysqli_query(dbConnectionRoot(), $query);
 
 while($rows=mysqli_fetch_array($result)){
   print ("
   <tr>
-  <td>". $rows['FullName']. "</td> <br>
+  <td>". $rows['CustomerName']. "</td> <br>
   </tr>
   <tr>
   <td>". $rows['EmailAddress']. "</td> <br>
