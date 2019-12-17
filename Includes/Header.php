@@ -128,11 +128,6 @@ session_start();
                 ?>
 
             </div>
-            <div class="col-4">
-                <?php
-                print('<a href="contactform.php" style="color: white; margin: 0 auto;"> Contact <a>');
-                ?>
-            </div>
         </div>
     </div>
 </div>

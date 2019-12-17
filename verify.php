@@ -19,7 +19,6 @@ include "Includes/Header.php";
         <div class="row d-flex justify-content-center">
 
             <div class="card" style="width: 30rem;">
-            <div class="card border-dark mb-3">
             <div class="card-body text-dark">
                           
                           <h2 class="card-title text-center">Verifieren</h2>
