@@ -101,8 +101,7 @@ include "Includes/Header.php";
       <ul>
         <li>Hoofdletters</li>
         <li>Kleine letters</li>
-        <li>Getallen</li>
-      </ul>
+       </ul>
       <h4>E-mailadres</h4>
       <label>U moet uw e-mailadres invoeren, omdat u een verificatiemailtje krijgt.</label>
       <br><br>
