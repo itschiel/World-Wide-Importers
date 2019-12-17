@@ -59,9 +59,9 @@
                         <div class="row">
                                             
             <?php
-                // 1 en 77 als id gebruiken
-                $random = rand(1, 5);
-                $random2 = rand(150, 155);
+                // 1 en 77 als id gebruiken als voorbeeld
+                $random = 1;
+                $random2 = 77;
                 
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
             $query = ("SELECT StockItemID, StockItemName, MarketingComments, SearchDetails
