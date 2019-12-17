@@ -20,7 +20,6 @@ include "Includes/Header.php";
   <div class="row d-flex justify-content-center">
 
     <div class="card" style="width: 35rem;">
-    <div class="card border-dark mb-3">
     <div class="card-body text-dark">
 
       <h2 class="card-title text-center">Aanmelden</h2>
@@ -92,7 +91,6 @@ include "Includes/Header.php";
     </div>  
 
     <div class="card" style="width: 20rem;">
-    <div class="card border-dark mb-3">
     <div class="card-body text-dark">
       
       <h2 class="card-title text-center">Voorwaarden</h2>
@@ -103,8 +101,7 @@ include "Includes/Header.php";
       <ul>
         <li>Hoofdletters</li>
         <li>Kleine letters</li>
-        <li>Getallen</li>
-      </ul>
+       </ul>
       <h4>E-mailadres</h4>
       <label>U moet uw e-mailadres invoeren, omdat u een verificatiemailtje krijgt.</label>
       <br><br>

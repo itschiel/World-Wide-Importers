@@ -40,12 +40,14 @@ if(isset($_POST['signupbutton'])) {
         header("Location: signup.php?error=emptyfields");
         //If the user made a mistake we dont want to continue the code, so we exit it
         exit();
+
+        //email check
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        //If the email is invalid we want to send the user back with the error that the email in invalid
         header("Location: signup.php?error=invalidmail");
         exit();
-    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $fullName)) {
-        //Yet another error message for when the full name is taken
+
+        //name check
+    } elseif(!preg_match("/^[a-zA-Z_ ]*$/", $fullName)) {
         header("Location: signup.php?error=invalidname");
         exit();
     
@@ -62,9 +64,18 @@ if(isset($_POST['signupbutton'])) {
     } elseif (!preg_match("#[@!?%*&]+#", $password)) {
         header("Location: signup.php?error=passsworddiget");
         exit();
-        
+        //password repeat check
     } elseif($password !== $passwordRepeat) {
         header("Location: signup.php?error=passwordcheck");
+
+        //phone check
+    } elseif(!preg_match("#[0-9]+#", $phoneNumber)) {
+        header("Location: signup.php?error=phone");
+        //address check
+    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $deliveryAddressLine1)) {
+        header("Location: signup.php?error=address");
+    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $deliveryPostalCode)) {
+        header("Location: signup.php?error=postcode");
             } else {
                 $sql ="SELECT CustomerID
                 FROM Customers
