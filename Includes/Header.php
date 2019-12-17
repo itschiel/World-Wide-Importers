@@ -54,6 +54,7 @@ session_start();
             </div>
 
             <!-- login button -->
+
             <div class="col-1 align-self-center">
                 <?php
                 if(!isset($_SESSION['CustomerID'])) {
@@ -110,12 +111,10 @@ session_start();
 
                 <?php
                 if (isset($_GET['select'])){
-
                     print ('
-
                         <div class="dropdown">
                             <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                                Resultaten per pagina: '. $_GET["select"] .'
+                                Paginatie: '. $_GET["select"] .'
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=25" > 25 </a>

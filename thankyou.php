@@ -12,7 +12,6 @@ include "Includes/Header.php";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-
 <div class="container">
 <div class="col mx-auto">
         <div class="container">

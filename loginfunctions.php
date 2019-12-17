@@ -2,10 +2,8 @@
 if(isset($_POST['loginbutton'])) {
     include_once "Functions/dbconnections.php";
     $connection = dbConnectionRoot();
-
     $email = $_POST['email'];
     $password = $_POST['password'];
-
     if(empty($email) OR empty($password)) {
         header("Location: login.php?error=emptyfields");
         exit();
@@ -20,7 +18,6 @@ if(isset($_POST['loginbutton'])) {
             mysqli_stmt_bind_param($satement, "s", $email);
             mysqli_stmt_execute($satement);
             $result = mysqli_stmt_get_result($satement);
-
             if($row = mysqli_fetch_assoc($result)) {
                 //Here we check if the password given by the user is the same as the one in the database. This will give a bolean
                 $passwordCheck = password_verify($password, $row['HashedPassword']);

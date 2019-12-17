@@ -3,7 +3,6 @@
 if(isset($_POST['signupbutton'])) {
     include_once "Functions/dbconnections.php";    
     $connection = dbConnectionRoot();
-
     //All variables are needed because the database isn't auto incremented
     $fullName = $_POST['FullName'];
     $customerCategory = 3;
@@ -102,7 +101,6 @@ if(isset($_POST['signupbutton'])) {
                 //For email
                 $length = 50;
                 $vkey = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);;
-
                 $statement = mysqli_prepare($connection, $sql);
                 mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisssis", 
                 $CustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
@@ -110,7 +108,6 @@ if(isset($_POST['signupbutton'])) {
                 $standardDiscountPercentage, $isStatementsent, $isOnCreditHold, $paymentDays, $websiteURL, $deliveryAddressLine1, $deliveryPostalCode, 
                 $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo, $verified, $vkey);
                 mysqli_stmt_execute($statement);
-
                 if(mysqli_stmt_affected_rows($statement) == 1) {
                                      
                     $receiver = $email;
