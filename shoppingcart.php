@@ -33,10 +33,7 @@
             <tbody>
 
                 <?php
-                    if(!isset($_SESSION['cart'])) {
-                        $_SESSION['cart'] = array();
-                    }
-
+                // de drie onderstaande statements behandelen de bewerking van de winkelmand
                     // onderstaande statement past de hoeveelhied van een product aan
                     if (isset($_POST['submit']) && $_POST['count'] > 0){
                         $_SESSION['cart'][$_POST['product']] = $_POST['count'];
@@ -47,19 +44,26 @@
                         unset($_SESSION['cart'][$_POST['product']]);
                     }
 
+                    if (!(isset($_SESSION['cart']))){
+                        $_SESSION['cart'] = array();
+                    }
+
+                    // deze variablen zijn "sommen" deze houden het totaal vast
                     $nr = null;
                     $subTotaal = 0;
 
-                    // de onderstaande statement lijst de producten uit
+
+                    // de onderstaande statement lijst de producten in de winkelmand uit
                     foreach ($_SESSION['cart'] as $product => $numberOf) {
 
-                        // data betreffend het product wordt opgehaald uit database
+                        // data betreffend het winkelwagen item wordt opgehaald uit database
                         $query = (" SELECT *
                             FROM stockitems
                             WHERE StockItemID = $product
                         ");
 
-                        $result = mysqli_query(dbConnectionRoot(), $query);
+                        $connection = dbConnectionRoot();
+                        $result = mysqli_query($connection, $query);
                         $row = mysqli_fetch_assoc($result);
 
                         // hierdonder wordt het totaal per product en het subtotaal berekend
@@ -103,14 +107,16 @@
         </div>
         <div class="col-4 shadow" style="padding: 10px;">
             <div class="row">
+                <!-- subtotaal -->
                 <div class="col-8">
                     <p>Subtotaal</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print $subTotaalFormat; ?></p>
+                    <p>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; }?></p>
                 </div>
             </div>
             <div class="row">
+                <!-- verzendkosten -->
                 <div class="col-8">
                     <p>Verzendkosten</p>
                 </div>
@@ -120,25 +126,27 @@
             </div>
             <div class="dropdown-divider"></div>
             <div class="row">
+                <!-- totaal exclusief btw -->
                 <div class="col-8">
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€ <?php print $subTotaalExclBTWFormat; ?> </p>
+                    <p>€ <?php if (isset($subTotaalExclBTWFormat)){ print $subTotaalExclBTWFormat; } ?> </p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
             <div class="row">
+                <!-- totaal inclusief btw -->
                 <div class="col-8">
                     <h6>Totaal (incl. BTW)</h6>
                 </div>
                 <div class="col-4">
-                    <h6>€<?php print $subTotaalFormat; ?></h6>
+                    <h6>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; } ?></h6>
                 </div>
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="<?php print createPayment($mollieFormat);?>"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="<?php if (isset($mollieFormat)){ createPayment($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
                 </div>
             </div>
         </div>

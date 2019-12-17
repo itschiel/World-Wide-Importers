@@ -72,7 +72,6 @@ session_start();
                 <br>
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
-
         </div>
     </div>
 </div>
@@ -84,7 +83,7 @@ session_start();
 
                 <div class="dropdown">
                     <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                        Catagorien
+                        Categorieën
                     </a>
                     <div class="dropdown-menu">
                         <?php
@@ -115,7 +114,7 @@ session_start();
 
                         <div class="dropdown">
                             <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                                Paginatie: '. $_GET["select"] .'
+                                Resultaten per pagina: '. $_GET["select"] .'
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="Results.php?cat='. $_GET["cat"] .'&search='. $_GET['search'] .'&select=25" > 25 </a>
