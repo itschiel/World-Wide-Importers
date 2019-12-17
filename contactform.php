@@ -28,7 +28,7 @@ include "Includes/Header.php";
                     <form class="form-signin" method="post">
                         <div class="form-label-group">
                             <label for="email">E-mailadres</label>
-                            <input type="text" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
+                            <input type="email" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
                             <br>
                         </div>
                         <div class="form-label-group">
