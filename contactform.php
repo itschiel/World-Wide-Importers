@@ -2,6 +2,24 @@
 include "Includes/Header.php";
 ?>
 
+
+<?php
+$mailSent = false;
+if(isset($_POST['sendbutton'])){
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+
+    $mailto = "wideworldimporterscompany@gmail.com";
+    $headers = "From: " . $email;
+    $text = "You have recieved an e-mail from:\n
+    Email: " . $email . "\n\n\n" . $message;
+
+    mail($mailto,$subject,$text,$headers);
+    $mailSent = true;
+}
+?>
+
 <html>
 <head> 
         <!-- Bootstrap CSS -->
@@ -20,16 +38,20 @@ include "Includes/Header.php";
     <div class="row d-flex justify-content-center">
 
                 <div class="card" style="width: 35rem;">
-                <div class="card border-dark mb-3">
                 <div class="card-body text-dark">
 
                     <h2 class="card-title text-center">Contact</h2>
 
+                    <?php
+                        if($mailSent == true) {
+                            print("<label> Uw bericht is verzonden</label>");
+                        }
+                    ?>
 
                     <form class="form-signin" method="post">
                         <div class="form-label-group">
                             <label for="email">E-mailadres</label>
-                            <input type="text" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
+                            <input type="email" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
                             <br>
                         </div>
                         <div class="form-label-group">
@@ -56,20 +78,3 @@ include "Includes/Header.php";
 </div>
 </body>
 </html>
-
-<?php
-if(isset($_POST['sendbutton'])){
-    $email = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
-    $customerid = $_SESSION['CustomerID'];
-
-    $mailto = "wideworldimporterscompany@gmail.com";
-    $headers = "From: " . $email;
-    $text = "You have recieved an e-mail from:\n 
-    CustomerID: " . $customerid . "\n
-    Email: " . $email . "\n\n" . $message;
-
-    mail($mailto,$subject,$text,$headers);
-}
-?>

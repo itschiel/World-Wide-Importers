@@ -1,3 +1,5 @@
+
+
 <div class="container h-100">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -16,7 +18,7 @@
 
 
 <?php
-
+    
     function allImages(){
 
         $productID = $_GET['id'];
@@ -27,15 +29,16 @@
 
         $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
         $resultCheck = mysqli_num_rows($result);
+        $videoPath = ("videos/".$productID .".mp4");
 
         if ($resultCheck > 0) {
 
             $count = null;
-
+            
             while($row = mysqli_fetch_assoc($result)){
                 $count++;
                 $img = base64_encode($row["foto"]);
-    
+                
                 if ($count == 1) {
                     print ('
                         <div class="carousel-item active">
@@ -48,7 +51,17 @@
                             <img src="data:image/jpeg;base64,'. $img .' " class="card-img" style="object-fit: contain; max-height: 300px;">
                         </div> 
                     ');
+
                 }
+                                    
+            }
+
+            if(file_exists($videoPath)) {
+                print('<div class="carousel-item">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="videos/1.mp4" allowfullscreen></iframe>
+                            </div>
+                        </div>)');
             }
             
         } else {
@@ -61,7 +74,9 @@
                 <div class="carousel-item active">
                     <img src="data:image/jpeg;base64,'. $img .' " class="card-img" style="object-fit: contain; max-height: 300px;">
                 </div> 
+                
             ');
+            
         }
 
         

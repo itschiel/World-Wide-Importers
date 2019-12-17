@@ -91,8 +91,6 @@
                         $img = base64_encode($row["foto"]);
                     }
 
-
-
                     // onderstaande print plaatst de benodigde html op de pagina
                     print('
                         <div class="container shadow" style="margin-top: 25px;">
@@ -125,7 +123,10 @@
                                                     print("Niet koud");
                                                 }
                                                 print('
+                                                
                                             </div>
+                                        
+
                                             <div class="card border-dark mb-3" style="max-width: 18rem">
                                                 <div class="card-header">
                                                 <h4 class="my-0 font-weight-normal" >Prijs</h4>

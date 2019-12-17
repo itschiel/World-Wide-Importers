@@ -69,12 +69,14 @@
                         // hierdonder wordt het totaal per product en het subtotaal berekend
                         $totaalPerProduct = round(($row['RecommendedRetailPrice'] * $numberOf * USDToEUR()), 2);
                         $subTotaal += $totaalPerProduct;
+                        $Korting =round(($subTotaal * 0.90) , 2);
 
                         // hier onder wordt het formaat van de nummers aangepast zodat deze juist weergeven kan worden
-                        $mollieFormat = number_format($subTotaal, 2, ".",""); //mollie heeft een ander nummer formaat nodig
                         $totaalPerProductFormat = number_format($totaalPerProduct, 2, ",",".");
                         $subTotaalFormat = number_format($subTotaal, 2, ",",".");
-                        $subTotaalExclBTWFormat = number_format(($subTotaal / 1.21), 2, ",",".");
+                        $subTotaalExclBTWFormat = number_format(($Korting / 1.21), 2, ",",".");
+                        $subTotaalInclBTWFormat = number_format($Korting, 2, ",",".");
+                        $mollieFormat = number_format($Korting, 2, ".",""); //mollie heeft een ander nummer formaat nodig
 
                         // deze print functie print 1 product rij uit in de winkelmand
                         print('
@@ -116,6 +118,15 @@
                 </div>
             </div>
             <div class="row">
+                <!-- Met toegepaste korting -->
+                <div class="col-8">
+                    <p>Met 10% Korting</p>
+                </div>
+                <div class="col-4">
+                    <p>€<?php if (isset($Korting)){ print $Korting; }?></p>
+                </div>
+            </div>
+            <div class="row">
                 <!-- verzendkosten -->
                 <div class="col-8">
                     <p>Verzendkosten</p>
@@ -141,12 +152,12 @@
                     <h6>Totaal (incl. BTW)</h6>
                 </div>
                 <div class="col-4">
-                    <h6>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; } ?></h6>
+                    <h6>€<?php if (isset($subTotaalInclBTWFormat)){ print $subTotaalInclBTWFormat; } ?></h6>
                 </div>
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="<?php if (isset($mollieFormat)){ createPayment($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="<?php if (isset($mollieFormat)){ print (createPayment($mollieFormat)); } else {print ('#');}?>"> Afrekenen </a>
                 </div>
             </div>
         </div>
