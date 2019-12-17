@@ -136,7 +136,7 @@
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="Confirm.php"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="order.php?mollie=<?php if (isset($mollieFormat)){ print ($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
                 </div>
             </div>
         </div>

@@ -1,81 +1,74 @@
-<?php
-session_start();
-?>
-<?php
 
-include_once 'Functions/api.php';
-include_once 'Functions/mollie.php';
+<?php include "Includes/Header.php" ?>
+<?php include_once "Functions/dbconnections.php" ?>
+<?php include "Functions/mollie.php" ?>
 
-print_r($_SESSION['cart']);
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Winkelwagentje</h5>
 
-// Haalt eenmalig databaseconnectie op uit 'unctions/DBConnections.php' een voert het connectie uit.
-include_once 'Functions/DBConnections.php';
-$connection = dbConnectionRoot();
+                    <?php
+                        foreach ($_SESSION['cart'] as $product => $numberOf){
+                            $query = (" SELECT *
+                                FROM stockitems
+                                WHERE StockItemID = $product
+                            ");
 
-// Controleerd of er connectie is met de database
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
+                            $result = mysqli_query(dbConnectionRoot(), $query);
+                            $row = mysqli_fetch_assoc($result);
 
-// in de statement worden de OrderID, CustomerID(de ingelogde gebruiker) en Orderdate geregistreerd
+                            print ('
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            '.$row['StockItemName'].'
+                                        </div>
+                                        <div class"col-2">
+                                            <span class="badge badge-primary badge-pill">'.$numberOf.'</span>
+                                        </div>
+                                    </div>
+                                </li>');
+                        }
+                    ?>
+                    <br>
+                    <a href="shoppingcart.php" class="card-link">Aanpassen</a>
 
-$sql ="SELECT OrderID
-FROM Orders
-ORDER BY OrderID DESC
-LIMIT 1";
-$result = (mysqli_query($connection, $sql));
-$row =  mysqli_fetch_object($result);
-$OrderID = ($row->OrderID)+1;
-$CustomerID = $_SESSION['CustomerID'];
-$sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?);";
+                </div>
+            </div>      
+        </div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> Bezorgadres </h5>
+                    <p class="card-text">
+                        <?php
+                            $CustomerID = 1056;
+                            $query = ("SELECT CustomerName, EmailAddress, PhoneNumber, DeliveryAddressLine1, DeliveryPostalCode
+                            FROM customers
+                            WHERE CustomerID = $CustomerID;
+                            ");
+                    
+                            $result= mysqli_query(dbConnectionRoot(), $query);
+                            $row = mysqli_fetch_assoc($result);
 
+                            print ("Dhr / Mevr. ".$row['CustomerName']."<br>");
+                            print ($row['DeliveryAddressLine1']."<br>");
+                            print ($row['DeliveryPostalCode']."<br>");
+                        ?>
+                    </p>
 
-// $statement = mysqli_prepare($connection, $sql);
-// $statement->bind_param("ii",$OrderID,$CustomerID);
-// mysqli_stmt_execute($statement);
+                </div>
+            </div>
+            <div class="row" style="margin-top: 50px;">
+                <div class="container">
+                    <a class="btn btn-primary btn-block" href="<?php print(createPayment($_GET['mollie'])) ?>"> Naar betalen! </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
-//-----------------------------------------------------------
-
-// $sql ="SELECT OrderLineID
-// FROM Orderlines
-// ORDER BY OrderLineID DESC
-// LIMIT 1";
-// $result = (mysqli_query($connection, $sql));
-// $row =  mysqli_fetch_object($result);
-// $OrderLineID = ($row->OrderLineID)+1;
-// $StockItemID = $product;
-// $sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?,?);";
-
-
-// $statement = mysqli_prepare($connection, $sql);
-// $statement->bind_param("iii",$OrderLineID,$OrderID,$StockItemID);
-// mysqli_stmt_execute($statement);
-
-mysqli_close($connection);
-
-//-----------------------------------------------------------
-
-
-// mail bevestiginsmail naar klant
-$sql = "SELECT EmailAddress
-FROM Customers 
-WHERE CustomerID = $CustomerID;";
- $satement = mysqli_prepare($connection, $sql);
-
-mysqli_stmt_bind_param($satement, "s", $email);
-mysqli_stmt_execute($satement);
-$result = mysqli_stmt_get_result($satement);
-
-
-$mailOntvanger = "$statement";
-$subject ="Bestelling";
-$message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling. Uw bestelling staat hieronder ter bevastiging:";
-
-
-// mail($mailOntvanger,$subject,$message);
-
-// verwijst door naar 'End.php'. Daarin wordt bevestigd aan de klant dat de bestelling geslaagd is.
-//header("Location: End.php");
-?>
+<ul class="list-group list-group-flush">

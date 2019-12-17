@@ -31,9 +31,7 @@
                 "value" => "$price"
             ],
             "description" => "Order #12345",
-            "redirectUrl" => "http://localhost/World-Wide-Importers/shoppingcart.php",
-            //"webhookUrl"  => "https://tweakers.net/",
-
+            "redirectUrl" => "http://localhost/World-Wide-Importers/index.php",
         ]);
 
         return $payment->getCheckoutUrl();

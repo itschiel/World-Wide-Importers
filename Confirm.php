@@ -15,74 +15,37 @@
 </head>
 
 <body>
+  <?php
 
-<!-- Voegt de Header to aan de pagina -->
-<?php include 'Includes/Header.php';?>
+    $CustomerID = 1056;
+    $query =("SELECT EmailAddress
+      FROM customers
+      WHERE CustomerID = $CustomerID;");
 
-<!-- onderstaande query wordt gebruikt om de benodigde data op te halen om de besteller te bekijken -->
-<!-- met de while worden de gegevens uit de query weergegeven op de website -->
-<!-- de div is het kaart van bootstrap -->
-<div class="card w-25">
-  <div class="card-body">
-    <h5 class="card-title">Persoon</h5>
-    
-    <?php
-    $CustomerID = $_SESSION["CustomerID"];
-    $query = ("SELECT CustomerName, EmailAddress, PhoneNumber 
-    FROM customers WHERE CustomerID = $CustomerID;");
+    $connection = dbConnectionRoot();
+    $result= mysqli_query($connection, $query);
+    $row = mysqli_fetch_assoc($result);
 
-$result= mysqli_query(dbConnectionRoot(), $query);
-
-while($rows=mysqli_fetch_array($result)){
-  print ("
-  <tr>
-  <td>". $rows['CustomerName']. "</td> <br>
-  </tr>
-  <tr>
-  <td>". $rows['EmailAddress']. "</td> <br>
-  </tr>
-  <tr>
-  <td>". $rows['PhoneNumber']. "</td> <br>
-  </tr>
-  ");
-}
-?>
-  </div>
-</div>
-
-<!-- onderstaande query wordt gebruikt om de benodigde data op te halen om het bezorgadres te bevestigen -->
-<div class="card w-25">
-  <div class="card-body">
-    <h5 class="card-title">Bezorgadres</h5>
-
-    <?php
-    $query = ("SELECT DeliveryAddressLine1, 
-    DeliveryPostalCode FROM customers 
-    WHERE CustomerID = $CustomerID;
+    $email = ("cgj.hoppen@gmail.com");
+    //$email = $row['EmailAddress'];
+    $subject = ("Order conformatie $OrderID");
+    $message = ("Geachte heer/mevrouw\n\n
+      Bedankt voor uw bestelling.\n 
+      wij zullen deze in behandeling nemen.\n\n
+      Met vriendelijke groet,\n
+      Wide World Importers
     ");
 
-  $result= mysqli_query(dbConnectionRoot(), $query);
+    mail($email, $subject, $message);
 
-while($rows=mysqli_fetch_array($result)){
-  print ("
-  <td>". $rows['DeliveryAddressLine1']. "</td><br>
-  </tr>
-  <tr>
-  <td>". $rows['DeliveryPostalCode']. "</td>
-  </tr>
-  ");
-}
-?>
-  </div>
-</div>
+    //header("Location: shoppingcart.php");
 
-<!-- Op deze kaart word het betaalmethode ideal getoond -->
-<a href="shoppingcart.php" class="btn btn-primary">Ga terug naar Winkelwagen</a>
-<a href="Order.php" class="btn btn-primary">Afrekenen</a>
-  </div>
-</div>
+    // if (mail($email, $subject, $message) == true) {
+    //   header("Location: shoppingcart.php");
+    // }
 
-<!-- Voegt de Footer to aan de pagina -->
-<?php include 'Includes/Footer.php';?>
+  ?>
+
+
 </body>
 </html>
