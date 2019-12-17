@@ -28,12 +28,7 @@ if(isset($_POST['loginbutton'])) {
                     header("Location: login.php?error=wrongpassword");
                     exit();
                 } elseif($passwordCheck == TRUE) {
-                //This checks if the account is verified
-                    // $sqlVerified = "SELECT verified
-                    //                 FROM Customers
-                    //                 WHERE EmailAddress=?
-                    //                 LIMIT 1;";
-                    
+                //This checks if the account is verified                    
                     $sqlVerified = "SELECT verified
                                     FROM Customers
                                     WHERE EmailAddress='$email'
@@ -41,20 +36,11 @@ if(isset($_POST['loginbutton'])) {
                     $resultVerified = (mysqli_query($connection, $sqlVerified));
                     $rowVerified =  mysqli_fetch_assoc($resultVerified);
                     $verifiedCheck = ($rowVerified['verified']);
-                    
-                    // $statementVerified = mysqli_prepare($connection, $sqlVerified);
-                    // mysqli_stmt_bind_param($statementVerified, "s", $email);
-                    // mysqli_stmt_execute($statementVerified);
-                    // $verifiedCheck = mysqli_stmt_get_result($statementVerified);
-                    
-                    // if($verifiedCheck == 0) {
-                    //     print("0");
-                    // } elseif($verifiedCheck == 1) {
-                    //     print("1");
-                    // }
-                    if ($verifiedCheck == FALSE) {
+
+                    if ($verifiedCheck == 0) {
                         header("Location: login.php?error=verified");
-                    } elseif ($verifiedCheck == TRUE) {
+                    } elseif ($verifiedCheck == 1) {
+                        //Once the account is verified, the user can log in
                         session_start();
                         $_SESSION['CustomerID'] = $row['CustomerID'];
                         header("Location: index.php?login=succes");

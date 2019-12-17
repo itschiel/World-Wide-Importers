@@ -12,20 +12,31 @@ include "Includes/Header.php";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+
 <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <lable>Er is een e-mail naar u verstuurd. </lable>
-        <label>Hierin kunt u uw account verifieren</label> <br>
-        <img src="img/email.jpg" class="img-fluid" alt="email">
+<div class="col mx-auto">
+        <div class="container">
+        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center">
 
-
+            <div class="card" style="width: 30rem;">
+            <div class="card border-dark mb-3">
+            <div class="card-body text-dark">
+                          
+                          <h2 class="card-title text-center">E-mail</h2>
+                          <br>
+                          <div class="card-title text-center">
+                                <label>Er is een e-mail naar uw e-mailadres verstuurd. Hierin kunt u uw account verifieren</label>
+                                <br><br>
+                                <img src="img/email.jpg" class="img-fluid" alt="email">
+                        </div>
+        </div>  
+        </div>
+        </div>
+</div>
+</div>
+</div>
 </body>
-
-
-
-
-
 </html>
 <?php
 include "Includes/Footer.php";
