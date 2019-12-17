@@ -17,7 +17,7 @@ if ($connection->connect_error) {
 
 // in de statement worden de OrderID, $CustomerID (de ingelogde gebruiker) en Orderdate geregistreerd
 $sql ="SELECT OrderID
-FROM Orders
+FROM orders
 ORDER BY OrderID DESC
 LIMIT 1";
 $result = (mysqli_query($connection, $sql));
@@ -37,34 +37,36 @@ mysqli_stmt_execute($statement);
 foreach ($_SESSION['cart'] as $product => $numberOf) {
 
     // data betreffend het product wordt opgehaald uit database
-    $sql = (" SELECT *
+    $query = (" SELECT *
         FROM stockitems
         WHERE StockItemID = $product
     ");
     
-    $result = mysqli_query(dbConnectionRoot(), $sql);
+    $result = mysqli_query(dbConnectionRoot(), $query);
     $row = mysqli_fetch_assoc($result);
 }
 
-// in de statement worden de OrderlineID, OrderID, StockIetemID en Orderdate geregistreerd
-// $sql ="SELECT OrderLineID
-// FROM orderlines
-// ORDER BY OrderLineID DESC
-// LIMIT 1";
-// $result = (mysqli_query($connection, $sql));
-// $row =  mysqli_fetch_object($result);
+// in de statement worden de OrderlineID, OrderID, StockIetemID geregistreerd
+$sql ="SELECT OrderLineID
+FROM orderlines
+ORDER BY OrderLineID DESC
+LIMIT 1";
+$result = (mysqli_query($connection, $sql));
+$row =  mysqli_fetch_object($result);
+//-------------------------------------------------------------------
+$sql2 = ("SELECT MAX(OrderID) OrderID FROM orders");
 
-// $OrderLineID = ($row->OrderLineID)+1;
-// $StockItemID = $product;
-// $Quantity = $numberOf;
+$result = mysqli_query(dbConnectionRoot(), $sql2);
+$OrderID2 = mysqli_fetch_assoc($result);
 
-// $sql="INSERT INTO orderlines (OrderID,CustomerID,StockItemID,Quantity) VALUES (?,?,?,?);";
+$ID = $OrderID2['OrderID'];
+//-------------------------------------------------------------------
+$OrderlineID = ($row->OrderlineID)+1;
+$sql="INSERT INTO orderlines (OrderlineID,OrderID) VALUES (?,?);";
 
-
-// $statement = mysqli_prepare($connection, $sql);
-// $statement->bind_param("iiii",$OrderLineID,$OrderID,$StockItemID,$Quantity);
-// mysqli_stmt_execute($statement);
-
+$statement = mysqli_prepare($connection, $sql);
+$statement->bind_param("ii",$OrderlineID,$ID);
+mysqli_stmt_execute($statement);
 
 // Vooraad gaat af van vooraad van bestelling
 // $sql = ("stockitemholdings 
@@ -79,20 +81,22 @@ WHERE CustomerID = $CustomerID");
 
 $result = mysqli_query(dbConnectionRoot(), $sql);
 $EmailAddress = mysqli_fetch_assoc($result);
-//-------------------------------------------
+
+//$sql zit een query in om de gewenste waarde uit de database te halen
 $sql = ("SELECT StockItemName FROM  stockitems
 WHERE StockItemID = $product");
 
 $result = mysqli_query(dbConnectionRoot(), $sql);
 $StockItemName = mysqli_fetch_assoc($result);
 
-$Bestelling =  $StockItemName['StockItemName'];
+$Product =  $StockItemName['StockItemName'];
 
 $mailOntvanger = $EmailAddress['EmailAddress'];
 $subject ="Bestelling $OrderID";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
 Uw bestelling $OrderID staat hieronder ter bevastiging:\n
-Aantal: $numberOf Product: $Bestelling\n\n
+Aantal              Product \n
+$numberOf                        $Product\n\n
 Met vriendeljike groet,\n\n
 Wide-World-Importers";
 
