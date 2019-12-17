@@ -20,7 +20,6 @@ include "Includes/Header.php";
     <div class="row d-flex justify-content-center">
 
                 <div class="card" style="width: 35rem;">
-                <div class="card border-dark mb-3">
                 <div class="card-body text-dark">
 
                     <h2 class="card-title text-center">Contact</h2>
@@ -29,7 +28,7 @@ include "Includes/Header.php";
                     <form class="form-signin" method="post">
                         <div class="form-label-group">
                             <label for="email">E-mailadres</label>
-                            <input type="text" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
+                            <input type="email" name="email" class="form-control" placeholder="E-mailadres" required autofocus>
                             <br>
                         </div>
                         <div class="form-label-group">

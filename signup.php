@@ -20,7 +20,6 @@ include "Includes/Header.php";
   <div class="row d-flex justify-content-center">
 
     <div class="card" style="width: 35rem;">
-    <div class="card border-dark mb-3">
     <div class="card-body text-dark">
 
       <h2 class="card-title text-center">Aanmelden</h2>
@@ -92,7 +91,6 @@ include "Includes/Header.php";
     </div>  
 
     <div class="card" style="width: 20rem;">
-    <div class="card border-dark mb-3">
     <div class="card-body text-dark">
       
       <h2 class="card-title text-center">Voorwaarden</h2>

@@ -21,7 +21,7 @@
         <?php include 'Includes/Header.php';?>
         <?php include 'Functions/ProductResult.php'; ?>
 
-    </head>
+    </head> 
     <body>
         <div class="container">
             <div class="col mx-auto">
@@ -59,7 +59,7 @@
                         <div class="row">
                                             
             <?php
-
+                // 1 en 77 als id gebruiken
                 $random = rand(1, 5);
                 $random2 = rand(150, 155);
                 

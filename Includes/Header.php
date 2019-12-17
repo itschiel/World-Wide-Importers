@@ -37,7 +37,7 @@ session_start();
             </div>
 
             <!-- search -->
-            <div class="col-8 align-self-center">
+            <div class="col-7 align-self-center">
 
                 <form method="GET" action="Results.php"> <!-- die margins zijn niet idiaal maar kan niks beters vinden -->
                     <div class="input-group">
@@ -55,7 +55,7 @@ session_start();
             </div>
 
             <!-- login button -->
-            <div class="col-sm">
+            <div class="col-1 align-self-center">
                 <?php
                 if(!isset($_SESSION['CustomerID'])) {
                     print('<a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>');
@@ -64,12 +64,11 @@ session_start();
                     <button type="submit" name="logout" class="btn btn-primary btn-xs">Uitloggen</button>
                     </form>');
                 } 
-                
                 ?>
-                <!-- <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a> -->
             </div>
-            <div class="col-sm">
-                <br>
+
+            
+            <div class="col-1 align-self-center">
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
         </div>
@@ -127,11 +126,6 @@ session_start();
                 }
                 ?>
 
-            </div>
-            <div class="col-4">
-                <?php
-                print('<a href="contactform.php" style="color: white; margin: 0 auto;"> Contact <a>');
-                ?>
             </div>
         </div>
     </div>

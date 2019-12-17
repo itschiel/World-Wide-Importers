@@ -69,12 +69,13 @@
                         // hierdonder wordt het totaal per product en het subtotaal berekend
                         $totaalPerProduct = round(($row['RecommendedRetailPrice'] * $numberOf * USDToEUR()), 2);
                         $subTotaal += $totaalPerProduct;
+                        $Korting =round(($subTotaal * 0.90) , 2);
 
                         // hier onder wordt het formaat van de nummers aangepast zodat deze juist weergeven kan worden
                         $mollieFormat = number_format($subTotaal, 2, ".",""); //mollie heeft een ander nummer formaat nodig
                         $totaalPerProductFormat = number_format($totaalPerProduct, 2, ",",".");
                         $subTotaalFormat = number_format($subTotaal, 2, ",",".");
-                        $subTotaalExclBTWFormat = number_format(($subTotaal / 1.21), 2, ",",".");
+                        $subTotaalExclBTWFormat = number_format(($Korting / 1.21), 2, ",",".");
 
                         // deze print functie print 1 product rij uit in de winkelmand
                         print('
@@ -113,6 +114,15 @@
                 </div>
                 <div class="col-4">
                     <p>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; }?></p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Met toegepaste korting -->
+                <div class="col-8">
+                    <p>Met 10% Korting</p>
+                </div>
+                <div class="col-4">
+                    <p>€<?php if (isset($Korting)){ print $Korting; }?></p>
                 </div>
             </div>
             <div class="row">
