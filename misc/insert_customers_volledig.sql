@@ -1,0 +1,11 @@
+ALTER TABLE customers
+ADD EmailAddress VARCHAR(256) NOT NULL;
+
+ALTER TABLE customers
+ADD HashedPassword LONGBLOB NOT NULL;
+
+ALTER TABLE customers 
+ADD verified INT(1) NOT NULL;
+
+ALTER TABLE customers
+ADD vkey VARCHAR(100) NOT NULL;

@@ -39,17 +39,15 @@ if(isset($_POST['signupbutton'])) {
         header("Location: signup.php?error=emptyfields");
         //If the user made a mistake we dont want to continue the code, so we exit it
         exit();
-    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) AND !preg_match("/^[a-zA-Z0-9_ ]*$/", $fullName)) {
-        //If both the email and username are invalid we send back this error
-        header("Location: signup.php?error=invalidmailusername");
-        exit();
+
+        //email check
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        //If the email is invalid we want to send the user back with the error that the email in invalid
         header("Location: signup.php?error=invalidmail");
         exit();
-    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $fullName)) {
-        //Yet another error message for when the full name is taken
-        header("Location: signup.php?error=invalidusername");
+
+        //name check
+    } elseif(!preg_match("/^[a-zA-Z_ ]*$/", $fullName)) {
+        header("Location: signup.php?error=invalidname");
         exit();
     
         //password checks
@@ -65,9 +63,18 @@ if(isset($_POST['signupbutton'])) {
     } elseif (!preg_match("#[@!?%*&]+#", $password)) {
         header("Location: signup.php?error=passsworddiget");
         exit();
-        
+        //password repeat check
     } elseif($password !== $passwordRepeat) {
         header("Location: signup.php?error=passwordcheck");
+
+        //phone check
+    } elseif(!preg_match("#[0-9]+#", $phoneNumber)) {
+        header("Location: signup.php?error=phone");
+        //address check
+    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $deliveryAddressLine1)) {
+        header("Location: signup.php?error=address");
+    } elseif(!preg_match("/^[a-zA-Z0-9_ ]*$/", $deliveryPostalCode)) {
+        header("Location: signup.php?error=postcode");
             } else {
                 $sql ="SELECT CustomerID
                 FROM Customers
@@ -92,7 +99,8 @@ if(isset($_POST['signupbutton'])) {
                 //Here we hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 //For email
-                $vkey = crypt(time() . $fullName);
+                $length = 50;
+                $vkey = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);;
                 $statement = mysqli_prepare($connection, $sql);
                 mysqli_stmt_bind_param($statement, "isiisssiiiiiiisiiiissssisssis", 
                 $CustomerID, $fullName, $customerCategory, $phoneNumber, $faxNumber, $email, $hashedPassword, $billToCustomerID, 
@@ -104,13 +112,22 @@ if(isset($_POST['signupbutton'])) {
                                      
                     $receiver = $email;
                     $subject = "Account verificatie";
-                    $message = "<a href='http://localhost/World-Wide-Importers/verify.php?vkey=$vkey'>Verifieer account </a>";
-                    $headers = "From: steef.ros2@gmail.com" . "\r\n";
+                    $message = 
+                    "Goedendag $fullName, <br>
+                    Bedankt voor het aanmelden bij de Wide World Importers webshop.<br>
+                    Om uw account te verificieren, klik op deze link: <a href='http://localhost/World-Wide-Importers/verify.php?vkey=$vkey'>Verifieer account </a>.<br>
+                    Na de verificatie kunt u met uw account inloggen op de website.<br><br>
+                    Met vriendelijke groet,<br>
+                    Het WWI";
+                    $headers = "From: wideworldimporterscompany@gmail.com" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                     $headers .= "MIME-Version: 1.0" . "\r\n"; 
                     mail($receiver,$subject,$message,$headers);
+
                     header('Location: thankyou.php');
                     
+                } else {
+                    print("something went wrong");
                 }
             }
     //Here we close all the connections

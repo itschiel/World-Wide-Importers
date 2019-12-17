@@ -26,7 +26,6 @@
 
         <!-- Voegt de Header to aan de pagina -->
         <?php
-        session_start();
 
         if(empty($_SESSION["cart"])){
             $_SESSION["cart"] = array(); 
@@ -40,6 +39,23 @@
 
 
         <?php
+        //de querry voor de voorraad conversieverhogende maatregel
+        //de querry voor de koelstatus van het product
+        $ProductID1 = $_GET['id'];
+        $op = ("SELECT h.QuantityOnHand, s.IsChillerStock
+        FROM stockitems s
+        JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
+        WHERE s.StockItemID = $ProductID1
+        ");
+        $result = mysqli_query(dbConnectionRoot(), $op); 
+        $resultCheck = mysqli_num_rows($result);
+        $row =  mysqli_fetch_object($result);
+        $QuantityOnHand = ($row->QuantityOnHand);
+        $IsChillerStock = ($row->IsChillerStock);        
+
+        if(isset($_GET["winkelwagen"])){
+            addToCart($_GET["id"], 1);
+        }   
 
         if(isset($_GET["winkelwagen"])){
             addToCart($_GET["id"], 1);
@@ -75,8 +91,6 @@
                         $img = base64_encode($row["foto"]);
                     }
 
-
-
                     // onderstaande print plaatst de benodigde html op de pagina
                     print('
                         <div class="container shadow" style="margin-top: 25px;">
@@ -85,7 +99,7 @@
                                     <div class="container" style="margin-top:30px">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <h2>PRODUCTNAAM: '. $row["StockItemName"] .'</h2>
+                                                <h2>'. $row["StockItemName"] .'</h2>
                                                 <div class="row">
                                                     <div class="col-md-7">
                     ');
@@ -100,16 +114,34 @@
                                                 <p>' . $row["MarketingComments"]. '</p>
                                                 <p class="font-weight-bold">Productbeschrijving: </p>
                                                 <p>'. $row["SearchDetails"] .'</p>
+                                                <p class="font-weight-bold">Koelstatus: </p>
+                                                ');?>
+                                                <?php
+                                                if($IsChillerStock == "1"){
+                                                    print("Wel koud");
+                                                }else{
+                                                    print("Niet koud");
+                                                }
+                                                print('
+                                                
                                             </div>
+                                        
+
                                             <div class="card border-dark mb-3" style="max-width: 18rem">
                                                 <div class="card-header">
-                                                <h4 class="my-0 font-weight-normal">Prijs</h4>
+                                                <h4 class="my-0 font-weight-normal" >Prijs</h4>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="card-title pricing-card-title">€'. round(($row["RecommendedRetailPrice"] * USDToEUR()),2) .'</h1>
+                                                <h1 class="text-success">€'. round(($row["RecommendedRetailPrice"] * USDToEUR()),2) .'</h1>
                                                 <ul class="list-unstyled mt-3 mb-4">
                                                     <li>'. $row["QuantityOnHand"] .' stuk(s) voorradig</li>
                                                 </ul>
+                                                ');?>
+                                                <?php
+                                                if($QuantityOnHand < 1000){
+                                                    print("<img class=\"w-75 p-3\" src=\"img\op=op.jpg\">");
+                                                }
+                                                print('
                                                 <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
                                             </div>
                                         </div>
