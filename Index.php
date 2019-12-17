@@ -21,7 +21,7 @@
         <?php include 'Includes/Header.php';?>
         <?php include 'Functions/ProductResult.php'; ?>
 
-    </head>
+    </head> 
     <body>
         <div class="container">
             <div class="col mx-auto">

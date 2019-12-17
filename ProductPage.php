@@ -91,8 +91,6 @@
                         $img = base64_encode($row["foto"]);
                     }
 
-
-
                     // onderstaande print plaatst de benodigde html op de pagina
                     print('
                         <div class="container shadow" style="margin-top: 25px;">
