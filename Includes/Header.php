@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -52,8 +55,21 @@
             </div>
 
             <!-- login button -->
-            <div class="col-2 align-self-center text-center">
-                <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
+            <div class="col-sm">
+                <?php
+                if(!isset($_SESSION['CustomerID'])) {
+                    print('<a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>');
+                } else {
+                    print('<form method=post action=logout.php>
+                    <button type="submit" name="logout" class="btn btn-primary btn-xs">Uitloggen</button>
+                    </form>');
+                } 
+                
+                ?>
+                <!-- <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a> -->
+            </div>
+            <div class="col-sm">
+                <br>
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
         </div>
@@ -111,6 +127,11 @@
                 }
                 ?>
 
+            </div>
+            <div class="col-4">
+                <?php
+                print('<a href="contactform.php" style="color: white; margin: 0 auto;"> Contact <a>');
+                ?>
             </div>
         </div>
     </div>

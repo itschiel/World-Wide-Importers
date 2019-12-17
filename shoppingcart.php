@@ -1,5 +1,3 @@
-<?php session_start() ?>
-
 <html>
 
 <header>
@@ -52,7 +50,7 @@
 
                     // deze variablen zijn "sommen" deze houden het totaal vast
                     $nr = null;
-                    $subTotaal = null;
+                    $subTotaal = 0;
 
 
                     // de onderstaande statement lijst de producten in de winkelmand uit

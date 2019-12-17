@@ -28,19 +28,33 @@ if(isset($_POST['loginbutton'])) {
                     header("Location: login.php?error=wrongpassword");
                     exit();
                 } elseif($passwordCheck == TRUE) {
-                    session_start();
-                    $_SESSION['CustomerID'] = $row['CustomerID'];
-                    //header("Location: index.php?login=succes");
-                    exit();
-                } else {
-                    header("Location: login.php?error=wrongpassword");
-                    exit();
-                }
+                //This checks if the account is verified                    
+                    $sqlVerified = "SELECT verified
+                                    FROM Customers
+                                    WHERE EmailAddress='$email'
+                                    LIMIT 1;";
+                    $resultVerified = (mysqli_query($connection, $sqlVerified));
+                    $rowVerified =  mysqli_fetch_assoc($resultVerified);
+                    $verifiedCheck = ($rowVerified['verified']);
+
+                    if ($verifiedCheck == 0) {
+                        header("Location: login.php?error=verified");
+                    } elseif ($verifiedCheck == 1) {
+                        //Once the account is verified, the user can log in
+                        session_start();
+                        $_SESSION['CustomerID'] = $row['CustomerID'];
+                        header("Location: index.php?login=succes");
+                        exit();
+                    }
+                 } elseif ($passwordCheck == FALSE) {
+                        header("Location: login.php?error=wrongpassword");
+                        exit();
+                } 
             } else {
                 header("Location: login.php?error=nouser");
                 exit();
-            }
-        }
+        } 
+    }
 } else {
     header("Location: login.php");
     exit();
