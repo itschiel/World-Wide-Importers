@@ -31,48 +31,32 @@ $sql="INSERT INTO orders (OrderID,CustomerID) VALUES (?,?);";
 $statement = mysqli_prepare($connection, $sql);
 $statement->bind_param("ii",$OrderID,$CustomerID);
 mysqli_stmt_execute($statement);
+mysqli_close($connection);
+?>
 
-
-// de onderstaande statement lijst de producten uit
+<?php
+// de onderstaande statement worden de bestellingen weergegeven
 foreach ($_SESSION['cart'] as $product => $numberOf) {
 
     // data betreffend het product wordt opgehaald uit database
-    $query = (" SELECT *
+        $sql = ("SELECT StockItemName
         FROM stockitems
-        WHERE StockItemID = $product
-    ");
+        WHERE StockItemID = $product");
+
+    $result = mysqli_query(dbConnectionRoot(), $sql);
+    $Item = mysqli_fetch_assoc($result);
     
-    $result = mysqli_query(dbConnectionRoot(), $query);
-    $row = mysqli_fetch_assoc($result);
+    $ItemName = $Item['StockItemName'];
+    $Order = "Aantal ".$numberOf."            Product ".$ItemName;
+
+    // vooraad gaat af
+    $sql = ("UPDATE stockitemholdings
+    SET QuantityOnHand = QuantityOnHand - $numberOf
+    WHERE StockItemID = $product");
+
+    $result = mysqli_query(dbConnectionRoot(), $sql);
+
 }
-
-// in de statement worden de OrderlineID, OrderID, StockIetemID geregistreerd
-$sql ="SELECT OrderLineID
-FROM orderlines
-ORDER BY OrderLineID DESC
-LIMIT 1";
-$result = (mysqli_query($connection, $sql));
-$row =  mysqli_fetch_object($result);
-//-------------------------------------------------------------------
-$sql2 = ("SELECT MAX(OrderID) OrderID FROM orders");
-
-$result = mysqli_query(dbConnectionRoot(), $sql2);
-$OrderID2 = mysqli_fetch_assoc($result);
-
-$ID = $OrderID2['OrderID'];
-//-------------------------------------------------------------------
-$OrderlineID = ($row->OrderlineID)+1;
-$sql="INSERT INTO orderlines (OrderlineID,OrderID) VALUES (?,?);";
-
-$statement = mysqli_prepare($connection, $sql);
-$statement->bind_param("ii",$OrderlineID,$ID);
-mysqli_stmt_execute($statement);
-
-// Vooraad gaat af van vooraad van bestelling
-// $sql = ("stockitemholdings 
-// SET QuantityOnHand = QuantityOnHand - $numberOf
-// WHERE StockItemID = $StockItemID"); 
-
 
 // mail bevestiginsmail naar klant
 
@@ -82,28 +66,19 @@ WHERE CustomerID = $CustomerID");
 $result = mysqli_query(dbConnectionRoot(), $sql);
 $EmailAddress = mysqli_fetch_assoc($result);
 
+
 //$sql zit een query in om de gewenste waarde uit de database te halen
-$sql = ("SELECT StockItemName FROM  stockitems
-WHERE StockItemID = $product");
-
-$result = mysqli_query(dbConnectionRoot(), $sql);
-$StockItemName = mysqli_fetch_assoc($result);
-
-$Product =  $StockItemName['StockItemName'];
-
 $mailOntvanger = $EmailAddress['EmailAddress'];
 $subject ="Bestelling $OrderID";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
 Uw bestelling $OrderID staat hieronder ter bevastiging:\n
-Aantal              Product \n
-$numberOf                        $Product\n\n
+$Order\n
 Met vriendeljike groet,\n\n
 Wide-World-Importers";
 
 
 mail($mailOntvanger,$subject,$message);
 
-mysqli_close($connection);
 // verwijst door naar 'End.php'. Daarin wordt bevestigd aan de klant dat de bestelling geslaagd is.
 header("Location: End.php");
 ?>
