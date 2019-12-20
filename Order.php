@@ -74,7 +74,7 @@ $EmailAddress = mysqli_fetch_assoc($result);
 $mailOntvanger = $EmailAddress['EmailAddress'];
 $subject ="Bestelling $OrderID";
 $message = "Geachte heer/mevrouw\n\n Bedankt voor uw bestelling.\n 
-Uw bestelling $OrderID staat hieronder ter bevastiging:\n
+Uw bestelling $OrderID staat hieronder ter bevestiging:\n
 $Order\n
 Met vriendeljike groet,\n\n
 Wide-World-Importers";
