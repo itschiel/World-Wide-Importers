@@ -35,21 +35,24 @@ mysqli_close($connection);
 ?>
 
 <?php
+
+// maakt order leeg
+$Order="";
 // de onderstaande statement worden de bestellingen weergegeven
 foreach ($_SESSION['cart'] as $product => $numberOf) {
 
     // data betreffend het product wordt opgehaald uit database
-        $sql = ("SELECT StockItemName
-        FROM stockitems
-        WHERE StockItemID = $product");
+    $sql = ("SELECT StockItemName
+    FROM stockitems
+    WHERE StockItemID = $product");
 
     $result = mysqli_query(dbConnectionRoot(), $sql);
     $Item = mysqli_fetch_assoc($result);
     
     $ItemName = $Item['StockItemName'];
-    $Order = "Aantal ".$numberOf."            Product ".$ItemName;
+    $Order = $Order."Aantal ".$numberOf."            Product ".$ItemName."\n";
 
-    // vooraad gaat af
+    // vooraad gaat af van product
     $sql = ("UPDATE stockitemholdings
     SET QuantityOnHand = QuantityOnHand - $numberOf
     WHERE StockItemID = $product");
@@ -79,6 +82,8 @@ Wide-World-Importers";
 
 mail($mailOntvanger,$subject,$message);
 
+// connectie wordt afgesloten
+mysqli_close($connection);
 // verwijst door naar 'End.php'. Daarin wordt bevestigd aan de klant dat de bestelling geslaagd is.
 header("Location: End.php");
 ?>
