@@ -80,6 +80,13 @@ include "Includes/Header.php";
         <div class="form-label-group">
           <label for="postalcode">Postcode</label>
           <input type="postalcode" name="PostalCode" class="form-control" placeholder="Postcode" required>
+          
+          <!-- kijkt of je vanaf de shoppingcart komt -->
+          <?php
+            if (isset($_GET['from']) && $_GET['from'] == "cart"){
+              print('<input type="hidden" name="from" value="cart">');
+            }
+          ?>
         </div>
         <br>
         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="signupbutton">Registreer</button>

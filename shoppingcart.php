@@ -157,7 +157,17 @@
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a class="btn btn-success btn-block" href="order.php?mollie=<?php if (isset($mollieFormat)){ print ($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
+                    <?php
+                        if (isset($_SESSION['CustomerID'])){
+                            if (isset($mollieFormat)){
+                                print('<a class="btn btn-success btn-block" href="order.php?mollie='.$mollieFormat.'">Afrekenen</a>');
+                            } else {
+                                print('<a class="btn btn-success btn-block" href="#">Afrekenen</a>');
+                            }
+                        } else {
+                            print('<a class="btn btn-success btn-block" href="login.php?from=cart">eerst inloggen pik</a>');
+                        }
+                    ?>
 
                 </div>
             </div>

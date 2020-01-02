@@ -29,13 +29,26 @@ include "Includes/Header.php";
               <div class="form-label-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <!-- dit kijkt of de gebruiker gestuurd is vanuit de winkelwagen -->
+                <?php
+                  if (isset($_GET['from']) && $_GET['from'] == "cart"){
+                    print('<input type="hidden" name="from" value="cart">');
+                  }
+                ?>
+
               </div>
               <br>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="loginbutton">Log in</button>
               <hr class="my-4">
               <div class="form-laber-group">
                 <label for="vraag">Nog geen account?</label>
-                <a href="signup.php">Registreer dan hier</a>
+                  <?php
+                    if (isset($_GET['from']) && $_GET['from'] == "cart"){
+                      print('<a href="signup.php?from=cart">Registreer dan hier</a>');
+                    } else {
+                      print('<a href="signup.php">Registreer dan hier</a>');
+                    }
+                  ?>
               </div>
             </form>
           </div>

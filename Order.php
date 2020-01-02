@@ -45,7 +45,7 @@
                     <h5 class="card-title"> Bezorgadres </h5>
                     <p class="card-text">
                         <?php
-                            $CustomerID = 1056;
+                            $CustomerID = $_SESSION['CustomerID'];
                             $query = ("SELECT CustomerName, EmailAddress, PhoneNumber, DeliveryAddressLine1, DeliveryPostalCode
                             FROM customers
                             WHERE CustomerID = $CustomerID;

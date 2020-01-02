@@ -30,15 +30,24 @@ include "Includes/Header.php";
                             if(isset($_GET['vkey'])) {
                                 $vkey = $_GET['vkey'];
                                 $connection = dbConnectionRoot();
-                                $sql = "SELECT verified, vkey FROM customers WHERE verified = 0 AND vkey='$vkey';";
+                                $sql = "SELECT customerid, verified, vkey FROM customers WHERE verified = 0 AND vkey='$vkey';";
                                 $result = $connection->query($sql);
+                                $row = mysqli_fetch_assoc($result);
 
                                 if(mysqli_num_rows($result) ==1)  {
                                     $sqlupdate = "UPDATE customers SET verified = 1 WHERE vkey = '$vkey' LIMIT 1;";
                                     $update = $connection->query($sqlupdate);
                                     
                                     if($update) {
-                                        print("<label>Uw account is geverifieerd, u kunt nu inloggen.</label>");
+                                        $_SESSION['CustomerID'] = $row['customerid'];
+                                        print("<label>Uw account is geverifieerd, u bent ingelogd.</label>");
+                                        
+                                        if (isset($_GET['from']) && $_GET['from'] == "cart"){
+                                            print('<a class="btn btn-primary btn-block" href="shoppingcart.php"> Terug naar winkelwagen </a>');
+                                        } else {
+                                            print('<a class="btn btn-primary btn-block" href="index.php"> Terug naar de hoofdpagina </a>');
+                                        }
+
                                     } elseif (!$update) {
                                         print("<label>Uw account is al geverifieerd</label");
                                     }

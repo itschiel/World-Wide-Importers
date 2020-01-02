@@ -109,13 +109,19 @@ if(isset($_POST['signupbutton'])) {
                 $postalAddressLine1, $postalPostalCode, $lastEditedBy, $validFrom, $validTo, $verified, $vkey);
                 mysqli_stmt_execute($statement);
                 if(mysqli_stmt_affected_rows($statement) == 1) {
+
+                    if(isset($_POST['from']) && $_POST['from'] == "cart"){
+                        $link = ("http://localhost/World-Wide-Importers/verify.php?from=cart&vkey=$vkey");
+                    } else {
+                        $link = ("http://localhost/World-Wide-Importers/verify.php?vkey=$vkey");
+                    }
                                      
                     $receiver = $email;
                     $subject = "Account verificatie";
                     $message = 
                     "Goedendag $fullName, <br>
                     Bedankt voor het aanmelden bij de Wide World Importers webshop.<br>
-                    Om uw account te verificieren, klik op deze link: <a href='http://localhost/World-Wide-Importers/verify.php?vkey=$vkey'>Verifieer account </a>.<br>
+                    Om uw account te verificieren, klik op deze link: <a href='$link'>Verifieer account </a>.<br>
                     Na de verificatie kunt u met uw account inloggen op de website.<br><br>
                     Met vriendelijke groet,<br>
                     Het WWI";

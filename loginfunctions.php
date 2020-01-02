@@ -40,7 +40,13 @@ if(isset($_POST['loginbutton'])) {
                         //Once the account is verified, the user can log in
                         session_start();
                         $_SESSION['CustomerID'] = $row['CustomerID'];
-                        header("Location: index.php?login=succes");
+
+                        if ($_POST['from'] == "cart"){
+                            header("Location: shoppingcart.php");
+                        } else {
+                            header("Location: index.php?login=succes");
+                        }
+                        
                         exit();
                     }
                  } elseif ($passwordCheck == FALSE) {
