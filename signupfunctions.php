@@ -122,9 +122,12 @@ if(isset($_POST['signupbutton'])) {
                     $headers = "From: wideworldimporterscompany@gmail.com" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                     $headers .= "MIME-Version: 1.0" . "\r\n"; 
-                    mail($receiver,$subject,$message,$headers);
 
-                    header('Location: thankyou.php');
+                    if (mail($receiver,$subject,$message,$headers)){
+                        header('Location: thankyou.php');
+                    } else {
+                        print ("de verificatie mail is niet verzonden");
+                    }
                     
                 } else {
                     print("something went wrong");
