@@ -165,7 +165,7 @@
                                 print('<a class="btn btn-success btn-block" href="#">Afrekenen</a>');
                             }
                         } else {
-                            print('<a class="btn btn-success btn-block" href="login.php?from=cart">eerst inloggen pik</a>');
+                            print('<a class="btn btn-success btn-block" href="login.php?from=cart">U moet eerst inloggen</a>');
                         }
                     ?>
 
