@@ -3,18 +3,11 @@
 // onderstaande functie plaatst voor elke record die uit de database komt een product kaart
 function showProductCards($result){
 
-    // $resultCheck wordt gebruikt om te kijken of er daadwerkelijk een record is ontvangen
-    $resultCheck = mysqli_num_rows($result);
-
     include_once "Functions/api.php";
     $rate = USDToEUR();
 
-    if ($resultCheck > 0) {
-        while ($row = mysqli_fetch_assoc($result)){
-            productCard($row, $rate);
-        }
-    } else {
-        print ("Er zijn geen resultaten gevonden.<br>");
+    while ($row = mysqli_fetch_assoc($result)){
+        productCard($row, $rate);
     }
 }
 

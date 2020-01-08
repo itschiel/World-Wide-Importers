@@ -54,18 +54,25 @@
                         //$resultsPerPage = $_GET['select'];
                         $Offset = ($pageNumber-1) * $resultsPerPage;
 
-                        // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten           
-                        $query = ("SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand, si.Photo
+                        // Hier wordt gecontroleerd of er daadwerkelijk resultaten klaar staan om gevonden te worden
+                        if ($numberOfResults > 0){
+                            // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten           
+                            $query = ("SELECT si.StockItemID, si.StockItemName, si.MarketingComments, si.SearchDetails, si.RecommendedRetailPrice, sh.QuantityOnHand, si.Photo
                             FROM stockitems si
                             JOIN stockitemstockgroups stg ON si.StockItemID = stg.StockItemID
                             JOIN stockitemholdings sh ON sh.StockItemID = si.StockItemID
                             WHERE StockGroupID = $input
                             LIMIT  $Offset, $resultsPerPage;
-                        ");
+                            ");
 
-                        $result = mysqli_query(dbConnectionRoot(), $query);
-            
-                        showProductCards($result);
+                            $result = mysqli_query(dbConnectionRoot(), $query);
+                
+                            showProductCards($result);
+                        } else {
+                            print ("Er zijn geen resultaten gevonden <br>");
+                        }
+
+                        
 
 
                     } elseif (!empty($search)){
@@ -90,17 +97,22 @@
                         //$resultsPerPage = $_GET['select'];
                         $Offset = ($pageNumber-1) * $resultsPerPage;
 
-                        // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten
-                        $query = ("SELECT si.StockItemID, StockItemName, Photo, MarketingComments, RecommendedRetailPrice, QuantityOnHand
+                        // Hier wordt gecontroleerd of er daadwerkelijk resultaten klaar staan om gevonden te worden
+                        if ($numberOfResults > 0){
+                            // onderstaande query wordt gebruikt om de benodigde data op te halen die geplaatst dient te worden in de product kaarten           
+                            $query = ("SELECT si.StockItemID, StockItemName, Photo, MarketingComments, RecommendedRetailPrice, QuantityOnHand
                             FROM stockitems si
                             JOIN stockitemholdings sih ON sih.StockItemID = si.StockItemID
                             WHERE si.StockItemID LIKE '%$input%' OR SearchDetails LIKE '%$input%'
                             LIMIT $Offset, $resultsPerPage;
-                        ");
+                            ");
 
-                        $result = mysqli_query(dbConnectionRoot(), $query);
-
-                        showProductCards($result);
+                            $result = mysqli_query(dbConnectionRoot(), $query);
+                
+                            showProductCards($result);
+                        } else {
+                            print ("Er zijn geen resultaten gevonden<br>");
+                        }
 
                     }
 
