@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -26,7 +29,8 @@
 <div class="row bg-dark">
     <div class="container">
         <div class="row">
-            <!-- logo -->
+            
+        <!-- logo -->
             <div class="col-2 align-self-center">
                 <a href="index.php">
                     <img src="img/wwiLogo.png" style="max-width: 100%;">
@@ -34,8 +38,7 @@
             </div>
 
             <!-- search -->
-            <div class="col-8 align-self-center">
-
+            <div class="col-7 align-self-center">
                 <form method="GET" action="Results.php"> <!-- die margins zijn niet idiaal maar kan niks beters vinden -->
                     <div class="input-group">
                         
@@ -48,15 +51,29 @@
                         </div>
                     </div>
                 </form>
-
             </div>
 
             <!-- login button -->
-            <div class="col-2 align-self-center text-center">
-                <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
+
+            <div class="col-1 align-self-center">
+                <?php
+                if(!isset($_SESSION['CustomerID'])) {
+                    print('<a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>');
+                } else {
+                    print('<form method=post action=logout.php>
+                    <button type="submit" name="logout" class="btn btn-primary btn-xs">Uitloggen       </button>
+                    </form>');
+                } 
+                ?>
+            </div>
+            
+            <!-- Winkelwagen embleem -->
+            
+            <div class="col-1 align-self-center">
+            <div class="float-sm-right">
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
-
+            </div>
         </div>
     </div>
 </div>
@@ -68,7 +85,7 @@
 
                 <div class="dropdown">
                     <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                        Catagorien
+                        Categorieën
                     </a>
                     <div class="dropdown-menu">
                         <?php
@@ -94,9 +111,7 @@
 
                 <?php
                 if (isset($_GET['select'])){
-
                     print ('
-
                         <div class="dropdown">
                             <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
                                 Paginatie: '. $_GET["select"] .'

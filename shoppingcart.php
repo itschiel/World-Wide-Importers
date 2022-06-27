@@ -1,11 +1,10 @@
-<?php session_start() ?>
-
 <html>
 
 <header>
 
     <?php include_once 'Functions/DBconnections.php'; ?>
     <?php include_once 'Functions/api.php'; ?>
+    <?php include_once "Functions/mollie.php"; ?>
         
     <title>WideWorldImporters</title>
 
@@ -17,14 +16,10 @@
 
 <?php include 'Includes/Header.php'; ?>
 
-
-<?php 
-
-    //$_SESSION['cart'] = array();
-    
-?>
+<!-- de onderstaande container zorgt dat de data gecentreerd wordt -->
 <div class="container">
     <div class="row">
+        <!-- Table waar de geslecteerde producten uitgelijst worden -->
         <table class="table shadow" style="margin-top: 50px">
             <thead class="thead-dark">
                 <tr>
@@ -38,30 +33,52 @@
             <tbody>
 
                 <?php
+                // de drie onderstaande statements behandelen de bewerking van de winkelmand
+                    // onderstaande statement past de hoeveelhied van een product aan
                     if (isset($_POST['submit']) && $_POST['count'] > 0){
                         $_SESSION['cart'][$_POST['product']] = $_POST['count'];
                     }
 
+                    // onderstaande statement verwijderd een product uit de winkelmand
                     if (isset($_POST['delete'])){
                         unset($_SESSION['cart'][$_POST['product']]);
                     }
 
-                    $nr = null;
-                    $subTotaal = null;
+                    if (!(isset($_SESSION['cart']))){
+                        $_SESSION['cart'] = array();
+                    }
 
+                    // deze variablen zijn "sommen" deze houden het totaal vast
+                    $nr = null;
+                    $subTotaal = 0;
+
+
+                    // de onderstaande statement lijst de producten in de winkelmand uit
                     foreach ($_SESSION['cart'] as $product => $numberOf) {
-                        
+
+                        // data betreffend het winkelwagen item wordt opgehaald uit database
                         $query = (" SELECT *
                             FROM stockitems
                             WHERE StockItemID = $product
                         ");
 
-                        $result = mysqli_query(dbConnectionRoot(), $query);
+                        $connection = dbConnectionRoot();
+                        $result = mysqli_query($connection, $query);
                         $row = mysqli_fetch_assoc($result);
-                        
-                        $nr++;
-                        $price = (round((($row['RecommendedRetailPrice'] * USDToEUR()) * $numberOf),2));
-                        $subTotaal += $price;
+
+                        // hierdonder wordt het totaal per product en het subtotaal berekend
+                        $totaalPerProduct = round(($row['RecommendedRetailPrice'] * $numberOf * USDToEUR()), 2);
+                        $subTotaal += $totaalPerProduct;
+                        $Korting =round(($subTotaal * 0.90) , 2);
+
+                        // hier onder wordt het formaat van de nummers aangepast zodat deze juist weergeven kan worden
+                        $totaalPerProductFormat = number_format($totaalPerProduct, 2, ",",".");
+                        $subTotaalFormat = number_format($subTotaal, 2, ",",".");
+                        $subTotaalExclBTWFormat = number_format(($Korting / 1.21), 2, ",",".");
+                        $subTotaalInclBTWFormat = number_format($Korting, 2, ",",".");
+                        $mollieFormat = number_format($Korting, 2, ".",""); //mollie heeft een ander nummer formaat nodig
+
+                        // deze print functie print 1 product rij uit in de winkelmand
                         print('
                             <tr>
                                 <th scope="col">'.$nr.'</th>
@@ -76,7 +93,7 @@
                                         <button type="submit" name="delete" class="btn btn-danger"> Verwijder </button>
                                     </form>
                                 </th>
-                                <th scope="col">€ '. $price .'</th>
+                                <th scope="col">€ '. $totaalPerProductFormat .'</th>
                             <tr>
                         ');
 
@@ -85,19 +102,32 @@
             </tbody>
         </table>
     </div>
+
+    <!-- in de onderstaande row worden de totaal prijzen berekend en worden ze -->
     <div class="row">
         <div class="col-8">
         </div>
         <div class="col-4 shadow" style="padding: 10px;">
             <div class="row">
+                <!-- subtotaal -->
                 <div class="col-8">
                     <p>Subtotaal</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print $subTotaal; ?></p>
+                    <p>€<?php if (isset($subTotaalFormat)){ print $subTotaalFormat; }?></p>
                 </div>
             </div>
             <div class="row">
+                <!-- Met toegepaste korting -->
+                <div class="col-8">
+                    <p>Met 10% Korting</p>
+                </div>
+                <div class="col-4">
+                    <p>€<?php if (isset($Korting)){ print $Korting; }?></p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- verzendkosten -->
                 <div class="col-8">
                     <p>Verzendkosten</p>
                 </div>
@@ -107,25 +137,28 @@
             </div>
             <div class="dropdown-divider"></div>
             <div class="row">
+                <!-- totaal exclusief btw -->
                 <div class="col-8">
                     <p>Totaal (excl. BTW)</p>
                 </div>
                 <div class="col-4">
-                    <p>€<?php print round(($subTotaal * 0.79),2); ?></p>
+                    <p>€ <?php if (isset($subTotaalExclBTWFormat)){ print $subTotaalExclBTWFormat; } ?> </p>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
             <div class="row">
+                <!-- totaal inclusief btw -->
                 <div class="col-8">
                     <h6>Totaal (incl. BTW)</h6>
                 </div>
                 <div class="col-4">
-                    <h6>€<?php print $subTotaal; ?></h6>
+                    <h6>€<?php if (isset($subTotaalInclBTWFormat)){ print $subTotaalInclBTWFormat; } ?></h6>
                 </div>
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col">
-                    <a href="#" class="btn btn-success btn-block"> Afrekenen </a>
+                    <a class="btn btn-success btn-block" href="order.php?mollie=<?php if (isset($mollieFormat)){ print ($mollieFormat); } else {print ('#');}?>"> Afrekenen </a>
+
                 </div>
             </div>
         </div>

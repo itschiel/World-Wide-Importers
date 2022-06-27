@@ -1,0 +1,2 @@
+ALTER TABLE customers
+ADD vkey VARCHAR(100) NOT NULL;
